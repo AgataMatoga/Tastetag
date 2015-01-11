@@ -16,7 +16,6 @@ class RecipeType extends AbstractType
         $builder->add('description', 'textarea');
         $builder->add('difficulty');
         $builder->add('preparationTime');
-        //$builder->add('RecipePhoto', new RecipePhotoType($this->noFile));
         $builder->add('images', 'collection', array(
             'type' => new RecipePhotoType(),
             'allow_add' => true,

@@ -34,6 +34,13 @@ class Comments
      */
     private $id;
 
+    protected $recipe;
+
+    public function __construct()
+    {
+        $this->setCreated(new \DateTime());
+    }
+
 
     /**
      * Set createdAt

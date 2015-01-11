@@ -27,7 +27,7 @@ recipe_delete:
     requirements: { _method: post }
 recipe_comment_create:
     pattern:  /comment/{recipe_id}
-    defaults: { _controller: TastetagMainBundle:Comment:create }
+    defaults: { _controller: TastetagMainBundle:Comments:create }
     requirements:
         _method:  POST
         blog_id: \d+

@@ -14,7 +14,7 @@ class CommentsController extends Controller
     {
         $recipe = $this->getRecipe($recipe_id);
 
-        $comment = new Comment();
+        $comment = new Comments();
         $comment->setRecipe($recipe);
         $form   = $this->createForm(new CommentType(), $comment);
 
@@ -28,7 +28,7 @@ class CommentsController extends Controller
     {
         $recipe = $this->getRecipe($recipe_id);
 
-        $comment  = new Comment();
+        $comment  = new Comments();
         $comment->setRecipe($recipe);
         $request = $this->getRequest();
         $form    = $this->createForm(new CommentType(), $comment);
