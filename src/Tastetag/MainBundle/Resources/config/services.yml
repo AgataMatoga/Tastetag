@@ -1,0 +1,7 @@
+parameters:
+#    tastetag_main.example.class: Tastetag\MainBundle\Example
+
+services:
+#    tastetag_main.example:
+#        class: %tastetag_main.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

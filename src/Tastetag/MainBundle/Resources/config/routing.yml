@@ -1,0 +1,27 @@
+tastetag_main_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: TastetagMainBundle:Default:index }
+homepage:
+    pattern:  /home
+    defaults: { _controller: TastetagMainBundle:Home:index }
+recipe_new:
+    pattern:  /recipes/new
+    defaults: { _controller: "TastetagMainBundle:Recipes:new" }
+recipe_create:
+    pattern:  /recipes/create
+    defaults: { _controller: "TastetagMainBundle:Recipes:create" }
+    requirements: { _method: post }
+recipe_show:
+    pattern:  /recipes/{id}
+    defaults: { _controller: "TastetagMainBundle:Recipes:show" }
+recipe_edit:
+    pattern:  /recipes/{id}/edit
+    defaults: { _controller: "TastetagMainBundle:Recipes:edit" }
+recipe_update:
+    pattern:  /recipes/{id}/update
+    defaults: { _controller: "TastetagMainBundle:Recipes:update" }
+    requirements: { _method: post }
+recipe_delete:
+    pattern:  /recipes/{id}/delete
+    defaults: { _controller: "TastetagMainBundle:Recipes:delete" }
+    requirements: { _method: post }

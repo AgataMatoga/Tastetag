@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Tastetag{% endblock %}</title>
+		<link rel="stylesheet" href="{{ asset('bundles/framework/css/structure.css') }}" />
+		<link rel="stylesheet" href="{{ asset('bundles/framework/css/body.css') }}" />
+		<link rel="stylesheet" href="{{ asset('bundles/framework/css/exception.css') }}" />
+        {% block stylesheets %}
+		{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+		<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+		<div class="nav-container">
+            {% block navigation %}
+				<div class="content-limiter">
+					<a href="{{ path('homepage') }}" class="logo">Tastetag</a>
+					<nav class="main">
+						<a href="">Log in</a>
+						<a href="">Sign in</a>
+						<a href="{{ path('recipe_new') }}">Add Recipe</a>
+					</nav>
+					<input type="text" class="nav-search">
+				</div>
+            {% endblock %}
+        </div>
+		<div class="main-outer-container">
+			<div class="content-limiter">
+				{% block body %}{% endblock %}
+			</div>
+		</div>
+        {% block javascripts %}{% endblock %}
+		
+    </body>
+</html>

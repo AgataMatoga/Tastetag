@@ -1,0 +1,4 @@
+tastetag_main:
+    resource: "@TastetagMainBundle/Resources/config/routing.yml"
+    prefix:   /
+
