@@ -1,0 +1,6 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <h1>Add comment for recipe "{{ comment.recipe.title }}"</h1>
+    {% include 'TastetagMainBundle:Comments:form.html.twig' with { 'form': form } %}
+{% endblock %}

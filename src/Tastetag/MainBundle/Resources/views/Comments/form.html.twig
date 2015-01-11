@@ -1,0 +1,6 @@
+<form action="{{ path('TastetagMainBundle_recipe_comment_create', { 'recipe_id' : comment.recipe.id } ) }}" method="post" {{ form_enctype(form) }} class="recipeger">
+    {{ form_widget(form) }}
+    <p>
+        <input type="submit" value="Submit">
+    </p>
+</form>

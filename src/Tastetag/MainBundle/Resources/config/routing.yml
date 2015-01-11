@@ -3,7 +3,7 @@ tastetag_main_homepage:
     defaults: { _controller: TastetagMainBundle:Default:index }
 homepage:
     pattern:  /home
-    defaults: { _controller: TastetagMainBundle:Home:index }
+    defaults: { _controller: "TastetagMainBundle:Home:index" }
 recipe_new:
     pattern:  /recipes/new
     defaults: { _controller: "TastetagMainBundle:Recipes:new" }
@@ -25,3 +25,9 @@ recipe_delete:
     pattern:  /recipes/{id}/delete
     defaults: { _controller: "TastetagMainBundle:Recipes:delete" }
     requirements: { _method: post }
+recipe_comment_create:
+    pattern:  /comment/{recipe_id}
+    defaults: { _controller: TastetagMainBundle:Comment:create }
+    requirements:
+        _method:  POST
+        blog_id: \d+

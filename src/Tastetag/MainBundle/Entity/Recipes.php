@@ -57,10 +57,25 @@ class Recipes
      */
     private $id;
 
+     /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="blog")
+     */
+    protected $comments;
+
+    // ..
+
+     /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="blog")
+     */
+    protected $images;
+
+    // ..
+
     public function __construct()
     {
         $this->setCreatedAt(new \DateTime());
         $this->images = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -236,4 +251,5 @@ class Recipes
     {
         $this->images->removeElement($images);
     }
+
 }
