@@ -38,7 +38,17 @@ class RecipesController extends Controller
 
     public function newAction()
     {	
-		$entity = new Recipes();
+        $entity = new Recipes();
+
+        //dummy code
+        $ingridient1 = new Ingridients();
+        $ingridient1->setName('skladnik1');
+        $entity->getIngridients()->add($ingridient1);
+        $ingridient2 = new Ingridients();
+        $ingridient2->setName('skladnik2');
+        $entity->getIngridients()->add($ingridient2);
+
+		
         $form   = $this->createForm(new RecipeType(), $entity);
         return $this->render('TastetagMainBundle:Recipes:new.html.twig', array(
             'entity' => $entity,

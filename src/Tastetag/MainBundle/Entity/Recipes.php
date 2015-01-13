@@ -226,6 +226,11 @@ class Recipes
         $this->ingridients->add($ingridient);
     }
 
+    public function removeIngridient(Ingridient $ingridient)
+    {
+        $this->ingridients->removeElement($ingridient);
+    }
+
     /**
     * @var Tastetag\MainBundle\Entity\RecipePhoto RecipePhoto
     *

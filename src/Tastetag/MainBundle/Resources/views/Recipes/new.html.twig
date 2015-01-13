@@ -8,11 +8,18 @@
 
 {% block body %}
 <form action="{{ path('recipe_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-
+	{{ form_row(form.name) }}
+	{{ form_row(form.description) }}
+	{{ form_row(form.difficulty) }}
+	{{ form_row(form.preparationTime) }}
+   
     <ul class="ingridients" data-prototype="{{ form_widget(form.ingridients.vars.prototype)|e }}">
 	    {% for ingridient in form.ingridients %}
-	            <li>{{ form_row(ingridient.name) }}</li>
+	            <li>
+	            {{ form_row(ingridient.name) }}
+	            {{ form_row(ingridient.amount) }}
+	            {{ form_row(ingridient.unit) }}
+	            </li>
 	    {% endfor %}
     </ul>
 
@@ -38,7 +45,7 @@
 	    // increase the index with one for the next item
 	    $collectionHolder.data('index', index + 1);
 
-	    // Display the form in the page in an li, before the "Add a tag" link li
+	    // Display the form in the page in an li, before the "Add a ingridient" link li
 	    var $newFormLi = $('<li></li>').append(newForm);
 	    $newLinkLi.before($newFormLi);
 	}
