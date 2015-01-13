@@ -207,7 +207,6 @@ class Recipes
     * @var Tastetag\MainBundle\Entity\RecipePhoto RecipePhoto
     *
     */
-    private $images;
 
     public function addImage(\Tastetag\MainBundle\Entity\RecipePhoto $image)
     {
@@ -216,6 +215,11 @@ class Recipes
       $image->setProperty($this);
 
       return $this;
+    }
+    
+     public function addComment(\Tastetag\MainBundle\Entity\Comments $comments)
+    {
+      $this->comments[] = $comments;
     }
 
     /**

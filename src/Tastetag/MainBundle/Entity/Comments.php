@@ -18,15 +18,9 @@ class Comments
      * @var string
      */
     private $content;
-
-    /**
-     * @var integer
-     */
-    private $recipeId;
-
-    /**
-     * @var integer
-     */
+    
+    protected $recipeId;
+    
     private $userId;
 
     /**
@@ -36,9 +30,12 @@ class Comments
 
     protected $recipe;
 
+    protected $user;
+
     public function __construct()
     {
-        $this->setCreated(new \DateTime());
+        $this->setCreatedAt(new \DateTime());
+        $this->setUserId(12);
     }
 
 
@@ -88,51 +85,6 @@ class Comments
         return $this->content;
     }
 
-    /**
-     * Set recipeId
-     *
-     * @param integer $recipeId
-     * @return Comments
-     */
-    public function setRecipeId($recipeId)
-    {
-        $this->recipeId = $recipeId;
-
-        return $this;
-    }
-
-    /**
-     * Get recipeId
-     *
-     * @return integer 
-     */
-    public function getRecipeId()
-    {
-        return $this->recipeId;
-    }
-
-    /**
-     * Set userId
-     *
-     * @param integer $userId
-     * @return Comments
-     */
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
-
-        return $this;
-    }
-
-    /**
-     * Get userId
-     *
-     * @return integer 
-     */
-    public function getUserId()
-    {
-        return $this->userId;
-    }
 
     /**
      * Get id
@@ -142,5 +94,48 @@ class Comments
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set recipe
+     *
+     * @param Tastetag\MainBundle\Entity\Recipe $recipe
+     */
+    public function setRecipe(\Tastetag\MainBundle\Entity\Recipes $recipe)
+    {
+        $this->recipe = $recipe;
+        $this->recipe->addComment($this);
+    }
+
+    /**
+     * Get recipe
+     *
+     * @return Tastetag\MainBundle\Entity\Recipe
+     */
+    public function getRecipe()
+    {
+        return $this->recipe;
+    }
+
+    public function setRecipeId($recipe_id)
+    {
+        $this->recipeId = $recipe_id;
+        return $this;
+    }
+
+    public function getRecipeId()
+    {
+        return $this->recipeId;
+    }
+
+    public function setUserId($user_id)
+    {
+        $this->userId = $user_id;
+        return $this;
+    }
+
+    public function getUserId()
+    {
+        return $this->userId;
     }
 }

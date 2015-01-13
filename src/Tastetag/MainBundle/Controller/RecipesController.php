@@ -41,8 +41,8 @@ class RecipesController extends Controller
     	$entity  = new Recipes();
         $request = $this->getRequest();
         $form    = $this->createForm(new RecipeType(), $entity);
-
         $form->bind($request);
+        
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);

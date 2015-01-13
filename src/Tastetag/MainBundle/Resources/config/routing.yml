@@ -24,10 +24,15 @@ recipe_update:
 recipe_delete:
     pattern:  /recipes/{id}/delete
     defaults: { _controller: "TastetagMainBundle:Recipes:delete" }
-    requirements: { _method: post }
+    requirements: { _method: post } 
 recipe_comment_create:
-    pattern:  /comment/{recipe_id}
+    pattern:  /recipes/{recipe_id}/comment/create
     defaults: { _controller: TastetagMainBundle:Comments:create }
     requirements:
+        recipe_id: \d+
         _method:  POST
-        blog_id: \d+
+recipe_comment_new:
+    pattern:  /recipes/{recipe_id}/comment/new
+    defaults: { _controller: TastetagMainBundle:Comments:new }
+    requirements:
+        recipe_id: \d+
