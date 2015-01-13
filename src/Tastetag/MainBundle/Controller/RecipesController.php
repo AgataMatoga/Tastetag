@@ -5,8 +5,12 @@ namespace Tastetag\MainBundle\Controller;
 use Tastetag\MainBundle\Entity\Recipes;
 use Tastetag\MainBundle\Entity\RecipePhoto;
 use Tastetag\MainBundle\Entity\Comments;
+use Tastetag\MainBundle\Entity\Ingridients;
+
 use Tastetag\MainBundle\Form\RecipeType;
+use Tastetag\MainBundle\Form\RecipePhotoType;
 use Tastetag\MainBundle\Form\CommentType;
+use Tastetag\MainBundle\Form\IngridientType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

@@ -58,24 +58,27 @@ class Recipes
     private $id;
 
      /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="blog")
+     * @ORM\OneToMany(targetEntity="Comments", mappedBy="recipe")
      */
     protected $comments;
 
-    // ..
-
      /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="blog")
+     * @ORM\OneToMany(targetEntity="RecipeImage", mappedBy="recipe")
      */
     protected $images;
 
-    // ..
+     /**
+     * @ORM\OneToMany(targetEntity="Ingridients", cascade={"persist"})
+     */
+    protected $ingridients;
+
 
     public function __construct()
     {
         $this->setCreatedAt(new \DateTime());
         $this->images = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->ingridients = new ArrayCollection();
     }
 
     /**
@@ -208,9 +211,19 @@ class Recipes
       $this->comments[] = $comments;
     }
 
-     public function getComments()
+    public function getComments()
     {
       return $this->comments;
+    }
+
+    public function getIngridients()
+    {
+      return $this->ingridients;
+    }
+
+    public function addIngridient(Ingridient $ingridient)
+    {
+        $this->ingridients->add($ingridient);
     }
 
     /**

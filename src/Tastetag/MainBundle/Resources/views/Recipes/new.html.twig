@@ -9,8 +9,64 @@
 {% block body %}
 <form action="{{ path('recipe_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
+
+    <ul class="ingridients" data-prototype="{{ form_widget(form.ingridients.vars.prototype)|e }}">
+	    {% for ingridient in form.ingridients %}
+	            <li>{{ form_row(ingridient.name) }}</li>
+	    {% endfor %}
+    </ul>
+
     <p>
         <button type="submit">Create</button>
     </p>
 </form> 
+
+
+<script>
+
+	function addIngridientForm($collectionHolder, $newLinkLi) {
+	    // Get the data-prototype explained earlier
+	    var prototype = $collectionHolder.data('prototype');
+
+	    // get the new index
+	    var index = $collectionHolder.data('index');
+
+	    // Replace '__name__' in the prototype's HTML to
+	    // instead be a number based on how many items we have
+	    var newForm = prototype.replace(/__name__/g, index);
+
+	    // increase the index with one for the next item
+	    $collectionHolder.data('index', index + 1);
+
+	    // Display the form in the page in an li, before the "Add a tag" link li
+	    var $newFormLi = $('<li></li>').append(newForm);
+	    $newLinkLi.before($newFormLi);
+	}
+
+	var $collectionHolder;
+
+	// setup an "add a ingridient" link
+	var $addIngridientLink = $('<a href="#" class="add_ingridient_link">Add an ingridient</a>');
+	var $newLinkLi = $('<li></li>').append($addIngridientLink);
+
+	jQuery(document).ready(function() {
+	    // Get the ul that holds the collection of ingridients
+	    $collectionHolder = $('ul.ingridients');
+
+	    // add the "add a ingridient" anchor and li to the ingridients ul
+	    $collectionHolder.append($newLinkLi);
+
+	    // count the current form inputs we have (e.g. 2), use that as the new
+	    // index when inserting a new item (e.g. 2)
+	    $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+	    $addIngridientLink.on('click', function(e) {
+	        // prevent the link from creating a "#" on the URL
+	        e.preventDefault();
+
+	        // add a new ingridient form (see next code block)
+	        addIngridientForm($collectionHolder, $newLinkLi);
+	    });
+	});
+</script>
 {% endblock %}
