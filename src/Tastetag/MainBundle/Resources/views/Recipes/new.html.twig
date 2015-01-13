@@ -7,7 +7,9 @@
 {% endblock %}
 
 {% block body %}
+{{ form_errors(form) }}
 <form action="{{ path('recipe_create') }}" method="post" {{ form_enctype(form) }}>
+	<div id="recipe">
 	{{ form_row(form.name) }}
 	{{ form_row(form.description) }}
 	{{ form_row(form.difficulty) }}
@@ -22,6 +24,8 @@
 	            </li>
 	    {% endfor %}
     </ul>
+    {{ form_row(form._token) }}
+    <div>
 
     <p>
         <button type="submit">Create</button>

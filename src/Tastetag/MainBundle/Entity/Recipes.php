@@ -68,7 +68,7 @@ class Recipes
     protected $images;
 
      /**
-     * @ORM\OneToMany(targetEntity="Ingridients", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Ingridients", mappedBy="recipe",cascade={"all"})
      */
     protected $ingridients;
 
@@ -221,12 +221,13 @@ class Recipes
       return $this->ingridients;
     }
 
-    public function addIngridient(Ingridient $ingridient)
+    public function addIngridient(\Tastetag\MainBundle\Entity\Ingridients $ingridient)
     {
+        //$ingridient->addRecipe($this);
         $this->ingridients->add($ingridient);
     }
 
-    public function removeIngridient(Ingridient $ingridient)
+    public function removeIngridient(\Tastetag\MainBundle\Entity\Ingridients $ingridient)
     {
         $this->ingridients->removeElement($ingridient);
     }

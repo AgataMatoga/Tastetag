@@ -29,6 +29,8 @@ class Ingridients
      */
     private $recipeId;
 
+    private $recipe;
+
     /**
      * @var integer
      */
@@ -135,5 +137,10 @@ class Ingridients
     public function getId()
     {
         return $this->id;
+    }
+
+    public function addRecipe(\Tastetag\MainBundle\Entity\Recipes $recipe)
+    {    
+            $this->recipe->add($recipe);
     }
 }

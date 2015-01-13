@@ -47,7 +47,6 @@ class RecipesController extends Controller
         $ingridient2 = new Ingridients();
         $ingridient2->setName('skladnik2');
         $entity->getIngridients()->add($ingridient2);
-
 		
         $form   = $this->createForm(new RecipeType(), $entity);
         return $this->render('TastetagMainBundle:Recipes:new.html.twig', array(
@@ -58,21 +57,30 @@ class RecipesController extends Controller
 
     public function createAction() 
     {
-    	$entity  = new Recipes();
+    	$recipe  = new Recipes();
         $request = $this->getRequest();
-        $form    = $this->createForm(new RecipeType(), $entity);
+        $form    = $this->createForm(new RecipeType(), $recipe);
         $form->bind($request);
         
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();        
+            $em->persist($recipe);
+            $em->flush();
+
+            $ingridients = $recipe->getIngridients();
+            foreach($ingridients as $ingridient) {
+                $ingridient->setRecipeId($recipe->getId());
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($ingridient);
+                $em->flush();        
+            }
+                    
 
             return $this->redirect($this->generateUrl('homepage'));
         }
 
         return $this->render('TastetagMainBundle:Recipes:new.html.twig', array(
-            'entity' => $entity,
+            'entity' => $recipe,
             'form'   => $form->createView()
         ));
 
