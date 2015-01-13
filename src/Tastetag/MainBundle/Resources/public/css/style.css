@@ -96,3 +96,17 @@ form label {
 .recipe-grid-item .recipe-name {
 	padding: 10px;
 }
+#recipe_difficulty {
+	display: inline-block;
+	vertical-align: top;
+}
+#recipe_difficulty label {
+	text-align: left;
+}
+#recipe_preparationTime {
+	display: inline-block;
+	vertical-align: top;
+}
+#recipe_preparationTime select {
+	width: 70px;
+}

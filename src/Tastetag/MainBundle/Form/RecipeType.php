@@ -14,14 +14,21 @@ class RecipeType extends AbstractType
     {
         $builder->add('name');
         $builder->add('description', 'textarea');
-        $builder->add('difficulty');
         $builder->add('preparationTime');
-        $builder->add('images', 'collection', array(
-            'type' => new RecipePhotoType(),
-            'allow_add' => true,
-            'by_reference' => false,
-            'allow_delete' => true,
-            'prototype' => true,
+        $builder->add('difficulty', 'choice', array(
+            'choices'   => array('1' => '1', '2' => '2'),
+            'required'  => false,
+        ));
+        $builder->add('difficulty', 'choice', array(
+            'choices'   => array(
+                '1'   => 'Bardzo łatwy',
+                '2' => 'Łatwy',
+                '3'   => 'Średni',
+                '4' => 'Raczej trudny',
+                '5'   => 'Bardzo trudny',
+            ),
+            'multiple'  => false,
+            'expanded'  => true,
         ));
     }
 

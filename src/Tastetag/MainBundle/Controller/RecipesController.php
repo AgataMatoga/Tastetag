@@ -4,7 +4,9 @@ namespace Tastetag\MainBundle\Controller;
 
 use Tastetag\MainBundle\Entity\Recipes;
 use Tastetag\MainBundle\Entity\RecipePhoto;
+use Tastetag\MainBundle\Entity\Comments;
 use Tastetag\MainBundle\Form\RecipeType;
+use Tastetag\MainBundle\Form\CommentType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,13 +18,17 @@ class RecipesController extends Controller
     public function showAction($id)
     {   
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('TastetagMainBundle:Recipes')->find($id);
+        $recipe = $em->getRepository('TastetagMainBundle:Recipes')->find($id);
+        $comments = $em->getRepository('TastetagMainBundle:Comments')->findByRecipeId($recipe->getId());
 
         $deleteForm = $this->createDeleteForm($id);
+        $commentForm = $this->createCommentForm();
         
         return $this->render('TastetagMainBundle:Recipes:show.html.twig', array(
-            'entity' => $entity,
+            'recipe' => $recipe,
             'delete_form' => $deleteForm->createView(),
+            'comments' => $comments,
+            'comment_form' => $commentForm->createView(),
         ));
     }
 
@@ -120,6 +126,11 @@ class RecipesController extends Controller
             ->add('id', 'hidden')
             ->getForm()
         ;
+    }
+
+    private function createCommentForm()
+    {
+        return $this->createForm(new CommentType(), new Comments());
     }
 
 }

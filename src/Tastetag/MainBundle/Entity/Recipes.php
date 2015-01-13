@@ -203,6 +203,16 @@ class Recipes
         return $this->id;
     }
 
+    public function addComment(\Tastetag\MainBundle\Entity\Comments $comments)
+    {
+      $this->comments[] = $comments;
+    }
+
+     public function getComments()
+    {
+      return $this->comments;
+    }
+
     /**
     * @var Tastetag\MainBundle\Entity\RecipePhoto RecipePhoto
     *
@@ -216,11 +226,6 @@ class Recipes
 
       return $this;
     }
-    
-     public function addComment(\Tastetag\MainBundle\Entity\Comments $comments)
-    {
-      $this->comments[] = $comments;
-    }
 
     /**
     * Get recipePhoto
@@ -231,6 +236,7 @@ class Recipes
     {
         return $this->images;
     }
+
 
     /**
     * Set recipePhoto

@@ -10,15 +10,22 @@
 
 {% block body %}
 	
-    <div>{{ entity.name }}</div>
-    <div>Difficulty: {{ entity.difficulty }}</div>
-    <div>{{ entity.description }}</div>
+    <h2>{{ recipe.name }}</h2>
+    <div>Difficulty: {{ recipe.difficulty }}</div>
+    <div>{{ recipe.description }}</div>
 
-    <a href="{{ path('recipe_edit', { 'id': entity.id }) }}">Edit</a>
+    <a href="{{ path('recipe_edit', { 'id': recipe.id }) }}">Edit</a>
 
-    <form action="{{ path('recipe_delete', { 'id': entity.id }) }}" method="post">
+    <form action="{{ path('recipe_delete', { 'id': recipe.id }) }}" method="post">
 	    {{ form_widget(delete_form) }}
 	    <button type="submit">Delete</button>
 	</form>
+
+    <div>Comments:</div>
+    {% include 'TastetagMainBundle:Comments:form.html.twig' with { 'form': comment_form, 'recipe_id' : recipe.id } %}
+    {% for comment in comments %}
+        <div>{{ comment.content }}</div>
+        <div>{{ comment.createdAt|date('Y-m-d H:i') }}</div>
+    {% endfor %}
 
 {% endblock %}

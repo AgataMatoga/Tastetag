@@ -44,10 +44,10 @@ class CommentsController extends Controller
             $em->persist($comment);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('homepage'));
+            return $this->redirect($this->generateUrl('recipe_show', array('id' => $recipe_id)));
         }
 
-        return $this->render('TastetagMainBundle:Comments:create.html.twig', array(
+        return $this->render('TastetagMainBundle:Recipes:new.html.twig', array(
             'comment' => $comment,
             'form'    => $form->createView()
         ));
