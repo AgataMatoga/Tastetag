@@ -60,6 +60,7 @@ class Recipes
      /**
      * @ORM\OneToMany(targetEntity="Comments", mappedBy="recipe")
      */
+
     protected $comments;
 
      /**
@@ -68,7 +69,8 @@ class Recipes
     protected $images;
 
      /**
-     * @ORM\OneToMany(targetEntity="Ingridients", mappedBy="recipe",cascade={"all"})
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Tastetag\MainBundle\Entity\Ingridients", mappedBy="recipe")
      */
     protected $ingridients;
 
@@ -223,8 +225,8 @@ class Recipes
 
     public function addIngridient(\Tastetag\MainBundle\Entity\Ingridients $ingridient)
     {
-        //$ingridient->addRecipe($this);
-        $this->ingridients->add($ingridient);
+        $ingridient->addRecipe($this);
+        $this->ingridients[] = $ingridient;
     }
 
     public function removeIngridient(\Tastetag\MainBundle\Entity\Ingridients $ingridient)

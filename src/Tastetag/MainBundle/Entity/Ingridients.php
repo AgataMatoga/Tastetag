@@ -6,7 +6,11 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Ingridients
+ *
+ * @ORM\Table(name="ingridients")
+ * @ORM\Entity
  */
+
 class Ingridients
 {
     /**
@@ -28,6 +32,12 @@ class Ingridients
      * @var integer
      */
     private $recipeId;
+
+     /**
+     * var recipe
+     * @ORM\ManyToOne(targetEntity="Tastetag\MainBundle\Entity\Recipes", inversedBy="ingridients")
+     * @ORM\JoinColumn(name="recipe_id", referencedColumnName="id")
+     **/
 
     private $recipe;
 
@@ -141,6 +151,6 @@ class Ingridients
 
     public function addRecipe(\Tastetag\MainBundle\Entity\Recipes $recipe)
     {    
-            $this->recipe->add($recipe);
+            $this->recipe = $recipe;
     }
 }

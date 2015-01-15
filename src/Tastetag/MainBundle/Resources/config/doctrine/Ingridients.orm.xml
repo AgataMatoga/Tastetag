@@ -11,5 +11,9 @@
     <field name="amount" type="integer" column="amount" nullable="false"/>
     <field name="unit" type="text" column="unit" nullable="false"/>
     <field name="recipeId" type="integer" column="recipe_id" nullable="false"/>
+
+    <many-to-one field="recipe" target-entity="Recipes">
+        <join-column name="recipe_id" referenced-column-name="id" />
+    </many-to-one>
   </entity>
 </doctrine-mapping>

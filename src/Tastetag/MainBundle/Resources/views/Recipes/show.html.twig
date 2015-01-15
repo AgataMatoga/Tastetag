@@ -13,6 +13,10 @@
     <h2>{{ recipe.name }}</h2>
     <div>Difficulty: {{ recipe.difficulty }}</div>
     <div>{{ recipe.description }}</div>
+    <div>Składniki:</div>
+    {% for ingridient in ingridients %}
+        <li>{{ ingridient.name }} - {{ ingridient.amount }} {{ ingridient.unit }}</li>
+    {% endfor %}
 
     <a href="{{ path('recipe_edit', { 'id': recipe.id }) }}">Edit</a>
 

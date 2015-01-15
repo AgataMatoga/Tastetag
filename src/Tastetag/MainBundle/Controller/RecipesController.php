@@ -27,12 +27,15 @@ class RecipesController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
         $commentForm = $this->createCommentForm();
-        
+
+        $ingridients = $recipe->getIngridients();
+
         return $this->render('TastetagMainBundle:Recipes:show.html.twig', array(
             'recipe' => $recipe,
             'delete_form' => $deleteForm->createView(),
             'comments' => $comments,
             'comment_form' => $commentForm->createView(),
+            'ingridients' => $ingridients,
         ));
     }
 
