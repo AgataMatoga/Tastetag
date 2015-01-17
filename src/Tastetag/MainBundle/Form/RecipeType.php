@@ -33,6 +33,11 @@ class RecipeType extends AbstractType
             'allow_add'    => true,
             'by_reference' => false,
         ));
+        $builder->add('images', 'collection', array(
+            'type'         => new RecipePhotoType(),
+            'allow_add'    => true,
+            'by_reference' => false,
+        ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

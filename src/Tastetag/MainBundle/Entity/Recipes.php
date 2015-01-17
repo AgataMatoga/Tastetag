@@ -64,7 +64,8 @@ class Recipes
     protected $comments;
 
      /**
-     * @ORM\OneToMany(targetEntity="RecipeImage", mappedBy="recipe")
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Tastetag\MainBundle\Entity\RecipePhoto", mappedBy="recipe")
      */
     protected $images;
 
@@ -218,15 +219,15 @@ class Recipes
       return $this->comments;
     }
 
-    public function getIngridients()
-    {
-      return $this->ingridients;
-    }
-
     public function addIngridient(\Tastetag\MainBundle\Entity\Ingridients $ingridient)
     {
         $ingridient->addRecipe($this);
         $this->ingridients[] = $ingridient;
+    }
+
+    public function getIngridients()
+    {
+      return $this->ingridients;
     }
 
     public function removeIngridient(\Tastetag\MainBundle\Entity\Ingridients $ingridient)
@@ -234,50 +235,17 @@ class Recipes
         $this->ingridients->removeElement($ingridient);
     }
 
-    /**
-    * @var Tastetag\MainBundle\Entity\RecipePhoto RecipePhoto
-    *
-    */
-
     public function addImage(\Tastetag\MainBundle\Entity\RecipePhoto $image)
     {
-      $this->images[] = $image;
-
-      $image->setProperty($this);
-
-      return $this;
+        $image->addRecipe($this);
+        $this->images[] = $image;
     }
 
-    /**
-    * Get recipePhoto
-    *
-    * @return Tastetag\MainBundle\Entity\RecipePhoto
-    */
     public function getImages()
     {
         return $this->images;
     }
 
-
-    /**
-    * Set recipePhoto
-    *
-    * @param Tastetag\MainBundle\Entity\RecipePhoto
-    */
-    public function setImages(ArrayCollection $images)
-    {
-        foreach ($images as $image) {
-            $image->setProperty($this);
-        }
-
-        $this->images = $images;
-    }
-
-    /**
-     * Remove images
-     *
-     * @param \Mata\MainBundle\Entity\Image $images
-     */
     public function removeImage(\Tastetag\MainBundle\Entity\RecipePhoto $images)
     {
         $this->images->removeElement($images);

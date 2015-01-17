@@ -24,6 +24,14 @@
 	            </li>
 	    {% endfor %}
     </ul>
+
+   <ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype)|e }}">
+    {% for image in form.images %}
+            <li>
+            {{ form_row(image.path) }}
+            </li>
+    {% endfor %}
+    </ul>
     {{ form_row(form._token) }}
     <div>
 

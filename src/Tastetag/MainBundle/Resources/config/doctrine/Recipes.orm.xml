@@ -15,5 +15,11 @@
             <cascade-persist/>
         </cascade>
     </one-to-many>
+
+    <one-to-many field="images" target-entity="RecipePhoto" mapped-by="recipe">
+        <cascade>
+            <cascade-persist/>
+        </cascade>
+    </one-to-many>
   </entity>
 </doctrine-mapping>

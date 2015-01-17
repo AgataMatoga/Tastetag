@@ -30,9 +30,9 @@ class RecipePhoto
     /**
      * @var boolean
      *
-     * @ORM\Column(name="order", type="boolean", nullable=true)
+     * @ORM\Column(name="main_photo", type="boolean", nullable=true)
      */
-    private $order;
+    private $main_photo;
 
     /**
      * @var integer
@@ -51,13 +51,10 @@ class RecipePhoto
     private $id;
 
     /**
-    * @var Recipe
-    *
-    * @ORM\ManyToOne(targetEntity=”Recipe”)
-    * @ORM\JoinColumns({
-    *   @ORM\JoinColumn(name=”recipe_id”, referencedColumnName=”id”)
-    * })
-    */
+     * var recipe
+     * @ORM\ManyToOne(targetEntity="Tastetag\MainBundle\Entity\Recipes", inversedBy="recipe_photo")
+     * @ORM\JoinColumn(name="recipe_id", referencedColumnName="id")
+     **/
     private $recipe;
 
     /**
@@ -107,26 +104,26 @@ class RecipePhoto
     }
 
     /**
-     * Set order
+     * Set main_photo
      *
-     * @param boolean $order
+     * @param boolean $main_photo
      * @return RecipePhoto
      */
-    public function setOrder($order)
+    public function setMainPhoto($main_photo)
     {
-        $this->order = $order;
+        $this->main_photo = $main_photo;
 
         return $this;
     }
 
     /**
-     * Get order
+     * Get main_photo
      *
      * @return boolean 
      */
-    public function getOrder()
+    public function getMainPhoto()
     {
-        return $this->order;
+        return $this->main_photo;
     }
 
 
@@ -138,6 +135,11 @@ class RecipePhoto
     public function getId()
     {
         return $this->id;
+    }
+
+    public function addRecipe(\Tastetag\MainBundle\Entity\Recipes $recipe)
+    {    
+            $this->recipe = $recipe;
     }
 
     /**
@@ -159,8 +161,6 @@ class RecipePhoto
     {
     return $this->recipe;
     }
-
-
 
     public function getAbsolutePath()
     {

@@ -8,22 +8,10 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class RecipePhotoType extends AbstractType
 {
-    
-    protected $noFile = 1;
-
-    // public function __construct($noFile){
-    //     $this->noFile = $noFile;
-    // }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('path', 'file');
-        $builder->add('name','text');
-        $builder->add('order', 'number');
-        //$builder->add('recipeId');
-        // for($i=1;$i<=$this->noFile;$i++){
-        //     $builder->add('path'.$i, 'file');
-        // };
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
