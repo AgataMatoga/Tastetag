@@ -43,49 +43,97 @@
 
 <script>
 
-	function addIngridientForm($collectionHolder, $newLinkLi) {
+	function addIngridientForm($ingridientsCollectionHolder, $newIngridientLinkLi) {
 	    // Get the data-prototype explained earlier
-	    var prototype = $collectionHolder.data('prototype');
+	    var prototype = $ingridientsCollectionHolder.data('prototype');
 
 	    // get the new index
-	    var index = $collectionHolder.data('index');
+	    var index = $ingridientsCollectionHolder.data('index');
 
 	    // Replace '__name__' in the prototype's HTML to
 	    // instead be a number based on how many items we have
 	    var newForm = prototype.replace(/__name__/g, index);
 
 	    // increase the index with one for the next item
-	    $collectionHolder.data('index', index + 1);
+	    $ingridientsCollectionHolder.data('index', index + 1);
 
 	    // Display the form in the page in an li, before the "Add a ingridient" link li
 	    var $newFormLi = $('<li></li>').append(newForm);
-	    $newLinkLi.before($newFormLi);
+	    $newIngridientLinkLi.before($newFormLi);
 	}
 
-	var $collectionHolder;
+	var $ingridientsCollectionHolder;
 
 	// setup an "add a ingridient" link
 	var $addIngridientLink = $('<a href="#" class="add_ingridient_link">Add an ingridient</a>');
-	var $newLinkLi = $('<li></li>').append($addIngridientLink);
+	var $newIngridientLinkLi = $('<li></li>').append($addIngridientLink);
 
 	jQuery(document).ready(function() {
 	    // Get the ul that holds the collection of ingridients
-	    $collectionHolder = $('ul.ingridients');
+	    $ingridientsCollectionHolder = $('ul.ingridients');
 
 	    // add the "add a ingridient" anchor and li to the ingridients ul
-	    $collectionHolder.append($newLinkLi);
+	    $ingridientsCollectionHolder.append($newIngridientLinkLi);
 
 	    // count the current form inputs we have (e.g. 2), use that as the new
 	    // index when inserting a new item (e.g. 2)
-	    $collectionHolder.data('index', $collectionHolder.find(':input').length);
+	    $ingridientsCollectionHolder.data('index', $ingridientsCollectionHolder.find(':input').length);
 
 	    $addIngridientLink.on('click', function(e) {
 	        // prevent the link from creating a "#" on the URL
 	        e.preventDefault();
 
 	        // add a new ingridient form (see next code block)
-	        addIngridientForm($collectionHolder, $newLinkLi);
+	        addIngridientForm($ingridientsCollectionHolder, $newIngridientLinkLi);
 	    });
 	});
+
+
+
+	function addImageForm($imagesCollectionHolder, $newImageLinkLi) {
+	    // Get the data-prototype explained earlier
+	    var prototype = $imagesCollectionHolder.data('prototype');
+
+	    // get the new index
+	    var index = $imagesCollectionHolder.data('index');
+
+	    // Replace '__name__' in the prototype's HTML to
+	    // instead be a number based on how many items we have
+	    var newForm = prototype.replace(/__name__/g, index);
+
+	    // increase the index with one for the next item
+	    $imagesCollectionHolder.data('index', index + 1);
+
+	    // Display the form in the page in an li, before the "Add a ingridient" link li
+	    var $newFormLi = $('<li></li>').append(newForm);
+	    $newImageLinkLi.before($newFormLi);
+	}
+
+	var $imagesCollectionHolder;
+
+	// setup an "add a ingridient" link
+	var $addImageLink = $('<a href="#" class="add_image_link">Add an image</a>');
+	var $newImageLinkLi = $('<li></li>').append($addImageLink);
+
+	jQuery(document).ready(function() {
+	    // Get the ul that holds the collection of ingridients
+	    $imagesCollectionHolder = $('ul.images');
+
+	    // add the "add a ingridient" anchor and li to the ingridients ul
+	    $imagesCollectionHolder.append($newImageLinkLi);
+
+	    // count the current form inputs we have (e.g. 2), use that as the new
+	    // index when inserting a new item (e.g. 2)
+	    $imagesCollectionHolder.data('index', $imagesCollectionHolder.find(':input').length);
+
+	    $addImageLink.on('click', function(e) {
+	        // prevent the link from creating a "#" on the URL
+	        e.preventDefault();
+
+	        // add a new ingridient form (see next code block)
+	        addImageForm($imagesCollectionHolder, $newImageLinkLi);
+	    });
+	});
+
 </script>
 {% endblock %}
