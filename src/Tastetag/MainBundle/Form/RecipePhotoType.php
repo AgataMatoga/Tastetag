@@ -11,7 +11,7 @@ class RecipePhotoType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('path', 'file');
+        $builder->add('file');
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

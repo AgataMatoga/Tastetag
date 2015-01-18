@@ -71,6 +71,14 @@ class RecipesController extends Controller
             $em->persist($recipe);
             $em->flush();
 
+            $images = $recipe->getImages();
+
+            foreach($images as $image) {
+                $image->upload();
+                $em->persist($image);
+            }
+            $em->flush();
+
             return $this->redirect($this->generateUrl('homepage'));
         }
 

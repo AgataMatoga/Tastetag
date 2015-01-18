@@ -3,8 +3,10 @@
 namespace Tastetag\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * RecipePhoto
@@ -27,6 +29,18 @@ class RecipePhoto
      * @ORM\Column(name="name", type="string", length=255, nullable=true)
      */
     private $name;
+
+
+    /**
+    * @var File $file
+    *
+    * @Assert\File(
+    *     maxSize="1M",
+    *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
+    * )
+    */
+
+    protected $file;
 
     /**
      * @var boolean
@@ -138,6 +152,26 @@ class RecipePhoto
         return $this->id;
     }
 
+     /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
     public function addRecipe(\Tastetag\MainBundle\Entity\Recipes $recipe)
     {    
             $this->recipe = $recipe;
@@ -188,7 +222,7 @@ class RecipePhoto
     {
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
-        return 'uploads/documents';
+        return 'uploads/images';
     }
 
     /**
