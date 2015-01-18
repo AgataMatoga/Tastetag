@@ -32,11 +32,13 @@ class RecipeType extends AbstractType
             'type'         => new IngridientType(),
             'allow_add'    => true,
             'by_reference' => false,
+            'allow_delete' => true,
         ));
         $builder->add('images', 'collection', array(
             'type'         => new RecipePhotoType(),
             'allow_add'    => true,
             'by_reference' => false,
+            'allow_delete' => true,
         ));
     }
 

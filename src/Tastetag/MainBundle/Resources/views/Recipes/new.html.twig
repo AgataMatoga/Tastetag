@@ -17,7 +17,7 @@
    
     <ul class="ingridients" data-prototype="{{ form_widget(form.ingridients.vars.prototype)|e }}">
 	    {% for ingridient in form.ingridients %}
-	            <li>
+	            <li class="ingridient-form-row">
 	            {{ form_row(ingridient.name) }}
 	            {{ form_row(ingridient.amount) }}
 	            {{ form_row(ingridient.unit) }}
@@ -27,7 +27,7 @@
 
    <ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype)|e }}">
     {% for image in form.images %}
-            <li>
+            <li class="image-form-row">
             {{ form_row(image.file) }}
             </li>
     {% endfor %}
@@ -58,8 +58,23 @@
 	    $ingridientsCollectionHolder.data('index', index + 1);
 
 	    // Display the form in the page in an li, before the "Add a ingridient" link li
-	    var $newFormLi = $('<li></li>').append(newForm);
+	    var $newFormLi = $('<li class="ingridient-form-row"></li>').append(newForm);
 	    $newIngridientLinkLi.before($newFormLi);
+
+	    addIngridientFormDeleteLink($newFormLi);
+	}
+
+	function addIngridientFormDeleteLink($ingridientFormLi) {
+	    var $removeFormA = $('<a href="#">delete this ingridient</a>');
+	    $ingridientFormLi.append($removeFormA);
+
+	    $removeFormA.on('click', function(e) {
+	        // prevent the link from creating a "#" on the URL
+	        e.preventDefault();
+
+	        // remove the li for the tag form
+	        $ingridientFormLi.remove();
+	    });
 	}
 
 	var $ingridientsCollectionHolder;
@@ -86,6 +101,11 @@
 	        // add a new ingridient form (see next code block)
 	        addIngridientForm($ingridientsCollectionHolder, $newIngridientLinkLi);
 	    });
+
+	    // add a delete link to all of the existing tag form li elements
+	    $ingridientsCollectionHolder.find('li.ingridient-form-row').each(function() {
+	        addIngridientFormDeleteLink($(this));
+	    });
 	});
 
 
@@ -105,8 +125,23 @@
 	    $imagesCollectionHolder.data('index', index + 1);
 
 	    // Display the form in the page in an li, before the "Add a ingridient" link li
-	    var $newFormLi = $('<li></li>').append(newForm);
+	    var $newFormLi = $('<li class="image-form-row"></li>').append(newForm);
 	    $newImageLinkLi.before($newFormLi);
+
+	    addImageFormDeleteLink($newFormLi);
+	}
+
+	function addImageFormDeleteLink($imageFormLi) {
+	    var $removeFormA = $('<a href="#">delete this image</a>');
+	    $imageFormLi.append($removeFormA);
+
+	    $removeFormA.on('click', function(e) {
+	        // prevent the link from creating a "#" on the URL
+	        e.preventDefault();
+
+	        // remove the li for the tag form
+	        $imageFormLi.remove();
+	    });
 	}
 
 	var $imagesCollectionHolder;
@@ -132,6 +167,10 @@
 
 	        // add a new ingridient form (see next code block)
 	        addImageForm($imagesCollectionHolder, $newImageLinkLi);
+	    });
+
+	    $imagesCollectionHolder.find('li.image-form-row').each(function() {
+	        addImageFormDeleteLink($(this));
 	    });
 	});
 

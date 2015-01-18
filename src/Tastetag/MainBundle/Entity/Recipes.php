@@ -246,9 +246,9 @@ class Recipes
         return $this->images;
     }
 
-    public function removeImage(\Tastetag\MainBundle\Entity\RecipePhoto $images)
+    public function removeImage(\Tastetag\MainBundle\Entity\RecipePhoto $image)
     {
-        $this->images->removeElement($images);
+        $this->images->removeElement($image);
     }
 
 }
