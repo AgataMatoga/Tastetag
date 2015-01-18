@@ -244,16 +244,26 @@ class RecipePhoto
      */
     public function upload()
     {
-        if (null === $this->file) {
+       // the file property can be empty if the field is not required
+        if (null === $this->getFile()) {
             return;
         }
 
-        // if there is an error when moving the file, an exception will
-        // be automatically thrown by move(). This will properly prevent
-        // the entity from being persisted to the database on error
-        $this->file->move($this->getUploadRootDir(), $this->path);
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
 
-        unset($this->file);
+        // move takes the target directory and then the
+        // target filename to move to
+        $this->getFile()->move(
+            $this->getUploadRootDir(),
+            $this->getFile()->getClientOriginalName()
+        );
+
+        // set the path property to the filename where you've saved the file
+        $this->path = $this->getFile()->getClientOriginalName();
+
+        // clean up the file property as you won't need it anymore
+        $this->file = null;
     }
 
     /**
