@@ -13,12 +13,14 @@
     <one-to-many field="ingridients" target-entity="Ingridients" mapped-by="recipe">
         <cascade>
             <cascade-persist/>
+            <cascade-remove/>
         </cascade>
     </one-to-many>
 
     <one-to-many field="images" target-entity="RecipePhoto" mapped-by="recipe">
         <cascade>
             <cascade-persist/>
+            <cascade-remove/>
         </cascade>
     </one-to-many>
   </entity>

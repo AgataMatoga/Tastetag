@@ -11,7 +11,7 @@
 {% block body %}
 	{% for entity in entities %}
     <a href="{{ path('recipe_show', {'id': entity.id}) }}" class="recipe-grid-item">
-     	<img src="http://www.villatoscanarestaurant.co.uk/communities/5/004/012/894/175//images/4615381073.jpg" class="recipe-thumb">
+    	<div class="recipe-thumb" style="background-image: url({{asset(entity.images[0].getWebPath())}})"></div>	
      	<div class="recipe-name">{{ entity.name }}</div>
     </a>
   {% endfor %}

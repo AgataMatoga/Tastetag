@@ -18,10 +18,11 @@
         <li>{{ ingridient.name }} - {{ ingridient.amount }} {{ ingridient.unit }}</li>
     {% endfor %}
 
-    {% for image in recipe.images %}
-        <img src="{{asset(image.getWebPath())}}"> 
-    {% endfor %}
-
+    <div class="recipe-images">
+        {% for image in recipe.images %}
+            <img src="{{asset(image.getWebPath())}}"> 
+        {% endfor %}
+    </div>
 
     <a href="{{ path('recipe_edit', { 'id': recipe.id }) }}">Edit</a>
 

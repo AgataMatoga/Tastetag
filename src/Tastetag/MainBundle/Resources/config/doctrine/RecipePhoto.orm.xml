@@ -9,7 +9,7 @@
     </id>
     <field name="path" type="string" column="path" length="255" nullable="true"/>
     <field name="name" type="string" column="name" length="255" nullable="true"/>
-    <field name="main_photo" type="boolean" column="main_photo" nullable="true"/>
+    <field name="main_photo" type="boolean" column="main_photo" nullable="false"/>
     <field name="recipeId" type="integer" column="recipe_id" nullable="false"/>
 
     <many-to-one field="recipe" target-entity="Recipes">

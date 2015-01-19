@@ -18,9 +18,7 @@
     <ul class="ingridients" data-prototype="{{ form_widget(form.ingridients.vars.prototype)|e }}">
 	    {% for ingridient in form.ingridients %}
 	            <li class="ingridient-form-row">
-	            {{ form_row(ingridient.name) }}
-	            {{ form_row(ingridient.amount) }}
-	            {{ form_row(ingridient.unit) }}
+	            {{ form_row(ingridient.name) }}{{ form_row(ingridient.amount) }}{{ form_row(ingridient.unit) }}
 	            </li>
 	    {% endfor %}
     </ul>
@@ -29,6 +27,7 @@
     {% for image in form.images %}
             <li class="image-form-row">
             {{ form_row(image.file) }}
+            {{ form_row(image.main_photo) }}
             </li>
     {% endfor %}
     </ul>
