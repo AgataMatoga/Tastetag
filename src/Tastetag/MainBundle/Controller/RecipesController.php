@@ -14,6 +14,7 @@ use Tastetag\MainBundle\Form\IngridientType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 class RecipesController extends Controller
@@ -96,6 +97,7 @@ class RecipesController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Recipe entity.');
         }
+
         $editForm = $this->createForm(new RecipeType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
         return $this->render('TastetagMainBundle:Recipes:edit.html.twig', array(
@@ -112,11 +114,33 @@ class RecipesController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Recipe entity.');
         }
+
+        $originalIngridients = new ArrayCollection();
+        foreach ($entity->getIngridients() as $ingridient) {
+            $originalIngridients->add($ingridient);
+        }
+
+        $originalImages = new ArrayCollection();
+        foreach ($entity->getImages() as $image) {
+            $originalImages->add($image);
+        }
+
         $editForm   = $this->createForm(new RecipeType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
         $request = $this->getRequest();
         $editForm->bindRequest($request);
         if ($editForm->isValid()) {
+            foreach ($originalIngridients as $ingridient) {
+                if (false === $entity->getIngridients()->contains($ingridient)) {
+                    $em->remove($ingridient);
+                }
+            }
+            foreach ($originalImages as $image) {
+                if (false === $entity->getImages()->contains($image)) {
+                    $em->remove($image);
+                    $image->removeUpload();
+                }
+            }
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('recipe_show', array('id' => $id)));

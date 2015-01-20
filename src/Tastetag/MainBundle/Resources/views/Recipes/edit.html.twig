@@ -7,11 +7,172 @@
 {% endblock %}
 
 {% block body %}
+{{ form_errors(edit_form) }}
 <form action="{{ path('recipe_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-    {{ form_widget(edit_form) }}
+	<div id="recipe">
+	{{ form_row(edit_form.name) }}
+	{{ form_row(edit_form.description) }}
+	{{ form_row(edit_form.difficulty) }}
+	{{ form_row(edit_form.preparationTime) }}
+   
+    <ul class="ingridients" data-prototype="{{ form_widget(edit_form.ingridients.vars.prototype)|e }}">
+	    {% for ingridient in edit_form.ingridients %}
+	            <li class="ingridient-form-row">
+	            {{ form_row(ingridient.name) }}{{ form_row(ingridient.amount) }}{{ form_row(ingridient.unit) }}
+	            </li>
+	    {% endfor %}
+    </ul>
+
+   <ul class="images" data-prototype="{{ form_widget(edit_form.images.vars.prototype)|e }}">
+    {% for image in edit_form.images %}
+            <li class="image-form-row">
+            {{ form_row(image.file) }}
+            {{ form_row(image.main_photo) }}
+            </li>
+    {% endfor %}
+    </ul>
+    {{ form_row(edit_form._token) }}
+    <div>
+
     <p>
-        <button type="submit">Edit</button>
+        <button type="submit">Create</button>
     </p>
-</form>
+</form> 
+
+
+<script>
+
+	function addIngridientForm($ingridientsCollectionHolder, $newIngridientLinkLi) {
+	    // Get the data-prototype explained earlier
+	    var prototype = $ingridientsCollectionHolder.data('prototype');
+
+	    // get the new index
+	    var index = $ingridientsCollectionHolder.data('index');
+
+	    // Replace '__name__' in the prototype's HTML to
+	    // instead be a number based on how many items we have
+	    var newForm = prototype.replace(/__name__/g, index);
+
+	    // increase the index with one for the next item
+	    $ingridientsCollectionHolder.data('index', index + 1);
+
+	    // Display the form in the page in an li, before the "Add a ingridient" link li
+	    var $newFormLi = $('<li class="ingridient-form-row"></li>').append(newForm);
+	    $newIngridientLinkLi.before($newFormLi);
+
+	    addIngridientFormDeleteLink($newFormLi);
+	}
+
+	function addIngridientFormDeleteLink($ingridientFormLi) {
+	    var $removeFormA = $('<a href="#">delete this ingridient</a>');
+	    $ingridientFormLi.append($removeFormA);
+
+	    $removeFormA.on('click', function(e) {
+	        // prevent the link from creating a "#" on the URL
+	        e.preventDefault();
+
+	        // remove the li for the tag form
+	        $ingridientFormLi.remove();
+	    });
+	}
+
+	var $ingridientsCollectionHolder;
+
+	// setup an "add a ingridient" link
+	var $addIngridientLink = $('<a href="#" class="add_ingridient_link">Add an ingridient</a>');
+	var $newIngridientLinkLi = $('<li></li>').append($addIngridientLink);
+
+	jQuery(document).ready(function() {
+	    // Get the ul that holds the collection of ingridients
+	    $ingridientsCollectionHolder = $('ul.ingridients');
+
+	    // add the "add a ingridient" anchor and li to the ingridients ul
+	    $ingridientsCollectionHolder.append($newIngridientLinkLi);
+
+	    // count the current form inputs we have (e.g. 2), use that as the new
+	    // index when inserting a new item (e.g. 2)
+	    $ingridientsCollectionHolder.data('index', $ingridientsCollectionHolder.find(':input').length);
+
+	    $addIngridientLink.on('click', function(e) {
+	        // prevent the link from creating a "#" on the URL
+	        e.preventDefault();
+
+	        // add a new ingridient form (see next code block)
+	        addIngridientForm($ingridientsCollectionHolder, $newIngridientLinkLi);
+	    });
+
+	    // add a delete link to all of the existing tag form li elements
+	    $ingridientsCollectionHolder.find('li.ingridient-form-row').each(function() {
+	        addIngridientFormDeleteLink($(this));
+	    });
+	});
+
+
+
+	function addImageForm($imagesCollectionHolder, $newImageLinkLi) {
+	    // Get the data-prototype explained earlier
+	    var prototype = $imagesCollectionHolder.data('prototype');
+
+	    // get the new index
+	    var index = $imagesCollectionHolder.data('index');
+
+	    // Replace '__name__' in the prototype's HTML to
+	    // instead be a number based on how many items we have
+	    var newForm = prototype.replace(/__name__/g, index);
+
+	    // increase the index with one for the next item
+	    $imagesCollectionHolder.data('index', index + 1);
+
+	    // Display the form in the page in an li, before the "Add a ingridient" link li
+	    var $newFormLi = $('<li class="image-form-row"></li>').append(newForm);
+	    $newImageLinkLi.before($newFormLi);
+
+	    addImageFormDeleteLink($newFormLi);
+	}
+
+	function addImageFormDeleteLink($imageFormLi) {
+	    var $removeFormA = $('<a href="#">delete this image</a>');
+	    $imageFormLi.append($removeFormA);
+
+	    $removeFormA.on('click', function(e) {
+	        // prevent the link from creating a "#" on the URL
+	        e.preventDefault();
+
+	        // remove the li for the tag form
+	        $imageFormLi.remove();
+	    });
+	}
+
+	var $imagesCollectionHolder;
+
+	// setup an "add a ingridient" link
+	var $addImageLink = $('<a href="#" class="add_image_link">Add an image</a>');
+	var $newImageLinkLi = $('<li></li>').append($addImageLink);
+
+	jQuery(document).ready(function() {
+	    // Get the ul that holds the collection of ingridients
+	    $imagesCollectionHolder = $('ul.images');
+
+	    // add the "add a ingridient" anchor and li to the ingridients ul
+	    $imagesCollectionHolder.append($newImageLinkLi);
+
+	    // count the current form inputs we have (e.g. 2), use that as the new
+	    // index when inserting a new item (e.g. 2)
+	    $imagesCollectionHolder.data('index', $imagesCollectionHolder.find(':input').length);
+
+	    $addImageLink.on('click', function(e) {
+	        // prevent the link from creating a "#" on the URL
+	        e.preventDefault();
+
+	        // add a new ingridient form (see next code block)
+	        addImageForm($imagesCollectionHolder, $newImageLinkLi);
+	    });
+
+	    $imagesCollectionHolder.find('li.image-form-row').each(function() {
+	        addImageFormDeleteLink($(this));
+	    });
+	});
+
+</script>
 {% endblock %}
 
