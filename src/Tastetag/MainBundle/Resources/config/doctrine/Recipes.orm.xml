@@ -9,6 +9,9 @@
     <field name="description" type="text" column="description" nullable="false"/>
     <field name="difficulty" type="integer" column="difficulty" nullable="true"/>
     <field name="preparationTime" type="time" column="preparation_time" nullable="true"/>
+    <field name="prepMin" type="integer" column="prep_min" nullable="false"/>
+    <field name="prepHour" type="integer" column="prep_hour" nullable="false"/>
+    <field name="people" type="integer" column="people" nullable="false"/>
 
     <one-to-many field="ingridients" target-entity="Ingridients" mapped-by="recipe">
         <cascade>

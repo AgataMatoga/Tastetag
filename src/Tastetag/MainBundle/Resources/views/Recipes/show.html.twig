@@ -12,6 +12,8 @@
 	
     <h2>{{ recipe.name }}</h2>
     <div>Difficulty: {{ recipe.difficulty }}</div>
+    <div>Preparation Time: {{ recipe.prepHour }}h {{ recipe.prepMin }}min</div>
+    <div>Portions: {{ recipe.people }}</div>
     <div>{{ recipe.description }}</div>
     <div>Składniki:</div>
     {% for ingridient in ingridients %}

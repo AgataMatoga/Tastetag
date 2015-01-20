@@ -9,12 +9,15 @@
 {% block body %}
 {{ form_errors(edit_form) }}
 <form action="{{ path('recipe_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-	<div id="recipe">
+
+	<div class="form-section-title">Info</div>
 	{{ form_row(edit_form.name) }}
 	{{ form_row(edit_form.description) }}
 	{{ form_row(edit_form.difficulty) }}
-	{{ form_row(edit_form.preparationTime) }}
-   
+	<div class="prep-time"><label>Preparation Time</label>{{ form_row(edit_form.prepHour) }}{{ form_row(edit_form.prepMin) }}</div>
+	{{ form_row(edit_form.people) }}
+
+	<div class="form-section-title">Ingridients</div>
     <ul class="ingridients" data-prototype="{{ form_widget(edit_form.ingridients.vars.prototype)|e }}">
 	    {% for ingridient in edit_form.ingridients %}
 	            <li class="ingridient-form-row">
@@ -23,11 +26,11 @@
 	    {% endfor %}
     </ul>
 
-   <ul class="images" data-prototype="{{ form_widget(edit_form.images.vars.prototype)|e }}">
+    <div class="form-section-title">Images</div>
+   	<ul class="images" data-prototype="{{ form_widget(edit_form.images.vars.prototype)|e }}">
     {% for image in edit_form.images %}
             <li class="image-form-row">
-            {{ form_row(image.file) }}
-            {{ form_row(image.main_photo) }}
+            {{ form_row(image.file) }}{{ form_row(image.main_photo) }}
             </li>
     {% endfor %}
     </ul>
@@ -35,7 +38,7 @@
     <div>
 
     <p>
-        <button type="submit">Create</button>
+        <button type="submit">Save</button>
     </p>
 </form> 
 
@@ -64,7 +67,7 @@
 	}
 
 	function addIngridientFormDeleteLink($ingridientFormLi) {
-	    var $removeFormA = $('<a href="#">delete this ingridient</a>');
+	    var $removeFormA = $('<a href="#" class="delete-cross" title="delete this ingridient"></a>');
 	    $ingridientFormLi.append($removeFormA);
 
 	    $removeFormA.on('click', function(e) {
@@ -79,7 +82,7 @@
 	var $ingridientsCollectionHolder;
 
 	// setup an "add a ingridient" link
-	var $addIngridientLink = $('<a href="#" class="add_ingridient_link">Add an ingridient</a>');
+	var $addIngridientLink = $('<a href="#" class="add_ingridient_link add-item-link">+ Add an ingridient</a>');
 	var $newIngridientLinkLi = $('<li></li>').append($addIngridientLink);
 
 	jQuery(document).ready(function() {
@@ -131,7 +134,7 @@
 	}
 
 	function addImageFormDeleteLink($imageFormLi) {
-	    var $removeFormA = $('<a href="#">delete this image</a>');
+	    var $removeFormA = $('<a href="#" class="delete-cross" title="delete this image"></a>');
 	    $imageFormLi.append($removeFormA);
 
 	    $removeFormA.on('click', function(e) {
@@ -146,7 +149,7 @@
 	var $imagesCollectionHolder;
 
 	// setup an "add a ingridient" link
-	var $addImageLink = $('<a href="#" class="add_image_link">Add an image</a>');
+	var $addImageLink = $('<a href="#" class="add_image_link add-item-link">+ Add an image</a>');
 	var $newImageLinkLi = $('<li></li>').append($addImageLink);
 
 	jQuery(document).ready(function() {

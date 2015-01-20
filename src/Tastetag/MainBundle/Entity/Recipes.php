@@ -48,6 +48,27 @@ class Recipes
      */
     private $preparationTime;
 
+     /**
+     * @var integer
+     *
+     * @ORM\Column(name="prep_min", type="integer", nullable=false)
+     */
+    private $prepMin;
+
+       /**
+     * @var integer
+     *
+     * @ORM\Column(name="prep_hour", type="integer", nullable=false)
+     */
+    private $prepHour;
+
+       /**
+     * @var integer
+     *
+     * @ORM\Column(name="people", type="integer", nullable=false)
+     */
+    private $people;
+
     /**
      * @var integer
      *
@@ -128,6 +149,75 @@ class Recipes
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set prepMin
+     *
+     * @param string $prepMin
+     * @return Recipes
+     */
+    public function setPrepMin($prepMin)
+    {
+        $this->prepMin = $prepMin;
+
+        return $this;
+    }
+
+    /**
+     * Get prepMin
+     *
+     * @return string 
+     */
+    public function getPrepMin()
+    {
+        return $this->prepMin;
+    }
+
+    /**
+     * Set prepHour
+     *
+     * @param string $prepHour
+     * @return Recipes
+     */
+    public function setPrepHour($prepHour)
+    {
+        $this->prepHour = $prepHour;
+
+        return $this;
+    }
+
+    /**
+     * Get prepHour
+     *
+     * @return string 
+     */
+    public function getPrepHour()
+    {
+        return $this->prepHour;
+    }
+
+    /**
+     * Set people
+     *
+     * @param string $people
+     * @return Recipes
+     */
+    public function setPeople($people)
+    {
+        $this->people = $people;
+
+        return $this;
+    }
+
+    /**
+     * Get people
+     *
+     * @return string 
+     */
+    public function getPeople()
+    {
+        return $this->people;
     }
 
     /**

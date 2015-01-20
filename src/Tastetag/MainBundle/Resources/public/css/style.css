@@ -76,6 +76,7 @@ form label {
 	margin-right: 10px;
 	display: inline-block;
 	vertical-align: top;
+	margin-top: 6px;
 }
 .recipe-grid-item {
 	display: inline-block;
@@ -108,6 +109,7 @@ form label {
 }
 #recipe_difficulty label {
 	text-align: left;
+	margin-top: 	0px;
 }
 #recipe_preparationTime {
 	display: inline-block;
@@ -124,6 +126,7 @@ form label {
 	display: block;
 	text-align: left;
 	width: auto;
+	margin-top: 	0px;
 }
 .ingridient-form-row div input[type="number"] {
 	width: 50px;
@@ -131,6 +134,85 @@ form label {
 .ingridient-form-row div:nth-child(3) input[type="text"]{
 	width: 60px;
 }
+.ingridient-form-row .delete-cross {
+	margin-top: 10px;
+}
 .recipe-images img {
 	max-width: 200px;
+}
+.form-section-title {
+	padding-top: 10px;
+	border-top: 1px solid #dedede;
+	margin-top: 20px;
+	text-transform: 	uppercase;	
+	font-weight: bold;	
+}
+ul.images {
+	list-style: 	none;
+}
+ul.ingridients {
+	list-style: 	none;
+}
+a.delete-cross {
+	display: 	inline-block;	
+	vertical-align: 	middle;
+	width: 16px;
+	height: 16px;
+	background: url('../../icon-sprite.png') no-repeat -4px -5px;	
+}
+.btn {
+	display: inline-block;
+	vertical-align: top;
+	height: 34px;
+	line-height: 34px;
+	background: rgb(98, 219, 164);
+	color: #fff;
+	padding: 0 30px;
+	border-radius: 3px;
+	border: 0px;
+	outline: 0;
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+.btn:hover {
+	background: rgb(82, 182, 137);
+}
+.image-form-row {
+	margin-bottom: 	10px;
+}
+.image-form-row label {
+	width: auto;
+	text-align: left;
+	margin-top: 0px;
+}
+.image-form-row div {
+	display: inline-block;
+	vertical-align: top;
+}
+a.add-item-link {
+	text-decoration: 	none;
+	color: 	rgb(98, 219, 164);
+}
+.prep-time div {
+	display: 	inline-block;
+	margin-right: 5px;
+}
+.prep-time div label {
+	display: 	block;
+	width: 	auto;	
+	text-align: 	left;
+}
+.prep-time div input[type="number"] {
+	width: 	50px;
+}
+input[type="number"]#recipe_people {
+	width: 50px;
+}
+#recipe_name {
+	width: 500px;
+}
+#recipe_description {
+	width: 500px;
+	height: 200px;
 }
