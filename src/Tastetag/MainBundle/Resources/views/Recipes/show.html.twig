@@ -26,12 +26,19 @@
         {% endfor %}
     </div>
 
+    <div class="recipe-images">
+    Tags:
+        {% for tag in recipe.tags %}
+            {{ tag }}
+        {% endfor %}
+    </div>
+
     <a href="{{ path('recipe_edit', { 'id': recipe.id }) }}">Edit</a>
 
     <form action="{{ path('recipe_delete', { 'id': recipe.id }) }}" method="post">
-	    {{ form_widget(delete_form) }}
-	    <button type="submit">Delete</button>
-	</form>
+  	    {{ form_widget(delete_form) }}
+  	    <button type="submit">Delete</button>
+  	</form>
 
     <div>Comments:</div>
     {% include 'TastetagMainBundle:Comments:form.html.twig' with { 'form': comment_form, 'recipe_id' : recipe.id } %}

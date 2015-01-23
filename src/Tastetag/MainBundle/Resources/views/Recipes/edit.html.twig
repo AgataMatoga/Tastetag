@@ -34,8 +34,18 @@
             </li>
     {% endfor %}
     </ul>
+
+    <div class="form-section-title">Tags</div>
+
+	  <ul class="tags" data-prototype="{{ form_widget(edit_form.tags.vars.prototype)|e }}">
+	  {% for tag in edit_form.tags %}
+	          <li class="tag-form-row">
+	          {{ form_row(tag.name) }}
+	          </li>
+	  {% endfor %}
+	  </ul>
+
     {{ form_row(edit_form._token) }}
-    <div>
 
     <p>
         <button type="submit">Save</button>

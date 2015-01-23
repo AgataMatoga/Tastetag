@@ -36,3 +36,6 @@ recipe_comment_new:
     defaults: { _controller: TastetagMainBundle:Comments:new }
     requirements:
         recipe_id: \d+
+tag_recipes:
+    pattern:  /tag/{id}
+    defaults: { _controller: "TastetagMainBundle:Tags:recipes" }

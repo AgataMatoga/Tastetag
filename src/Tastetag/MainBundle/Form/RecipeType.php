@@ -40,6 +40,12 @@ class RecipeType extends AbstractType
             'by_reference' => false,
             'allow_delete' => true,
         ));
+         $builder->add('tags', 'collection', array(
+            'type'         => new TagType(),
+            'allow_add'    => true,
+            'by_reference' => false,
+            'allow_delete' => true,
+        ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

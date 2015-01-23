@@ -6,6 +6,7 @@ use Tastetag\MainBundle\Entity\Recipes;
 use Tastetag\MainBundle\Entity\RecipePhoto;
 use Tastetag\MainBundle\Entity\Comments;
 use Tastetag\MainBundle\Entity\Ingridients;
+use Tastetag\MainBundle\Entity\Tags;
 
 use Tastetag\MainBundle\Form\RecipeType;
 use Tastetag\MainBundle\Form\RecipePhotoType;
@@ -52,6 +53,10 @@ class RecipesController extends Controller
         $image1 = new RecipePhoto();
         $image1->setName('skladnik1');
         $entity->getImages()->add($image1);
+
+        $tag1 = new Tags();
+        $tag1->setName('tag1');
+        $entity->getTags()->add($tag1);
 		
         $form   = $this->createForm(new RecipeType(), $entity);
         return $this->render('TastetagMainBundle:Recipes:new.html.twig', array(

@@ -95,6 +95,17 @@ class Recipes
      * @ORM\OneToMany(targetEntity="Tastetag\MainBundle\Entity\Ingridients", mappedBy="recipe")
      */
     protected $ingridients;
+    
+    /**
+     *  @var Collection
+     * 
+     * @ORM\ManyToMany(targetEntity="Tastetag\MainBundle\Entity\Tags", inversedBy="recipes", cascade={"persist"})
+     * @ORM\JoinTable(name="recipe_tags",
+     * joinColumns={@ORM\JoinColumn(name="recipe_id", referencedColumnName="id")},
+     * inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
+     * )
+     */
+    private $tags;
 
 
     public function __construct()
@@ -103,6 +114,7 @@ class Recipes
         $this->images = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->ingridients = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     /**
@@ -341,4 +353,20 @@ class Recipes
         $this->images->removeElement($image);
     }
 
+    public function addTag(\Tastetag\MainBundle\Entity\Tags $tag)
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    public function removeTag(\Tastetag\MainBundle\Entity\Tags $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    public function getTags()
+    {
+        return $this->tags;
+    }
 }

@@ -20,25 +20,35 @@
 
 	<div class="form-section-title">Ingridients</div>
    
-    <ul class="ingridients" data-prototype="{{ form_widget(form.ingridients.vars.prototype)|e }}">
-	    {% for ingridient in form.ingridients %}
-	            <li class="ingridient-form-row">
-	            {{ form_row(ingridient.name) }}{{ form_row(ingridient.amount) }}{{ form_row(ingridient.unit) }}
-	            </li>
-	    {% endfor %}
-    </ul>
-
-    <div class="form-section-title">Images</div>
-
-    <ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype)|e }}">
-    {% for image in form.images %}
-            <li class="image-form-row">
-            {{ form_row(image.file) }}{{ form_row(image.main_photo) }}
+  <ul class="ingridients" data-prototype="{{ form_widget(form.ingridients.vars.prototype)|e }}">
+    {% for ingridient in form.ingridients %}
+            <li class="ingridient-form-row">
+            {{ form_row(ingridient.name) }}{{ form_row(ingridient.amount) }}{{ form_row(ingridient.unit) }}
             </li>
     {% endfor %}
-    </ul>
+  </ul>
+
+  <div class="form-section-title">Images</div>
+
+  <ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype)|e }}">
+  {% for image in form.images %}
+          <li class="image-form-row">
+          {{ form_row(image.file) }}{{ form_row(image.main_photo) }}
+          </li>
+  {% endfor %}
+  </ul>
+
+  <div class="form-section-title">Tags</div>
+
+  <ul class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e }}">
+  {% for tag in form.tags %}
+          <li class="tag-form-row">
+          {{ form_row(tag.name) }}
+          </li>
+  {% endfor %}
+  </ul>
+
     {{ form_row(form._token) }}
-    <div>
 
     <p>
         <button type="submit" class="btn">Create</button>
