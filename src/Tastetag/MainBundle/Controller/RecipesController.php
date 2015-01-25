@@ -73,6 +73,9 @@ class RecipesController extends Controller
         $form->bind($request);
         
         if ($form->isValid()) {
+
+            $recipe = $this->checkUniqueTags($recipe);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($recipe);
             $em->flush();
@@ -146,6 +149,9 @@ class RecipesController extends Controller
                     $image->removeUpload();
                 }
             }
+
+            $recipe = $this->checkUniqueTags($entity);
+
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('recipe_show', array('id' => $id)));
@@ -185,6 +191,25 @@ class RecipesController extends Controller
     private function createCommentForm()
     {
         return $this->createForm(new CommentType(), new Comments());
+    }
+
+    private function checkUniqueTags($recipe)
+    {   
+        $em = $this->getDoctrine()->getManager();
+        $availableTags = $em->getRepository('TastetagMainBundle:Tags')->findAll();
+        $tagsCollection = array();
+        foreach ($availableTags as $tag) {
+               $tagsCollection[$tag->getId()] = $tag->getName();
+        }
+
+        foreach ($recipe->getTags() as $tag) {
+            if (in_array($tag->getName(), $tagsCollection)) {
+                 $recipe->removeTag($tag);
+                 $availableTag = $em->getRepository('TastetagMainBundle:Tags')->find(array_search($tag->getName(), $tagsCollection));
+                 $recipe->addTag($availableTag);
+            }
+        }
+        return $recipe;
     }
 
 }

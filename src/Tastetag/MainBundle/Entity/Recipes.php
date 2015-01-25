@@ -369,4 +369,13 @@ class Recipes
     {
         return $this->tags;
     }
+
+    public function getTag($tagId)
+    {
+        foreach ($this->tags as $tag) {
+            if ($tag->getId() == $tagId) {
+                return $tag;
+            }
+        }    
+    }
 }

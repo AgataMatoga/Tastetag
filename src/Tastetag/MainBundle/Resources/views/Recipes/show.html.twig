@@ -29,7 +29,7 @@
     <div class="recipe-images">
     Tags:
         {% for tag in recipe.tags %}
-            {{ tag }}
+            <a href="{{ path('tag_recipes', {'id': tag.id}) }}" class="tag-item">{{ tag.name }}</a> 
         {% endfor %}
     </div>
 

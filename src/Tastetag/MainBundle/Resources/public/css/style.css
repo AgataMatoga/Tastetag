@@ -23,7 +23,7 @@ body {
 	box-shadow: 0px 1px 7px 1px rgba(0,0,0,0.1);
 }
 .nav-container a.logo {
-	color: rgb(98, 219, 164);
+	color: rgb(84, 205, 150);
 	text-decoration: none;
 }
 nav.main {
@@ -40,7 +40,7 @@ input[type="text"].nav-search {
 	line-height: 30px;
 	padding: 0 10px;
 	border-radius: 5px;
-	border: 1px solid rgb(98, 219, 164);
+	border: 1px solid rgb(84, 205, 150);
 	outline: 0;
 	display: inline-block;
 	vertical-align: top;
@@ -92,7 +92,7 @@ form label {
 	text-decoration: none;
 }
 .recipe-grid-item:hover {
-	border-color: rgb(98, 219, 164);
+	border-color: rgb(84, 205, 150);
 }
 .recipe-grid-item .recipe-thumb {
 	max-width: 	100%;
@@ -121,6 +121,7 @@ form label {
 .ingridient-form-row div {
 	display: inline-block;
 	margin-right: 3px;
+	margin-left: 10px;
 }
 .ingridient-form-row div label {
 	display: block;
@@ -135,7 +136,32 @@ form label {
 	width: 60px;
 }
 .ingridient-form-row .delete-cross {
-	margin-top: 10px;
+	left: -10px;
+	top: 25px;
+}
+.tag-form-row .delete-cross {
+	margin-top: 8px;
+}
+.tag-form-row {
+	display: inline-block;
+	position: 	relative;	
+	margin-right: 	15px;
+}
+.tag-form-row input[type="text"] {
+	display: inline-block;
+	width: 120px;
+	height: 28px;
+	line-height: 26px;
+	border: 1px solid #dedede;
+	border-radius: 30px;
+	padding: 0 15px;
+	margin: 0px 1px 5px 0px;
+	text-decoration: none;
+	text-align: 	center;
+}
+.tag-form-row input[type="text"].done-tag {
+	border-color: rgb(84, 205, 150);	
+	color: rgb(84, 205, 150);
 }
 .recipe-images img {
 	max-width: 200px;
@@ -153,11 +179,17 @@ ul.images {
 ul.ingridients {
 	list-style: 	none;
 }
+ul.tags {
+	list-style: 	none;
+}
 a.delete-cross {
 	display: 	inline-block;	
 	vertical-align: 	middle;
 	width: 16px;
 	height: 16px;
+	position: 	absolute;	
+	top: 0px;
+	left: 	-10px;
 	background: url('../../icon-sprite.png') no-repeat -4px -5px;	
 }
 .btn {
@@ -165,7 +197,7 @@ a.delete-cross {
 	vertical-align: top;
 	height: 34px;
 	line-height: 34px;
-	background: rgb(98, 219, 164);
+	background: rgb(84, 205, 150);
 	color: #fff;
 	padding: 0 30px;
 	border-radius: 3px;
@@ -180,6 +212,7 @@ a.delete-cross {
 }
 .image-form-row {
 	margin-bottom: 	10px;
+	position: 	relative;	
 }
 .image-form-row label {
 	width: auto;
@@ -190,9 +223,21 @@ a.delete-cross {
 	display: inline-block;
 	vertical-align: top;
 }
+.ingridient-form-row {
+	position: 	relative;	
+}
+.tag-form-row label {
+	width: auto;
+	text-align: left;
+}
+.tag-form-row div {
+	display: inline-block;
+	vertical-align: top;
+}
+
 a.add-item-link {
 	text-decoration: 	none;
-	color: 	rgb(98, 219, 164);
+	color: 	rgb(84, 205, 150);
 }
 .prep-time div {
 	display: 	inline-block;
@@ -215,4 +260,20 @@ input[type="number"]#recipe_people {
 #recipe_description {
 	width: 500px;
 	height: 200px;
+}
+.tag-item {
+	display: inline-block;
+	height: 28px;
+	line-height: 26px;
+	border: 1px solid rgb(84, 205, 150);
+	color: rgb(84, 205, 150);
+	border-radius: 30px;
+	padding: 0 15px;
+	margin: 0px 1px 5px 0px;
+	text-decoration: none;
+	transition: all 0.3s;
+}
+.tag-item:hover {
+	background: rgb(84, 205, 150);
+	color: #fff;
 }

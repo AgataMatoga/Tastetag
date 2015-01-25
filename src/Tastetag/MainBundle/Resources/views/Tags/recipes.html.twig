@@ -10,11 +10,12 @@
 
 {% block body %}
 <h2>Recipes form tag "{{ tag.name }}"</h2>
-
+	
 	{% for recipe in tag.recipes %}
-    <a href="{{ path('recipe_show', {'id': recipe.id}) }}" class="recipe-grid-item">
-    	<div class="recipe-thumb" style="background-image: url({{asset(recipe.images[0].getWebPath())}})"></div>	
-     	<div class="recipe-name">{{ recipe.name }}</div>
-    </a>
-  {% endfor %}
+	    <a href="{{ path('recipe_show', {'id': recipe.id}) }}" class="recipe-grid-item">
+	    	<div class="recipe-thumb" style="background-image: url({{asset(recipe.images[0].getWebPath())}})"></div>	
+	     	<div class="recipe-name">{{ recipe.name }}</div>
+	    </a>
+	{% endfor %}
+	
 {% endblock %}
