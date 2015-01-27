@@ -17,9 +17,13 @@
             {% block navigation %}
 				<div class="content-limiter">
 					<a href="{{ path('homepage') }}" class="logo">Tastetag</a>
-					<nav class="main">
-						<a href="">Log in</a>
-						<a href="">Sign in</a>
+					<nav class="main">	
+						{% if app.user %}
+							<a href="{{ path('logout') }}">{{ app.user.username }} (logout)</a>
+						{% else %}
+							<a href="{{ path('login') }}">Log in</a>
+						{% endif %}
+						<a href="{{ path('account_register') }}">Sign in</a>
 						<a href="{{ path('recipe_new') }}">Add Recipe</a>
 					</nav>
 					<input type="text" class="nav-search">
