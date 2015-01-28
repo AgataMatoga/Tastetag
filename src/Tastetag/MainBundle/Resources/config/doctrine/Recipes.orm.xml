@@ -27,6 +27,13 @@
         </cascade>
     </one-to-many>
 
+    <one-to-many field="comments" target-entity="Comments" mapped-by="recipe">
+        <cascade>
+            <cascade-persist/>
+            <cascade-remove/>
+        </cascade>
+    </one-to-many>
+
     <many-to-many field="tags" target-entity="Tags" inversed-by="recipe">
       <join-table name="recipes_tags">
         <join-columns>

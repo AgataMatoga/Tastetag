@@ -39,8 +39,10 @@ class CommentsController extends Controller
 
         if ($form->isValid()) {
             $comment = $form->getData();
-            $comment->setRecipeId($recipe->getId());
-            $em = $this->getDoctrine()->getManager();
+            $comment->setRecipe($recipe);
+            $usr= $this->get('security.context')->getToken()->getUser();
+            $comment->setUser($usr);
+
             $em->persist($comment);
             $em->flush();
 

@@ -36,6 +36,12 @@ class User implements UserInterface, \Serializable
      */
     protected $salt;
 
+     /**
+     * @ORM\OneToMany(targetEntity="Tastetag\MainBundle\Entity\Comments", mappedBy="user")
+     */
+
+    protected $comments;
+
 
     public function __construct()
     {
@@ -142,5 +148,15 @@ class User implements UserInterface, \Serializable
             $this->password,
             $this->salt
         ) = unserialize($serialized);
+    }
+
+    public function addComment(\Tastetag\MainBundle\Entity\Comments $comments)
+    {
+      $this->comments[] = $comments;
+    }
+
+    public function getComments()
+    {
+      return $this->comments;
     }
 }

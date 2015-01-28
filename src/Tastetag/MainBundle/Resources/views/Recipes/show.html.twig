@@ -42,7 +42,8 @@
 
     <div>Comments:</div>
     {% include 'TastetagMainBundle:Comments:form.html.twig' with { 'form': comment_form, 'recipe_id' : recipe.id } %}
-    {% for comment in comments %}
+    {% for comment in recipe.comments %}
+        <div>{{ comment.user.username }}</div>
         <div>{{ comment.content }}</div>
         <div>{{ comment.createdAt|date('Y-m-d H:i') }}</div>
     {% endfor %}

@@ -25,8 +25,6 @@ class RecipesController extends Controller
     {   
         $em = $this->getDoctrine()->getManager();
         $recipe = $em->getRepository('TastetagMainBundle:Recipes')->find($id);
-        $comments = $em->getRepository('TastetagMainBundle:Comments')->findByRecipeId($recipe->getId());
-
         $deleteForm = $this->createDeleteForm($id);
         $commentForm = $this->createCommentForm();
 
@@ -35,7 +33,6 @@ class RecipesController extends Controller
         return $this->render('TastetagMainBundle:Recipes:show.html.twig', array(
             'recipe' => $recipe,
             'delete_form' => $deleteForm->createView(),
-            'comments' => $comments,
             'comment_form' => $commentForm->createView(),
             'ingridients' => $ingridients,
         ));

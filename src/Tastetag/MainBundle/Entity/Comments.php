@@ -30,12 +30,17 @@ class Comments
 
     protected $recipe;
 
+    /**
+     * var user
+     * @ORM\ManyToOne(targetEntity="Tastetag\MainBundle\Entity\User", inversedBy="comments")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     **/
+
     protected $user;
 
     public function __construct()
     {
         $this->setCreatedAt(new \DateTime());
-        $this->setUserId(12);
     }
 
 
@@ -126,6 +131,27 @@ class Comments
     public function getRecipeId()
     {
         return $this->recipeId;
+    }
+
+    /**
+     * Set user
+     *
+     * @param Tastetag\MainBundle\Entity\Recipe $recipe
+     */
+    public function setUser(\Tastetag\MainBundle\Entity\User $user)
+    {
+        $this->user = $user;
+        $this->user->addComment($this);
+    }
+
+    /**
+     * Get user
+     *
+     * @return Tastetag\MainBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 
     public function setUserId($user_id)

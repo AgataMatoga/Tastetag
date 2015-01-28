@@ -79,7 +79,7 @@ class Recipes
     private $id;
 
      /**
-     * @ORM\OneToMany(targetEntity="Comments", mappedBy="recipe")
+     * @ORM\OneToMany(targetEntity="Tastetag\MainBundle\Entity\Comments", mappedBy="recipe")
      */
 
     protected $comments;
