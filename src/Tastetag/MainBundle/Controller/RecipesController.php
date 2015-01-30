@@ -73,6 +73,9 @@ class RecipesController extends Controller
 
             $recipe = $this->checkUniqueTags($recipe);
 
+            $usr= $this->get('security.context')->getToken()->getUser();
+            $recipe->setUser($usr);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($recipe);
             $em->flush();

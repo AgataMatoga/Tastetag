@@ -42,6 +42,12 @@ class User implements UserInterface, \Serializable
 
     protected $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Tastetag\MainBundle\Entity\Recipes", mappedBy="user")
+     */
+
+    protected $recipes;
+
 
     public function __construct()
     {
@@ -158,5 +164,15 @@ class User implements UserInterface, \Serializable
     public function getComments()
     {
       return $this->comments;
+    }
+
+    public function addRecipe(\Tastetag\MainBundle\Entity\Recipes $recipes)
+    {
+      $this->recipes[] = $recipes;
+    }
+
+    public function getRecipes()
+    {
+      return $this->recipes;
     }
 }

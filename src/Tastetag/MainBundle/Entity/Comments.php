@@ -136,7 +136,7 @@ class Comments
     /**
      * Set user
      *
-     * @param Tastetag\MainBundle\Entity\Recipe $recipe
+     * @param Tastetag\MainBundle\Entity\User $user
      */
     public function setUser(\Tastetag\MainBundle\Entity\User $user)
     {

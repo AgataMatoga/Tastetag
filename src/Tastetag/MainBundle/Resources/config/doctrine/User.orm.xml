@@ -14,5 +14,11 @@
         </cascade>
     </one-to-many>
 
+    <one-to-many field="recipes" target-entity="Recipes" mapped-by="user">
+      <cascade>
+          <cascade-remove/>
+      </cascade>
+    </one-to-many>
+
   </entity>
 </doctrine-mapping>

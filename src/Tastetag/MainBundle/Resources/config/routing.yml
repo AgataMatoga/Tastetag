@@ -52,3 +52,6 @@ login_check:
     pattern:   /login_check
 logout:
     pattern: /logout
+user_profile:
+    pattern:  /profile/{user_id}
+    defaults: { _controller: TastetagMainBundle:User:profile }

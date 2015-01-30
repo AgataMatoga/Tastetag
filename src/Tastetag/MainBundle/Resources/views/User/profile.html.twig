@@ -1,0 +1,19 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+  {% stylesheets '@TastetagMainBundle/Resources/public/css/style.css' %}
+    	<link rel="stylesheet" href="{{ asset_url }}">
+	{% endstylesheets %}
+{% endblock %}
+
+
+
+{% block body %}
+	<h2>Profil użytkownika {{ user.username }}</h2>
+	{% for recipe in recipes %}
+    <a href="{{ path('recipe_show', {'id': recipe.id}) }}" class="recipe-grid-item">
+    	<div class="recipe-thumb" style="background-image: url({{asset(recipe.images[0].getWebPath())}})"></div>	
+     	<div class="recipe-name">{{ recipe.name }}</div>
+    </a>
+  {% endfor %}
+{% endblock %}

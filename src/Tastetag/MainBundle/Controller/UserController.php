@@ -50,4 +50,16 @@ class UserController extends Controller
 	        array('form' => $form->createView())
 	    );
 	}
+
+    public function profileAction($user_id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $usr = $em->getRepository('TastetagMainBundle:User')->find($user_id);
+        $recipes =  $usr->getRecipes();
+
+        return $this->render('TastetagMainBundle:User:profile.html.twig', array(
+            'user' => $usr,
+            'recipes' => $recipes
+        ));
+    }
 }

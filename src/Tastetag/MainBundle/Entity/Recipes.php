@@ -107,6 +107,14 @@ class Recipes
      */
     private $tags;
 
+     /**
+     * var user
+     * @ORM\ManyToOne(targetEntity="Tastetag\MainBundle\Entity\User", inversedBy="recipes")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     **/
+
+    protected $user;
+
 
     public function __construct()
     {
@@ -377,5 +385,26 @@ class Recipes
                 return $tag;
             }
         }    
+    }
+
+     /**
+     * Set user
+     *
+     * @param Tastetag\MainBundle\Entity\User $user
+     */
+    public function setUser(\Tastetag\MainBundle\Entity\User $user)
+    {
+        $this->user = $user;
+        $this->user->addRecipe($this);
+    }
+
+    /**
+     * Get user
+     *
+     * @return Tastetag\MainBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
