@@ -9,38 +9,58 @@
 
 
 {% block body %}
-	
-    <h2>{{ recipe.name }}</h2>
-    <div>Difficulty: {{ recipe.difficulty }}</div>
-    <div>Preparation Time: {{ recipe.prepHour }}h {{ recipe.prepMin }}min</div>
-    <div>Portions: {{ recipe.people }}</div>
-    <div>{{ recipe.description }}</div>
-    <div>Składniki:</div>
-    {% for ingridient in ingridients %}
-        <li>{{ ingridient.name }} - {{ ingridient.amount }} {{ ingridient.unit }}</li>
-    {% endfor %}
+    <div class="recipe-name">{{ recipe.name }}</div>
+    
+    <div class="recipe-column-left">
+        <div class="recipe-main-image">
+            {% for image in recipe.images %}
+                <img src="{{asset(image.getWebPath())}}"> 
+            {% endfor %}
+        </div>
 
-    <div class="recipe-images">
-        {% for image in recipe.images %}
-            <img src="{{asset(image.getWebPath())}}"> 
-        {% endfor %}
+        <div class="ingridients-holder">
+            <h4>Składniki:</h4>
+            <ul>
+            {% for ingridient in ingridients %}
+                <li>{{ ingridient.amount }} {{ ingridient.unit }} {{ ingridient.name }}</li>
+            {% endfor %}
+            </ul>
+        </div>       
     </div>
 
-    <div class="recipe-images">
-    Tags:
+    <div class="recipe-column-right">   
+        <div class="recipe-actions">
+            <a href="{{ path('recipe_edit', { 'id': recipe.id }) }}" class="edit-recipe">Edit</a>
+
+            <form action="{{ path('recipe_delete', { 'id': recipe.id }) }}" method="post" class="delete-recipe-form">
+                {{ form_widget(delete_form) }}
+                <button type="submit" class="delete-recipe">Delete</button>
+            </form>
+        </div>
+
         {% for tag in recipe.tags %}
-            <a href="{{ path('tag_recipes', {'id': tag.id}) }}" class="tag-item">{{ tag.name }}</a> 
+            <a href="{{ path('tag_recipes', {'id': tag.id}) }}" class="tag-item">#{{ tag.name }}</a> 
         {% endfor %}
+
+        <div class="recipe-info-holder">    
+            <div class="recipe-info-item" title="Czas przygotowania">
+                <div class="icon time"></div> {{ recipe.prepHour }}h {{ recipe.prepMin }}min
+            </div>
+            <div class="recipe-info-item" title="Trudność">
+                <div class="icon difficulty"></div>
+                {{ recipe.getdiffDescr }} 
+            </div>
+            <div class="recipe-info-item" title="Ilość porcji">
+                <div class="icon people"></div> {{ recipe.people }} porcji
+            </div>
+        </div>
+
+        <h4>Przygotowanie:</h4>
+
+        <div class="recipe-description">{{ recipe.description }}</div>
+
+        <div>Przepis użytkownika <a href="{{ path('user_profile', {'user_id': recipe.user.id}) }}">{{ recipe.user.username }}</a> </div>
     </div>
-
-    <div>Przepis użytkownika <a href="{{ path('user_profile', {'user_id': recipe.user.id}) }}">{{ recipe.user.username }}</a> </div>
-
-    <a href="{{ path('recipe_edit', { 'id': recipe.id }) }}">Edit</a>
-
-    <form action="{{ path('recipe_delete', { 'id': recipe.id }) }}" method="post">
-  	    {{ form_widget(delete_form) }}
-  	    <button type="submit">Delete</button>
-  	</form>
 
     <div>Comments:</div>
     {% if app.user %}

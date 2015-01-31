@@ -286,6 +286,26 @@ class Recipes
         return $this->difficulty;
     }
 
+    public function getDiffDescr()
+    {   
+        $diffDescr = "";
+        if ($this->difficulty == 1) {
+            $diffDescr = "Bardzo łatwy";
+        } elseif ($this->difficulty == 2) {
+            $diffDescr = "Łatwy";
+        }
+        elseif ($this->difficulty == 3) {
+            $diffDescr = "Średni";
+        }
+        elseif ($this->difficulty == 4) {
+            $diffDescr = "Trudny";
+        }
+        elseif ($this->difficulty == 5) {
+            $diffDescr = "Bardzo trudny";
+        }
+        return $diffDescr;
+    }
+
     /**
      * Set preparationTime
      *
