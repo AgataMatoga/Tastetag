@@ -303,7 +303,7 @@ input[type="number"]#recipe_people {
 }
 a.edit-recipe {
 	display: inline-block;
-	background: blue;
+	background: rgb(50, 50, 50);
 	color: #fff;
 	height: 30px;
 	line-height: 30px;
@@ -321,7 +321,8 @@ form.delete-recipe-form {
 }
 button[type="submit"].delete-recipe {
 	display: inline-block;
-	background: blue;
+	background: rgb(50, 50, 50);
+	font-family: 'Lato';
 	color: #fff;
 	height: 30px;
 	line-height: 30px;
@@ -375,4 +376,37 @@ h4 {
 }
 .recipe-description {
 	line-height: 	22px;
+}
+.add-to-favorite {
+	width: 	50px;
+	border: 2px solid #B33061;
+	color: #B33061;
+	text-align: 	center;
+	background: 	#fff;
+	border-radius: 	7px;
+	padding: 5px;
+	padding-bottom: 10px;
+	text-transform: 	uppercase;	
+	font-size: 	10px;
+	font-weight: bold;
+	display: inline-block;
+	vertical-align: top;
+}
+.add-to-favorite .icon {
+	width: 	30px;
+	height: 	30px;
+	display: 	inline-block;	
+	background: url('../../icon-sprite.png') -188px 4px no-repeat;
+}
+.add-to-favorite input[type="submit"] {
+	border: 0px;
+	background: 	#fff;
+	color: #B33061;
+	text-transform: 	uppercase;	
+	font-size: 	10px;
+	padding: 0px;
+	font-family: 'Lato';
+	font-weight: bold;
+	cursor: pointer;
+	outline: 0;
 }

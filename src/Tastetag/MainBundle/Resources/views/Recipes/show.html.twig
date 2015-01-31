@@ -38,11 +38,14 @@
             </form>
 
             {% if app.user %}
+                <div class="add-to-favorite">
+                <div class="icon">  </div>
                 {% if recipe.isLikedByUser(app.user.id) %}
-                   już polubiłeś ten przepis     
+                   Zapisany    
                 {% else %}
                    {% include 'TastetagMainBundle:Favorites:form.html.twig' with { 'form': favorite_form, 'recipe_id' : recipe.id } %} 
                 {% endif %}
+                </div>
             {% endif %}
         </div>
 
