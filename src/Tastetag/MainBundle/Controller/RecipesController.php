@@ -5,12 +5,15 @@ namespace Tastetag\MainBundle\Controller;
 use Tastetag\MainBundle\Entity\Recipes;
 use Tastetag\MainBundle\Entity\RecipePhoto;
 use Tastetag\MainBundle\Entity\Comments;
+use Tastetag\MainBundle\Entity\Favorites;
 use Tastetag\MainBundle\Entity\Ingridients;
 use Tastetag\MainBundle\Entity\Tags;
+use Tastetag\MainBundle\Entity\User;
 
 use Tastetag\MainBundle\Form\RecipeType;
 use Tastetag\MainBundle\Form\RecipePhotoType;
 use Tastetag\MainBundle\Form\CommentType;
+use Tastetag\MainBundle\Form\FavoriteType;
 use Tastetag\MainBundle\Form\IngridientType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -27,14 +30,18 @@ class RecipesController extends Controller
         $recipe = $em->getRepository('TastetagMainBundle:Recipes')->find($id);
         $deleteForm = $this->createDeleteForm($id);
         $commentForm = $this->createCommentForm();
+        $favoriteForm = $this->createFavoriteForm();
 
         $ingridients = $recipe->getIngridients();
+        $usr= $this->get('security.context')->getToken()->getUser();
 
         return $this->render('TastetagMainBundle:Recipes:show.html.twig', array(
             'recipe' => $recipe,
             'delete_form' => $deleteForm->createView(),
             'comment_form' => $commentForm->createView(),
+            'favorite_form' => $favoriteForm->createView(),
             'ingridients' => $ingridients,
+            'user' => $usr,
         ));
     }
 
@@ -192,6 +199,12 @@ class RecipesController extends Controller
     {
         return $this->createForm(new CommentType(), new Comments());
     }
+
+    private function createFavoriteForm()
+    {
+        return $this->createForm(new FavoriteType(), new Favorites());
+    }
+
 
     private function checkUniqueTags($recipe)
     {   

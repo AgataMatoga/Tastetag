@@ -1,0 +1,6 @@
+<form action="{{ path('recipe_favorite_create', { 'recipe_id' : recipe_id } ) }}" method="post" {{ form_enctype(form) }} class="recipeger">
+    {{ form_rest(form) }}
+    <p>
+        <input type="submit" value="Lubię to!">
+    </p>
+</form>

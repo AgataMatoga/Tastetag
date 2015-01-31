@@ -42,6 +42,12 @@ class User implements UserInterface, \Serializable
 
     protected $comments;
 
+     /**
+     * @ORM\OneToMany(targetEntity="Tastetag\MainBundle\Entity\Favorites", mappedBy="user")
+     */
+
+    protected $favorites;
+
     /**
      * @ORM\OneToMany(targetEntity="Tastetag\MainBundle\Entity\Recipes", mappedBy="user")
      */
@@ -175,4 +181,16 @@ class User implements UserInterface, \Serializable
     {
       return $this->recipes;
     }
+
+    public function addFavorite(\Tastetag\MainBundle\Entity\Favorites $favorites)
+    {
+      $this->favorites[] = $favorites;
+    }
+
+    public function getFavorites()
+    {
+      return $this->favorites;
+    }
+
+
 }

@@ -38,6 +38,14 @@
         </cascade>
     </one-to-many>
 
+    <one-to-many field="favorites" target-entity="Favorites" mapped-by="recipe">
+        <cascade>
+            <cascade-persist/>
+            <cascade-remove/>
+        </cascade>
+    </one-to-many>
+
+
     <many-to-one field="user" target-entity="User">
         <join-column name="user_id" referenced-column-name="id" />
     </many-to-one>

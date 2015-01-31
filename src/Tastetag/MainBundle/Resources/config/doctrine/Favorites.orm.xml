@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Tastetag\MainBundle\Entity\Favorites" table="favorites">
+    <indexes>
+      <index name="recipe_id" columns="recipe_id"/>
+      <index name="user_id" columns="user_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="recipeId" type="integer" column="recipe_id" nullable="true"/>
+    <field name="userId" type="integer" column="user_id" nullable="true"/>
+    
+    <many-to-one field="user" target-entity="User">
+        <join-column name="user_id" referenced-column-name="id" />
+    </many-to-one>
+
+    <many-to-one field="recipe" target-entity="Recipes">
+        <join-column name="recipe_id" referenced-column-name="id" />
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

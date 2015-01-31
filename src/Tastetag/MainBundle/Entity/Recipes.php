@@ -81,16 +81,20 @@ class Recipes
      /**
      * @ORM\OneToMany(targetEntity="Tastetag\MainBundle\Entity\Comments", mappedBy="recipe")
      */
-
     protected $comments;
 
-     /**
+    /**
+     * @ORM\OneToMany(targetEntity="Tastetag\MainBundle\Entity\Favorites", mappedBy="recipe")
+     */
+    protected $favorites;
+
+    /**
      * @var Collection
      * @ORM\OneToMany(targetEntity="Tastetag\MainBundle\Entity\RecipePhoto", mappedBy="recipe")
      */
     protected $images;
 
-     /**
+    /**
      * @var Collection
      * @ORM\OneToMany(targetEntity="Tastetag\MainBundle\Entity\Ingridients", mappedBy="recipe")
      */
@@ -349,6 +353,16 @@ class Recipes
       return $this->comments;
     }
 
+    public function addFavorite(\Tastetag\MainBundle\Entity\Favorites $favorites)
+    {
+      $this->favorites[] = $favorites;
+    }
+
+    public function getFavorites()
+    {
+      return $this->favorites;
+    }
+
     public function addIngridient(\Tastetag\MainBundle\Entity\Ingridients $ingridient)
     {
         $ingridient->addRecipe($this);
@@ -426,5 +440,17 @@ class Recipes
     public function getUser()
     {
         return $this->user;
+    }
+
+    public function isLikedByUser($user_id)
+    {   
+        $check = false;
+        $favorites = $this->favorites->toArray();
+        foreach($favorites as $favorite ) {
+            if($favorite->getUserId() == $user_id) {
+                $check = true;
+            }
+        }
+        return $check;
     }
 }

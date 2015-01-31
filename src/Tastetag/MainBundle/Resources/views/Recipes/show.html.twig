@@ -36,6 +36,14 @@
                 {{ form_widget(delete_form) }}
                 <button type="submit" class="delete-recipe">Delete</button>
             </form>
+
+            {% if app.user %}
+                {% if recipe.isLikedByUser(app.user.id) %}
+                   już polubiłeś ten przepis     
+                {% else %}
+                   {% include 'TastetagMainBundle:Favorites:form.html.twig' with { 'form': favorite_form, 'recipe_id' : recipe.id } %} 
+                {% endif %}
+            {% endif %}
         </div>
 
         {% for tag in recipe.tags %}
