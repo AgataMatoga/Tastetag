@@ -453,4 +453,13 @@ class Recipes
         }
         return $check;
     }
+
+    public function belongsToUser($user_id)
+    {
+        if( $this->user->getId() == $user_id ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

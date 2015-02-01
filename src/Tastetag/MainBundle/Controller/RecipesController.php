@@ -158,6 +158,12 @@ class RecipesController extends Controller
             }
 
             $recipe = $this->checkUniqueTags($entity);
+            $images = $recipe->getImages();
+
+            foreach($images as $image) {
+                $image->upload();
+                $em->persist($image);
+            }
 
             $em->persist($entity);
             $em->flush();

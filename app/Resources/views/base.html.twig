@@ -26,7 +26,9 @@
 						<a href="{{ path('account_register') }}">Sign in</a>
 						<a href="{{ path('recipe_new') }}">Add Recipe</a>
 					</nav>
-					<input type="text" class="nav-search">
+					<form action="{{ path('recipe_search') }}" method="post" class="main-search">
+						<input name="keyword" type="text" class="nav-search" placeholder="Szukaj"/>
+					</form>
 				</div>
             {% endblock %}
         </div>

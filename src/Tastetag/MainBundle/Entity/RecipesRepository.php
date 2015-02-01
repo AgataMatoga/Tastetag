@@ -10,7 +10,7 @@ class RecipesRepository extends EntityRepository
     {
         return $this->getEntityManager()
             ->createQuery(
-                 'SELECT r FROM TastetagMainBundle:Recipes r WHERE r.name LIKE :keyword')->setParameter('keyword', $keyword)
+                 'SELECT r FROM TastetagMainBundle:Recipes r WHERE LOWER(r.name) LIKE LOWER(:keyword)')->setParameter('keyword', '%'.$keyword.'%')
                 //'SELECT p FROM TastetagMainBundle:Recipes p ORDER BY p.name ASC')
             ->getResult();
     }

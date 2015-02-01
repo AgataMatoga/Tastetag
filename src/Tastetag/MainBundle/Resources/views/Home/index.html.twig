@@ -9,11 +9,12 @@
 
 
 {% block body %}
-
-	<form action="{{ path('recipe_search') }}" method="post" >
-		<input name="keyword" type="text" />
-        <input type="submit" value="Szukaj" >
-	</form>
+  <div class="popular-tags-holder"> 
+  {% for tag in tags %}
+      <a href="{{ path('tag_recipes', {'id': tag.id}) }}" class="tag-item">#{{ tag.name }}</a> 
+    {% endfor %}
+  </div>   
+    
 	{% for entity in entities %}
     <a href="{{ path('recipe_show', {'id': entity.id}) }}" class="recipe-grid-item">
     	<div class="recipe-thumb" style="background-image: url({{asset(entity.images[0].getWebPath())}})"></div>	

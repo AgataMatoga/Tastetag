@@ -30,12 +30,14 @@
 
     <div class="recipe-column-right">   
         <div class="recipe-actions">
+            {% if app.user and recipe.belongsToUser(app.user.id) %}
             <a href="{{ path('recipe_edit', { 'id': recipe.id }) }}" class="edit-recipe">Edit</a>
 
             <form action="{{ path('recipe_delete', { 'id': recipe.id }) }}" method="post" class="delete-recipe-form">
                 {{ form_widget(delete_form) }}
                 <button type="submit" class="delete-recipe">Delete</button>
             </form>
+            {% endif %}
 
             {% if app.user %}
                 <div class="add-to-favorite">

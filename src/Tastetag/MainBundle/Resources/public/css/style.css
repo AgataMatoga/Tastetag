@@ -36,17 +36,27 @@ nav.main a {
 	margin: 0 10px;	
 }
 input[type="text"].nav-search {
-	height: 30px;
-	line-height: 30px;
+	height: 36px;
+	line-height: 36px;
 	padding: 0 10px;
 	border-radius: 5px;
 	border: 1px solid rgb(84, 205, 150);
 	outline: 0;
 	display: inline-block;
 	vertical-align: top;
-	margin-top: 19px;
+	margin-top: 16px;
 	margin-left: 40px;
-	width: 200px;
+	width: 230px;
+	transition: all 0.3s;
+}
+input[type="text"].nav-search:hover {
+	background: rgb(239, 247, 243);
+}
+input[type="text"].nav-search:focus {
+	background: rgb(239, 247, 243);
+}
+form.main-search {
+	display: inline-block;	
 }
 .main-outer-container {
 	margin-top: 100px;
@@ -267,13 +277,13 @@ input[type="number"]#recipe_people {
 }
 .tag-item {
 	display: inline-block;
-	height: 28px;
-	line-height: 26px;
+	height: 32px;
+	line-height: 30px;
 	background: rgb(84, 205, 150);
 	color: rgb(84, 205, 150);
 	border-radius: 30px;
 	padding: 0 15px;
-	margin: 0px 1px 5px 0px;
+	margin: 0px 5px 10px 0px;
 	text-decoration: none;
 	transition: all 0.3s;
 	color: 	#fff;
@@ -352,7 +362,8 @@ h4 {
 	font-size: 16px;
 }
 .recipe-info-holder {
-	margin: 20px 0;
+	margin-top: 10px;
+	margin-bottom: 20px;
 }
 .recipe-info-item {
 	margin: 5px 0;
@@ -409,4 +420,9 @@ h4 {
 	font-weight: bold;
 	cursor: pointer;
 	outline: 0;
+}
+.popular-tags-holder {
+	text-align: 	center;
+	width: 600px;
+	margin: 0 auto;
 }

@@ -12,8 +12,10 @@ class HomeController extends Controller
     {
     	$em = $this->getDoctrine()->getEntityManager();
         $entities = $em->getRepository('TastetagMainBundle:Recipes')->findAll();
+        $tags = $em->getRepository('TastetagMainBundle:Tags')->findAllByRecipesCount();
         return $this->render('TastetagMainBundle:Home:index.html.twig', array(
-            'entities' => $entities
+            'entities' => $entities,
+            'tags' => $tags
         ));
     }
 
