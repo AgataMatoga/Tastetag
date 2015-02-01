@@ -9,15 +9,15 @@
 
 
 {% block body %}
-
 	<form action="{{ path('recipe_search') }}" method="post" >
 		<input name="keyword" type="text" />
         <input type="submit" value="Szukaj" >
 	</form>
-	{% for entity in entities %}
-    <a href="{{ path('recipe_show', {'id': entity.id}) }}" class="recipe-grid-item">
-    	<div class="recipe-thumb" style="background-image: url({{asset(entity.images[0].getWebPath())}})"></div>	
-     	<div class="recipe-name">{{ entity.name }}</div>
+
+	{% for result in results %}
+    <a href="{{ path('recipe_show', {'id': result.id}) }}" class="result-grid-item">
+    	<div class="recipe-thumb" style="background-image: url({{asset(result.images[0].getWebPath())}})"></div>	
+     	<div class="recipe-name">{{ result.name }}</div>
     </a>
-  {% endfor %}
+   {% endfor %}
 {% endblock %}

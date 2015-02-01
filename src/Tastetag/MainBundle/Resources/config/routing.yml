@@ -66,3 +66,11 @@ logout:
 user_profile:
     pattern:  /profile/{user_id}
     defaults: { _controller: TastetagMainBundle:User:profile }
+recipe_search: 
+      pattern: /search
+      defaults: { _controller: TastetagMainBundle:Home:search }
+      requirements: 
+        _method: POST
+search_result:
+      pattern: /results/{key}
+      defaults: { _controller: TastetagMainBundle:Home:results } 

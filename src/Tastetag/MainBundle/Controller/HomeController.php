@@ -4,6 +4,7 @@ namespace Tastetag\MainBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends Controller
 {
@@ -37,4 +38,23 @@ class HomeController extends Controller
                     )
             );
         }
+
+    public function searchAction(Request $req)
+        {
+            $q = $req->request->all();
+            $key = $q['keyword'];
+
+            $em = $this->getDoctrine()->getEntityManager();
+            $results = $em->getRepository('TastetagMainBundle:Recipes')->findAllByKeyword($key);
+            return $this->render('TastetagMainBundle:Home:search.html.twig', array('results' => $results));
+        }
+
+    // public function resultsAction()
+
+    //     {
+    //         $em = $this->getDoctrine()->getEntityManager();
+    //         $results = $em->getRepository('TastetagMainBundle:Recipes')->findAll();
+    //         return $this->render('TastetagMainBundle:Home:search.html.twig', array('results' => $results));
+    //     }
+
 }

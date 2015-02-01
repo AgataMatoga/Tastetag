@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Recipes
  *
  * @ORM\Table(name="recipes")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Tastetag\MainBundle\Entity\RecipesRepository")
  */
 class Recipes
 {
