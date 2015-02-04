@@ -9,6 +9,13 @@
         {% block stylesheets %}
 		{% endblock %}
 		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+		{% block javascripts %}
+			{% javascripts '@TastetagMainBundle/Resources/public/js/*' %}
+				<script src="{{ asset_url }}"></script>
+			{% endjavascripts %}
+		{% endblock %}
+
+		
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 		<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
     </head>
@@ -37,7 +44,6 @@
 				{% block body %}{% endblock %}
 			</div>
 		</div>
-        {% block javascripts %}{% endblock %}
 		
     </body>
 </html>

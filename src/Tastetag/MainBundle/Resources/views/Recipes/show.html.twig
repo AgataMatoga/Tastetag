@@ -6,16 +6,18 @@
 	{% endstylesheets %}
 {% endblock %}
 
-
-
 {% block body %}
     <div class="recipe-name">{{ recipe.name }}</div>
     
     <div class="recipe-column-left">
         <div class="recipe-main-image">
-            {% for image in recipe.images %}
-                <img src="{{asset(image.getWebPath())}}"> 
-            {% endfor %}
+            <div class="pikachoose">
+                <ul id="pikame" >
+                    {% for image in recipe.images %}
+                        <li><img src="{{asset(image.getWebPath())}}"></li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
 
         <div class="ingridients-holder">
@@ -85,4 +87,12 @@
         <div>{{ comment.createdAt|date('Y-m-d H:i') }}</div>
     {% endfor %}
 
+<script language="javascript">
+    $(document).ready(
+        function (){
+            $("#pikame").PikaChoose({autoPlay:false});
+        });
+</script>
+
 {% endblock %}
+
