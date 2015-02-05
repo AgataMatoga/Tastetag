@@ -21,11 +21,11 @@ class RecipeType extends AbstractType
         $builder->add('people', 'integer', array('label' => 'Portions'));
         $builder->add('difficulty', 'choice', array(
             'choices'   => array(
-                '1'   => 'Very Easy',
-                '2' => 'Easy',
-                '3'   => 'Medium',
-                '4' => 'Quite difficult',
-                '5'   => 'Difficult',
+                '1'   => 'Bardzo łatwy',
+                '2' => 'Łatwy',
+                '3'   => 'Średni',
+                '4' => 'Raczej trudny',
+                '5'   => 'Trudny',
             )
         ));
         $builder->add('ingridients', 'collection', array(

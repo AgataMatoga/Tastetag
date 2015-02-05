@@ -11,12 +11,11 @@
 {% block body %}
 
 <form action="{{ path('tag_search') }}" method="post" >
-	<input name="tag1" type="text" placeholder="Tag" value="{{ tag.name }}"/>
-	<input name="tag2" type="text" placeholder="Tag" />
-	<input name="tag3" type="text" placeholder="Tag" />
+	<input name="tag1" type="text" placeholder="Tag" value="{{ req['tag1'] }}"/>
+	<input name="tag2" type="text" placeholder="Tag" value="{{ req['tag2'] }}"/>
+	<input name="tag3" type="text" placeholder="Tag" value="{{ req['tag3'] }}"/>
     <div><input type="submit" value="Szukaj" ></div>
 </form>
-<h2>Recipes form tag "{{ tag.name }}"</h2>
 	
 	{% for recipe in recipes %}
 	    <a href="{{ path('recipe_show', {'id': recipe.id}) }}" class="recipe-grid-item">

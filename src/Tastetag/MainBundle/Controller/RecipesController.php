@@ -19,6 +19,11 @@ use Tastetag\MainBundle\Form\IngridientType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+
 
 
 class RecipesController extends Controller
@@ -95,6 +100,17 @@ class RecipesController extends Controller
             }
             $em->flush();
 
+            $aclProvider = $this->get('security.acl.provider');
+            $objectIdentity = ObjectIdentity::fromDomainObject($recipe);
+            $acl = $aclProvider->createAcl($objectIdentity);
+
+            $securityContext = $this->get('security.context');
+            $user = $securityContext->getToken()->getUser();
+            $securityIdentity = UserSecurityIdentity::fromAccount($user);
+
+            $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
+            $aclProvider->updateAcl($acl);
+
             return $this->redirect($this->generateUrl('homepage'));
         }
 
@@ -106,9 +122,17 @@ class RecipesController extends Controller
     }
 
     public function editAction($id)
-    {
+    {   
         $em = $this->getDoctrine()->getManager();
+
         $entity = $em->getRepository('TastetagMainBundle:Recipes')->find($id);
+
+        $securityContext = $this->get('security.context');
+
+        if (false === $securityContext->isGranted('EDIT', $entity)) {
+            return $this->redirect($this->generateUrl('homepage'));
+        }
+
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Recipe entity.');
         }

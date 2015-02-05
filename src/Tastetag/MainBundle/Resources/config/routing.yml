@@ -71,6 +71,16 @@ recipe_search:
       defaults: { _controller: TastetagMainBundle:Home:search }
       requirements: 
         _method: POST
+recipe_advanced_search: 
+      pattern: /advanced_search
+      defaults: { _controller: TastetagMainBundle:Home:advancedSearch }
+      requirements: 
+        _method: POST
 search_result:
       pattern: /results/{key}
-      defaults: { _controller: TastetagMainBundle:Home:results } 
+      defaults: { _controller: TastetagMainBundle:Home:results }
+tag_search: 
+      pattern: /tag_search
+      defaults: { _controller: TastetagMainBundle:Tags:tagSearch }
+      requirements: 
+        _method: POST

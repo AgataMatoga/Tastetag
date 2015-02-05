@@ -5,6 +5,11 @@ namespace Tastetag\MainBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+
 
 class HomeController extends Controller
 {
@@ -49,6 +54,18 @@ class HomeController extends Controller
             $em = $this->getDoctrine()->getEntityManager();
             $results = $em->getRepository('TastetagMainBundle:Recipes')->findAllByKeyword($key);
             return $this->render('TastetagMainBundle:Home:search.html.twig', array('results' => $results));
+        }
+
+      public function advancedSearchAction(Request $req)
+        {
+            $q = $req->request->all();
+            $key = $q['keyword'];
+            $maxTime = $q['max_time'];
+            $maxDifficulty = $q['max_difficulty'];
+
+            $em = $this->getDoctrine()->getEntityManager();
+            $results = $em->getRepository('TastetagMainBundle:Recipes')->findAllByFilters($key, $maxTime, $maxDifficulty);
+            return $this->render('TastetagMainBundle:Home:search.html.twig', array('results' => $results, 'req' => $q));
         }
 
     // public function resultsAction()
