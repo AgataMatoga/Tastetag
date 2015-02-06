@@ -36,6 +36,9 @@ nav.main a {
 	text-decoration: 	none;
 	margin: 0 10px;	
 }
+nav.main a .admin-red {
+	color: 	rgb(225, 101, 101);
+}
 input[type="text"].nav-search {
 	height: 36px;
 	line-height: 36px;
@@ -81,6 +84,7 @@ input[type="number"] {
 }
 textarea {
 	height: 	100px;
+	line-height: 20px;
 }
 form label {
 	width: 100px;
@@ -312,7 +316,7 @@ input[type="number"]#recipe_people {
 }
 a.edit-recipe {
 	display: inline-block;
-	background: rgb(50, 50, 50);
+	background: rgb(90, 90, 90);
 	color: #fff;
 	height: 30px;
 	line-height: 30px;
@@ -330,7 +334,7 @@ form.delete-recipe-form {
 }
 button[type="submit"].delete-recipe {
 	display: inline-block;
-	background: rgb(50, 50, 50);
+	background: rgb(90, 90, 90);
 	font-family: 'Lato';
 	color: #fff;
 	height: 30px;
@@ -386,6 +390,7 @@ h4 {
 }
 .recipe-description {
 	line-height: 	22px;
+	margin-bottom: 30px;
 }
 .add-to-favorite {
 	width: 	50px;
@@ -452,6 +457,7 @@ h4 {
 	left: 20px;
 	top: 10px;
 	box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.2);
+	cursor: default;
 }
 footer {
 	width: 100%;
@@ -465,6 +471,95 @@ footer .epi-link {
 	color: 	#54CD96;
 	float: right;
 	text-decoration: none;
+}
+.comments-holder {
+	border-top: 1px solid #dedede;
+	padding-top: 20px;
+	margin-top: 40px;
+}
+.comment-form label {
+	display: 	none;	
+}
+.comment-form {
+	margin-bottom: 10px;
+}
+.comment-form textarea {
+	margin-top: 4px;
+	width: 97%;
+}
+.comment-item {
+	margin-bottom: 10px;
+	border-radius: 5px;
+	background-color: #dedede;
+	padding: 10px;
+}
+.comment-autor {
+	font-size: 	16px;
+	font-weight: 	bold;
+}
+.comment-date {
+	color: #868686;
+	font-size: 12px;
+	margin-top: 1px;
+}
+.comment-content {
+	margin: 10px 0;
+}
+.tag-search-form {
+	text-align: center;
+}
+input[type="text"].tag-input {
+	border-radius: 30px;
+	border-color: #54CD96;
+	width: 140px;
+	margin: 10px 5px;
+	padding: 0 20px;
+}
+.tag-plus {
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 15px;
+	font-size: 18px;
+	color: #54CD96;
+}
+.submit-tags {
+	border-radius: 20px;
+	width: 150px;
+	margin-top: 10px;
+}
+.selected-tags {
+	font-size: 30px;
+	margin-bottom: 20px;
+	font-weight: 600;
+}
+.ui-autocomplete {
+	background-color: #fff;
+	padding: 10px;
+	list-style: none;
+	width: 100px;
+	border: 1px solid #dedede;
+}
+li.ui-menu-item {
+	height: 28px;
+	line-height: 26px;
+	border: 1px solid #54CD96;
+	color: 	#54CD96;
+	border-radius: 30px;
+	padding: 0 15px;
+	margin: 3px 0;
+	text-decoration: none;
+	transition: all 0.3s; 
+	width: auto;
+	cursor: pointer;
+	display: 	inline-block;	
+}
+li.ui-menu-item:hover {
+	background-color: #54CD96;
+	color: 	#fff;	
+}
+li.ui-state-focus {
+	background-color: #54CD96;
+	color: 	#fff;	
 }
 /*slider styles*/
 /* Just for the example. Fee free to delete these three lines */

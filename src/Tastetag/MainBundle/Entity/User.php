@@ -66,10 +66,22 @@ class User implements UserInterface, \Serializable
 
     protected $recipes;
 
+    protected $admin;
+
 
     public function __construct()
     {
         $this->salt = md5(uniqid(null, true));
+        $this->admin = false;
+    }
+
+    public function getRoles()
+    {       
+        if($this->admin) {
+            return array('ROLE_ADMIN');
+        } else {
+            return array('ROLE_USER');
+        }
     }
 
     /**
@@ -152,8 +164,6 @@ class User implements UserInterface, \Serializable
         return $this->salt;
     }
 
-    public function getRoles() { return array('ROLE_USER'); }
-
     public function eraseCredentials() {}
 
     public function serialize()
@@ -202,6 +212,29 @@ class User implements UserInterface, \Serializable
     public function getFavorites()
     {
       return $this->favorites;
+    }
+
+    /**
+     * Set admin
+     *
+     * @param boolean $admin
+     * @return User
+     */
+    public function setAdmin($admin)
+    {
+        $this->admin = $admin;
+
+        return $this;
+    }
+
+    /**
+     * Get admin
+     *
+     * @return boolean 
+     */
+    public function getAdmin()
+    {
+        return $this->admin;
     }
 
 }

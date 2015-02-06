@@ -1,6 +1,4 @@
 <form action="{{ path('recipe_comment_create', { 'recipe_id' : recipe_id } ) }}" method="post" {{ form_enctype(form) }} class="recipeger">
     {{ form_rest(form) }}
-    <p>
-        <input type="submit" value="Submit">
-    </p>
+        <input type="submit" value="Wyślij" class="btn">
 </form>

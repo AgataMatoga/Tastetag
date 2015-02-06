@@ -133,7 +133,7 @@ class RecipesController extends Controller
 
         $securityContext = $this->get('security.context');
 
-        if (false === $securityContext->isGranted('EDIT', $entity)) {
+        if ((false === $securityContext->isGranted('EDIT', $entity)) and ($securityContext->getToken()->getUser()->getAdmin() === false)) {
             return $this->redirect($this->generateUrl('homepage'));
         }
 

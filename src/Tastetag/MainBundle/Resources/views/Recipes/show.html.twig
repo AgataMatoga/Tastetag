@@ -7,10 +7,21 @@
 {% endblock %}
 
 {% block body %}
-    <div class="recipe-name">{{ recipe.name }}</div>
+    <div class="recipe-name">{{ recipe.name }}
+    <div class="recipe-owner-actions">
+         {% if app.user and (recipe.belongsToUser(app.user.id) or app.user.admin) %}
+            <a href="{{ path('recipe_edit', { 'id': recipe.id }) }}" class="edit-recipe">Edytuj</a>
+
+            <form action="{{ path('recipe_delete', { 'id': recipe.id }) }}" method="post" class="delete-recipe-form">
+                {{ form_widget(delete_form) }}
+                <button type="submit" class="delete-recipe">Usuń</button>
+            </form>
+        {% endif %}
+    </div>
+    </div>
     
     <div class="recipe-column-left">
-        <span class="fav-count"> {{ recipe.countFavorites() }} </span>
+        <span class="fav-count" title="Polubienia: {{ recipe.countFavorites() }}"> {{ recipe.countFavorites() }} </span>
         <div class="recipe-main-image">
             <div class="pikachoose">
                 <ul id="pikame" >
@@ -33,14 +44,6 @@
 
     <div class="recipe-column-right">   
         <div class="recipe-actions">
-            {% if app.user and recipe.belongsToUser(app.user.id) %}
-            <a href="{{ path('recipe_edit', { 'id': recipe.id }) }}" class="edit-recipe">Edit</a>
-
-            <form action="{{ path('recipe_delete', { 'id': recipe.id }) }}" method="post" class="delete-recipe-form">
-                {{ form_widget(delete_form) }}
-                <button type="submit" class="delete-recipe">Delete</button>
-            </form>
-            {% endif %}
 
             {% if app.user %}
                 <div class="add-to-favorite">
@@ -75,18 +78,24 @@
 
         <div class="recipe-description">{{ recipe.description }}</div>
 
-        <div>Przepis użytkownika <a href="{{ path('user_profile', {'user_id': recipe.user.id}) }}">{{ recipe.user.username }}</a> </div>
-    </div>
+        <div class="recipe-autor">Przepis użytkownika <a href="{{ path('user_profile', {'user_id': recipe.user.id}) }}">{{ recipe.user.username }}</a> </div>
 
-    <div>Comments:</div>
-    {% if app.user %}
-        {% include 'TastetagMainBundle:Comments:form.html.twig' with { 'form': comment_form, 'recipe_id' : recipe.id } %}
-    {% endif %}
-    {% for comment in recipe.comments %}
-        <div>{{ comment.user.username }}</div>
-        <div>{{ comment.content }}</div>
-        <div>{{ comment.createdAt|date('Y-m-d H:i') }}</div>
-    {% endfor %}
+        <div class="comments-holder">       
+            <div>Skomentuj przepis:</div>
+            <div class="comment-form">
+            {% if app.user %}
+                {% include 'TastetagMainBundle:Comments:form.html.twig' with { 'form': comment_form, 'recipe_id' : recipe.id } %}
+            {% endif %}
+            </div>
+            {% for comment in recipe.comments %}
+                <div class="comment-item">
+                    <div><span class="comment-autor">{{ comment.user.username }}</span> skomentował:</div>
+                    <div class="comment-date">{{ comment.createdAt|date('Y-m-d H:i') }}</div> 
+                    <div class="comment-content">{{ comment.content }}</div> 
+                </div>
+            {% endfor %}
+            </div>
+        </div>
 
 <script language="javascript">
     $(document).ready(

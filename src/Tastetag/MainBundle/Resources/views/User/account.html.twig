@@ -11,7 +11,7 @@
 {% block body %}
 	<h2>Moje konto</h2>
 
-	<div>Moje przepisy</div>
+	<div>Moje przepisy {% if user.admin == 0 %} Jestem adminme {% endif %}</div>
 	{% for recipe in recipes %}
     <a href="{{ path('recipe_show', {'id': recipe.id}) }}" class="recipe-grid-item">
     	<div class="recipe-thumb" style="background-image: url({{asset(recipe.images[0].getWebPath())}})"></div>	

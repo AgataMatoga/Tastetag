@@ -71,6 +71,8 @@ class UserController extends Controller
         $recipes =  $usr->getRecipes();
         $fav_recipes =  $em->getRepository('TastetagMainBundle:Recipes')->findAllFavoritedByUser($usr->getId());
 
+        $deleteForms = array();
+
         foreach ($recipes as $recipe) {
             $deleteForms[$recipe->getId()] = $this->createDeleteRecipeForm($recipe->getId())->createView();
         }
