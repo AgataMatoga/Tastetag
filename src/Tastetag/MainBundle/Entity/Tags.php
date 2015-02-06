@@ -4,6 +4,7 @@ namespace Tastetag\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Tags
@@ -14,6 +15,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Tags
 {
     /**
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Tag must be at least {{ limit }} characters long",
+     *      maxMessage = "Tag cannot be longer than {{ limit }} characters long"
+     * )
      * @var string
      */
     private $name;

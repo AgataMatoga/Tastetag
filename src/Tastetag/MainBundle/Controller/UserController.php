@@ -62,4 +62,19 @@ class UserController extends Controller
             'recipes' => $recipes
         ));
     }
+
+    public function accountAction()
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $usr = $this->get('security.context')->getToken()->getUser();
+        $recipes =  $usr->getRecipes();
+        $fav_recipes =  $em->getRepository('TastetagMainBundle:Recipes')->findAllFavoritedByUser($usr->getId());
+
+        return $this->render('TastetagMainBundle:User:account.html.twig', array(
+            'user' => $usr,
+            'recipes' => $recipes,
+            'fav_recipes' => $fav_recipes
+        ));
+    }
 }

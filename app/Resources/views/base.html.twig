@@ -25,13 +25,15 @@
 				<div class="content-limiter">
 					<a href="{{ path('homepage') }}" class="logo">Tastetag</a>
 					<nav class="main">	
+						<a href="{{ path('recipe_new') }}">+ Dodaj przepis</a>
 						{% if app.user %}
-							<a href="{{ path('logout') }}">{{ app.user.username }} (logout)</a>
+							<a href="{{ path('my_account') }}">Moje konto ({{ app.user.username }}) </a>
+							<a href="{{ path('logout') }}">Wyloguj się</a>
 						{% else %}
-							<a href="{{ path('login') }}">Log in</a>
+							<a href="{{ path('login') }}">Zaloguj się</a>
+							<a href="{{ path('account_register') }}">Zarejestruj się</a>
 						{% endif %}
-						<a href="{{ path('account_register') }}">Sign in</a>
-						<a href="{{ path('recipe_new') }}">Add Recipe</a>
+						
 					</nav>
 					<form action="{{ path('recipe_search') }}" method="post" class="main-search">
 						<input name="keyword" type="text" class="nav-search" placeholder="Szukaj"/>
@@ -44,6 +46,13 @@
 				{% block body %}{% endblock %}
 			</div>
 		</div>
+
+		<footer>	
+			<div class="content-limiter">	
+			Projekt wykonany w ramach przedmiotu Zaawansowane techniki programowania. Powered by Agata Matoga.
+			<a href="www.epi.uj.edu.pl" class="epi-link">Elektroniczne Przetwarzanie Informacji</a>
+			</div>	
+		</footer>
 		
     </body>
 </html>

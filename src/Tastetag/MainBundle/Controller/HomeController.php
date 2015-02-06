@@ -53,7 +53,7 @@ class HomeController extends Controller
 
             $em = $this->getDoctrine()->getEntityManager();
             $results = $em->getRepository('TastetagMainBundle:Recipes')->findAllByKeyword($key);
-            return $this->render('TastetagMainBundle:Home:search.html.twig', array('results' => $results));
+            return $this->render('TastetagMainBundle:Home:search.html.twig', array('results' => $results, 'req' => $q));
         }
 
       public function advancedSearchAction(Request $req)
@@ -61,7 +61,7 @@ class HomeController extends Controller
             $q = $req->request->all();
             $key = $q['keyword'];
             $maxTime = $q['max_time'];
-            $maxDifficulty = $q['max_difficulty'];
+            $maxDifficulty = $q['max_diff'];
 
             $em = $this->getDoctrine()->getEntityManager();
             $results = $em->getRepository('TastetagMainBundle:Recipes')->findAllByFilters($key, $maxTime, $maxDifficulty);

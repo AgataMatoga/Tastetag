@@ -5,6 +5,7 @@ body {
 	font-family: 'Lato';
 	font-size: 14px;
 	color: #1D1D1D;
+	margin: 0px;
 }
 .content-limiter {
 	width: 1000px;
@@ -23,7 +24,7 @@ body {
 	box-shadow: 0px 1px 7px 1px rgba(0,0,0,0.1);
 }
 .nav-container a.logo {
-	color: rgb(84, 205, 150);
+	color: #54CD96;
 	text-decoration: none;
 }
 nav.main {
@@ -40,7 +41,7 @@ input[type="text"].nav-search {
 	line-height: 36px;
 	padding: 0 10px;
 	border-radius: 5px;
-	border: 1px solid rgb(84, 205, 150);
+	border: 1px solid #54CD96;
 	outline: 0;
 	display: inline-block;
 	vertical-align: top;
@@ -60,6 +61,7 @@ form.main-search {
 }
 .main-outer-container {
 	margin-top: 100px;
+	min-height: 600px;
 }
 input[type="text"], textarea, select, input[type="number"], input[type="password"], input[type="email"] {
 	height: 30px;
@@ -102,7 +104,7 @@ form label {
 	text-decoration: none;
 }
 .recipe-grid-item:hover {
-	border-color: rgb(84, 205, 150);
+	border-color: #54CD96;
 }
 .recipe-grid-item .recipe-name {
 	font-size: 	14px;
@@ -174,8 +176,8 @@ form label {
 	text-align: 	center;
 }
 .tag-form-row input[type="text"].done-tag {
-	border-color: rgb(84, 205, 150);	
-	color: rgb(84, 205, 150);
+	border-color: #54CD96;	
+	color: #54CD96;
 }
 .recipe-images img {
 	max-width: 200px;
@@ -211,7 +213,7 @@ a.delete-cross {
 	vertical-align: top;
 	height: 34px;
 	line-height: 34px;
-	background: rgb(84, 205, 150);
+	background: #54CD96;
 	color: #fff;
 	padding: 0 30px;
 	border-radius: 3px;
@@ -251,7 +253,7 @@ a.delete-cross {
 
 a.add-item-link {
 	text-decoration: 	none;
-	color: 	rgb(84, 205, 150);
+	color: 	#54CD96;
 }
 .prep-time div {
 	display: 	inline-block;
@@ -279,8 +281,8 @@ input[type="number"]#recipe_people {
 	display: inline-block;
 	height: 32px;
 	line-height: 30px;
-	background: rgb(84, 205, 150);
-	color: rgb(84, 205, 150);
+	background: #54CD96;
+	color: #54CD96;
 	border-radius: 30px;
 	padding: 0 15px;
 	margin: 0px 5px 10px 0px;
@@ -296,6 +298,7 @@ input[type="number"]#recipe_people {
 	display: inline-block;
 	vertical-align: top;
 	margin-right: 30px;
+	position: relative;
 }
 .recipe-column-right {
 	width: 650px;
@@ -435,6 +438,33 @@ h4 {
 	height: 	200px;
 	background-size: 	cover;
 	background-position: center;
+}
+.fav-count {
+	height: 25px;
+	padding: 0 10px;
+	border-radius: 25px;
+	line-height: 25px;
+	color: #fff;
+	background-color: #B33061;
+	display: inline-block;
+	position: absolute;
+	z-index: 1;
+	left: 20px;
+	top: 10px;
+	box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.2);
+}
+footer {
+	width: 100%;
+	padding: 20px 0;
+	margin-top: 80px;
+	background: #202020;
+	color: #DFDFDF;
+	font-weight: 300;
+}
+footer .epi-link {
+	color: 	#54CD96;
+	float: right;
+	text-decoration: none;
 }
 /*slider styles*/
 /* Just for the example. Fee free to delete these three lines */

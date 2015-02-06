@@ -4,6 +4,7 @@ namespace Tastetag\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Recipes
@@ -41,14 +42,13 @@ class Recipes
      */
     private $difficulty;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="preparation_time", type="time", nullable=true)
-     */
-    private $preparationTime;
-
      /**
+     * @Assert\Range(
+     *      min = 2,
+     *      max = 60,
+     *      minMessage = "Miutes must be at least {{ limit }} ",
+     *      maxMessage = "Minutes must be below {{ limit }}"
+     * )
      * @var integer
      *
      * @ORM\Column(name="prep_min", type="integer", nullable=false)
@@ -311,29 +311,6 @@ class Recipes
     }
 
     /**
-     * Set preparationTime
-     *
-     * @param \DateTime $preparationTime
-     * @return Recipes
-     */
-    public function setPreparationTime($preparationTime)
-    {
-        $this->preparationTime = $preparationTime;
-
-        return $this;
-    }
-
-    /**
-     * Get preparationTime
-     *
-     * @return \DateTime 
-     */
-    public function getPreparationTime()
-    {
-        return $this->preparationTime;
-    }
-
-    /**
      * Get id
      *
      * @return integer 
@@ -461,5 +438,10 @@ class Recipes
         } else {
             return false;
         }
+    }
+
+    public function countFavorites()
+    {
+        return count($this->favorites);
     }
 }

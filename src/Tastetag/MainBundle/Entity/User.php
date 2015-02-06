@@ -22,11 +22,23 @@ class User implements UserInterface, \Serializable
     protected $id;
 
     /**
+     * @Assert\Length(
+     *      min = 6,
+     *      max = 50,
+     *      minMessage = "Your name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your name cannot be longer than {{ limit }} characters long"
+     * )
      * @ORM\Column(type="string", length=45)
      */
     protected $username;
 
     /**
+     * @Assert\Length(
+     *      min = 7,
+     *      max = 50,
+     *      minMessage = "Password must be at least {{ limit }} characters long",
+     *      maxMessage = "Password cannot be longer than {{ limit }} characters long"
+     * )
      * @ORM\Column(type="string", length=255)
      */
     protected $password;
@@ -191,6 +203,5 @@ class User implements UserInterface, \Serializable
     {
       return $this->favorites;
     }
-
 
 }

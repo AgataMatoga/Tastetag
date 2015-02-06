@@ -1,0 +1,26 @@
+Tastetag\MainBundle\Entity\Recipes:
+    properties:
+        createdAt:
+            - NotBlank: ~
+            - DateTime: ~
+        name:
+            - NotBlank: ~
+            - MinLength: {limit: 3}
+            - MaxLength: {limit: 255}
+        description:
+            - NotBlank: ~
+            - MinLength: {limit: 3}
+            - MaxLength: {limit: 5000}
+        difficulty:
+            - NotBlank: ~
+            - Choice: { 0: "1", 1: "2", 2: "3", 3: "4", 4: "5" }
+        prepHour:
+            - NotBlank: ~
+        prepMin:
+            - NotBlank: ~
+Tastetag\MainBundle\Entity\Tags:
+    properties:
+        name:
+            - NotBlank: ~
+            - MinLength: {limit: 2}
+            - MaxLength: {limit: 100}

@@ -14,12 +14,25 @@ class RecipesRepository extends EntityRepository
             ->getResult();
     }
 
+     public function findAllFavoritedByUser($user_id)
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                 'SELECT r FROM TastetagMainBundle:Recipes r WHERE r.id IN (
+                 SELECT f.recipeId FROM TastetagMainBundle:Favorites f WHERE f.userId = :user_id )')
+            ->setParameter('user_id', $user_id)
+            ->getResult();
+
+    }
+
     public function findAllByFilters($keyword, $maxTime, $maxDifficulty)
     {
         return $this->getEntityManager()
             ->createQuery(
                  'SELECT r FROM TastetagMainBundle:Recipes r WHERE LOWER(r.name) LIKE LOWER(:keyword) 
-                 AND r.difficulty <= :maxDifficulty')->setParameter('keyword', '%'.$keyword.'%')->setParameter('maxDifficulty', $maxDifficulty)
+                 AND r.difficulty <= :maxDifficulty AND (r.prepHour * 60 + r.prepMin) <= :maxTime')->setParameter('keyword', '%'.$keyword.'%')
+            ->setParameter('maxDifficulty', $maxDifficulty)
+            ->setParameter('maxTime', $maxTime)
             ->getResult();
     }
 

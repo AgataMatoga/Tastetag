@@ -12,19 +12,20 @@
 	<form action="{{ path('recipe_advanced_search') }}" method="post" >
 		<input name="keyword" type="text" placeholder="Szukaj..." />
     <div>Trudność - co najwyżej:</div>
-    <select name="max_difficulty">
-      <option value="1">Bardzo łatwa</option>
-      <option value="2">Łatwa</option>
-      <option value="3">Średnia</option>
-      <option value="4">Raczej trudna</option>
-      <option value="5">Bardzo trudna</option>
+    <select name="max_diff">
+      <option value="1" {% if (req['max_diff'] is defined) and req['max_diff'] == "1" %} selected {% endif %} >Bardzo łatwa</option>
+      <option value="2" {% if (req['max_diff'] is defined) and req['max_diff'] == "2" %} selected {% endif %} >Łatwa</option>
+      <option value="3" {% if (req['max_diff'] is defined) and req['max_diff'] == "3" %} selected {% endif %} >Średnia</option>
+      <option value="4" {% if (req['max_diff'] is defined) and req['max_diff'] == "4" %} selected {% endif %} >Raczej trudna</option>
+      <option value="5" {% if (req['max_diff'] is defined) and req['max_diff'] == "5" %} selected {% endif %} >Bardzo trudna</option>
     </select>
     <div>Max. czas przygotowania</div>
     <select name="max_time">
-      <option value="10" {% if req['max_time'] == "10" %} selected {% endif %}>10min</option>
-      <option value="30" {% if req['max_time'] == "30" %} selected {% endif %}>30min</option>
-      <option value="60" {% if req['max_time'] == "60" %} selected {% endif %}>1h</option>
-      <option value="120" {% if req['max_time'] == "120" %} selected {% endif %}>2h</option>
+      <option value="1000">Dowolny</option>
+      <option value="10" {% if (req['max_time'] is defined) and req['max_time'] == "10" %} selected {% endif %}>10min</option>
+      <option value="30" {% if (req['max_time'] is defined) and req['max_time'] == "30" %} selected {% endif %}>30min</option>
+      <option value="60" {% if (req['max_time'] is defined) and req['max_time'] == "60" %} selected {% endif %}>1h</option>
+      <option value="120" {% if (req['max_time'] is defined) and req['max_time'] == "120" %} selected {% endif %}>2h</option>
     </select>
     <div><input type="submit" value="Szukaj" ></div>
     
@@ -34,7 +35,8 @@
     <div  class="result-grid-item"> 
     	<div class="recipe-thumb" style="background-image: url({{asset(result.images[0].getWebPath())}})"></div>
       <a href="{{ path('recipe_show', {'id': result.id}) }}">{{ result.name }}</a>	
-      <div class="recipe-difficulty">{{ result.getDiffDescr() }}</div>
+      <div class="recipe-difficulty">Trudność: {{ result.getDiffDescr() }}</div>
+      <div class="recipe-time">Czas przygotowania: {{ result.prepHour }}h {{ result.prepMin }}min</div>
     </div>
    {% endfor %}
 {% endblock %}

@@ -11,7 +11,6 @@
     <field name="name" type="string" column="name" length="255" nullable="false"/>
     <field name="description" type="text" column="description" nullable="false"/>
     <field name="difficulty" type="integer" column="difficulty" nullable="true"/>
-    <field name="preparationTime" type="time" column="preparation_time" nullable="true"/>
     <field name="prepMin" type="integer" column="prep_min" nullable="true"/>
     <field name="prepHour" type="integer" column="prep_hour" nullable="true"/>
     <field name="people" type="integer" column="people" nullable="true"/>
