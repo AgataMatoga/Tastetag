@@ -11,28 +11,32 @@
 {% block body %}
 	<h2>Moje konto</h2>
 
-	<div>Moje przepisy {% if user.admin == 0 %} Jestem adminme {% endif %}</div>
+	<div>Moje przepisy</div>
 	{% for recipe in recipes %}
-    <a href="{{ path('recipe_show', {'id': recipe.id}) }}" class="recipe-grid-item">
+    <div class="recipe-grid-item">
     	<div class="recipe-thumb" style="background-image: url({{asset(recipe.images[0].getWebPath())}})"></div>	
-     	<div class="recipe-name">{{ recipe.name }}</div>
-     	 <a href="{{ path('recipe_edit', { 'id': recipe.id }) }}" class="edit-recipe">Edit</a>
-
-
+     	<a href="{{ path('recipe_show', {'id': recipe.id}) }}" class="recipe-name">{{ recipe.name }}</a>
 
         <form action="{{ path('recipe_delete', { 'id': recipe.id }) }}" method="post" class="delete-recipe-form">
 		    {{ form_widget(deleteForms[recipe.id]) }}
-		    <button type="submit" class="delete-recipe">Delete</button>
+		    <button type="submit" class="delete-recipe">Usuń Przepis</button>
 		    </button>
 		</form>
-    </a>
+
+		<a href="{{ path('recipe_edit', { 'id': recipe.id }) }}" class="edit-recipe">Edytuj</a>
+    </div>
     {% endfor %}
 
     <div>Zapisane przepisy</div>
-	{% for recipe in fav_recipes %}
-	    <a href="{{ path('recipe_show', {'id': recipe.id}) }}" class="recipe-grid-item">
-	    	<div class="recipe-thumb" style="background-image: url({{asset(recipe.images[0].getWebPath())}})"></div>	
-	     	<div class="recipe-name">{{ recipe.name }}</div>
+	{% for fav in favs %}
+	    <a href="{{ path('recipe_show', {'id': fav.recipe.id}) }}" class="recipe-grid-item">
+	    	<div class="recipe-thumb" style="background-image: url({{asset(fav.recipe.images[0].getWebPath())}})"></div>	
+	     	<div class="recipe-name">{{ fav.recipe.name }}</div>
+	     	<form action="{{ path('favorite_delete', { 'id': fav.id }) }}" method="post" class="delete-recipe-form">
+		    {{ form_widget(deleteFavForms[fav.id]) }}
+		    <button type="submit" class="delete-recipe">Usuń z zapisanych</button>
+		    </button>
+		</form>
 	    </a>
 	  {% endfor %}
 {% endblock %}

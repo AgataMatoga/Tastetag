@@ -71,7 +71,7 @@ class TagsController extends Controller
         $number = count($tags);
         $tagsStr = implode(",", $tags);
     	$em = $this->getDoctrine()->getEntityManager();
-        $recipes = $em->getRepository('TastetagMainBundle:Recipes')->findByTags($tagsStr, $number);
+        $recipes = $em->getRepository('TastetagMainBundle:Recipes')->findByTags($tagsStr);
         return $this->render('TastetagMainBundle:Tags:search.html.twig', array(
             'recipes' => $recipes,
             'req' => $q,

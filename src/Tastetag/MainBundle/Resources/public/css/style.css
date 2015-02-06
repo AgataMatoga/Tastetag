@@ -107,8 +107,17 @@ form label {
 	color: #1D1D1D;
 	text-decoration: none;
 }
+a.recipe-name {
+	text-decoration: 	none;
+	margin-bottom: 	10px;
+	display: 	block;	
+	color: 	#1D1D1D;
+}
 .recipe-grid-item:hover {
 	border-color: #54CD96;
+}
+.recipe-grid-item .delete-recipe {
+	margin-bottom: 20px;
 }
 .recipe-grid-item .recipe-name {
 	font-size: 	14px;
@@ -433,8 +442,8 @@ h4 {
 .result-grid-item {
 	border-bottom: 	1px solid #dedede;
 	font-size: 	14px;
-	padding-bottom: 10px;
-	margin-bottom: 10px;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
 }
 .result-grid-item .recipe-thumb {
 	display: 	inline-block;	
@@ -443,6 +452,23 @@ h4 {
 	height: 	200px;
 	background-size: 	cover;
 	background-position: center;
+}
+.result-grid-item .result-info {
+	display: 	inline-block;	
+	vertical-align: 	top;
+	width: 	600px;
+	margin-left: 10px;
+}
+.result-grid-item .result-name{
+	font-size: 28px;
+	color: #323232;
+	text-decoration: none;
+	margin-bottom: 10px;
+	font-weight: 600;
+	display: block;
+}
+.result-tags {
+	margin-top: 	10px;
 }
 .fav-count {
 	height: 25px;
@@ -506,7 +532,10 @@ footer .epi-link {
 	margin: 10px 0;
 }
 .tag-search-form {
-	text-align: center;
+	text-align: 	center;	
+	margin-bottom: 30px;
+	border-bottom: 1px solid #dedede;
+	padding-bottom: 30px;
 }
 input[type="text"].tag-input {
 	border-radius: 30px;
@@ -560,6 +589,22 @@ li.ui-menu-item:hover {
 li.ui-state-focus {
 	background-color: #54CD96;
 	color: 	#fff;	
+}
+.advanced-form-holder {
+	border-bottom: 	1px solid #dedede;
+	padding-bottom: 	20px;
+	margin-bottom: 	20px;
+}
+.advanced-form-holder .input-holder {
+	display: 	inline-block;	
+	vertical-align: 	top;	
+	margin-right: 	4px;
+}
+.advanced-form-holder .input-holder select {
+	height: 	32px;
+}
+.advanced-form-holder .input-holder .btn {
+	margin-top: 	15px;
 }
 /*slider styles*/
 /* Just for the example. Fee free to delete these three lines */

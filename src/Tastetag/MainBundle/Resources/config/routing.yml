@@ -25,6 +25,10 @@ recipe_delete:
     pattern:  /recipes/{id}/delete
     defaults: { _controller: "TastetagMainBundle:Recipes:delete" }
     requirements: { _method: post }
+favorite_delete:
+    pattern:  /favorite/{id}/delete
+    defaults: { _controller: "TastetagMainBundle:Favorites:delete" }
+    requirements: { _method: post }
 recipe_comment_create:
     pattern:  /recipes/{recipe_id}/comment/create
     defaults: { _controller: TastetagMainBundle:Comments:create }

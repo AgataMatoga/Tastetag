@@ -6,6 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Favorites
+ *
+ * @ORM\Table(name="favorites")
+ * @ORM\Entity(repositoryClass="Tastetag\MainBundle\Entity\FavoritesRepository")
  */
 class Favorites
 {

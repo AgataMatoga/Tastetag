@@ -24,10 +24,28 @@
 </div>
 	
 	{% for recipe in recipes %}
-	    <a href="{{ path('recipe_show', {'id': recipe.id}) }}" class="recipe-grid-item">
-	    	<div class="recipe-thumb" style="background-image: url({{asset(recipe.images[0].getWebPath())}})"></div>	
-	     	<div class="recipe-name">{{ recipe.name }}</div>
-	    </a>
+	    <div  class="result-grid-item"> 
+            <div class="recipe-thumb" style="background-image: url({{asset(recipe.images[0].getWebPath())}})"></div>
+            <div class="result-info">
+                <a href="{{ path('recipe_show', {'id': recipe.id}) }}" class="result-name">{{ recipe.name }}</a>  
+                <div class="recipe-info-item" title="Czas przygotowania">
+                    <div class="icon time"></div> {{ recipe.prepHour }}h {{ recipe.prepMin }}min
+                </div>
+                <div class="recipe-info-item" title="Trudność">
+                    <div class="icon difficulty"></div>
+                    {{ recipe.getdiffDescr }} 
+                </div>
+                <div class="recipe-info-item" title="Ilość porcji">
+                    <div class="icon people"></div> {{ recipe.people }} porcji
+                </div>
+
+                <div class="result-tags">   
+                {% for tag in recipe.tags %}
+                    <a href="{{ path('tag_recipes', {'id': tag.id}) }}" class="tag-item">#{{ tag.name }}</a> 
+                {% endfor %}
+                </div>
+            </div>
+        </div>
 	{% endfor %}
 
 <script type="text/javascript">

@@ -9,16 +9,23 @@
 
 
 {% block body %}
+<div class="advanced-form-holder">  
 	<form action="{{ path('recipe_advanced_search') }}" method="post" >
-		<input name="keyword" type="text" placeholder="Szukaj..." />
-    <div>Trudność - co najwyżej:</div>
-    <select name="max_diff">
-      <option value="1" {% if (req['max_diff'] is defined) and req['max_diff'] == "1" %} selected {% endif %} >Bardzo łatwa</option>
-      <option value="2" {% if (req['max_diff'] is defined) and req['max_diff'] == "2" %} selected {% endif %} >Łatwa</option>
-      <option value="3" {% if (req['max_diff'] is defined) and req['max_diff'] == "3" %} selected {% endif %} >Średnia</option>
-      <option value="4" {% if (req['max_diff'] is defined) and req['max_diff'] == "4" %} selected {% endif %} >Raczej trudna</option>
-      <option value="5" {% if (req['max_diff'] is defined) and req['max_diff'] == "5" %} selected {% endif %} >Bardzo trudna</option>
-    </select>
+    <div class="input-holder">
+      <div>Hasło</div>
+  		<input name="keyword" type="text" placeholder="Szukaj..." value="{% if (req['keyword'] is defined) %}{{ req['keyword'] }}{% endif %}"/>
+    </div>
+    <div class="input-holder">
+      <div>Trudność - co najwyżej:</div>
+      <select name="max_diff">
+        <option value="1" {% if (req['max_diff'] is defined) and req['max_diff'] == "1" %} selected {% endif %} >Bardzo łatwa</option>
+        <option value="2" {% if (req['max_diff'] is defined) and req['max_diff'] == "2" %} selected {% endif %} >Łatwa</option>
+        <option value="3" {% if (req['max_diff'] is defined) and req['max_diff'] == "3" %} selected {% endif %} >Średnia</option>
+        <option value="4" {% if (req['max_diff'] is defined) and req['max_diff'] == "4" %} selected {% endif %} >Raczej trudna</option>
+        <option value="5" {% if (req['max_diff'] is defined) and req['max_diff'] == "5" %} selected {% endif %} >Bardzo trudna</option>
+      </select>
+    </div>
+    <div class="input-holder">
     <div>Max. czas przygotowania</div>
     <select name="max_time">
       <option value="1000">Dowolny</option>
@@ -27,16 +34,33 @@
       <option value="60" {% if (req['max_time'] is defined) and req['max_time'] == "60" %} selected {% endif %}>1h</option>
       <option value="120" {% if (req['max_time'] is defined) and req['max_time'] == "120" %} selected {% endif %}>2h</option>
     </select>
-    <div><input type="submit" value="Szukaj" ></div>
-    
-	</form>
-
-	{% for result in results %}
-    <div  class="result-grid-item"> 
-    	<div class="recipe-thumb" style="background-image: url({{asset(result.images[0].getWebPath())}})"></div>
-      <a href="{{ path('recipe_show', {'id': result.id}) }}">{{ result.name }}</a>	
-      <div class="recipe-difficulty">Trudność: {{ result.getDiffDescr() }}</div>
-      <div class="recipe-time">Czas przygotowania: {{ result.prepHour }}h {{ result.prepMin }}min</div>
     </div>
+    <div class="input-holder"><input type="submit" value="Szukaj" class="btn" ></div>
+	</form>
+</div>
+
+	{% for recipe in results %}
+    <div  class="result-grid-item"> 
+            <div class="recipe-thumb" style="background-image: url({{asset(recipe.images[0].getWebPath())}})"></div>
+            <div class="result-info">
+                <a href="{{ path('recipe_show', {'id': recipe.id}) }}" class="result-name">{{ recipe.name }}</a>  
+                <div class="recipe-info-item" title="Czas przygotowania">
+                    <div class="icon time"></div> {{ recipe.prepHour }}h {{ recipe.prepMin }}min
+                </div>
+                <div class="recipe-info-item" title="Trudność">
+                    <div class="icon difficulty"></div>
+                    {{ recipe.getdiffDescr }} 
+                </div>
+                <div class="recipe-info-item" title="Ilość porcji">
+                    <div class="icon people"></div> {{ recipe.people }} porcji
+                </div>
+
+                <div class="result-tags">   
+                {% for tag in recipe.tags %}
+                    <a href="{{ path('tag_recipes', {'id': tag.id}) }}" class="tag-item">#{{ tag.name }}</a> 
+                {% endfor %}
+                </div>
+            </div>
+        </div>
    {% endfor %}
 {% endblock %}

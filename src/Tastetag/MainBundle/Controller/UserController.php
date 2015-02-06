@@ -70,23 +70,38 @@ class UserController extends Controller
         $usr = $this->get('security.context')->getToken()->getUser();
         $recipes =  $usr->getRecipes();
         $fav_recipes =  $em->getRepository('TastetagMainBundle:Recipes')->findAllFavoritedByUser($usr->getId());
+        $favs = $em->getRepository('TastetagMainBundle:Favorites')->findByUserId($usr->getId());
 
         $deleteForms = array();
+        $deleteFavForms = array();
 
         foreach ($recipes as $recipe) {
             $deleteForms[$recipe->getId()] = $this->createDeleteRecipeForm($recipe->getId())->createView();
         }
 
+        foreach ($favs as $fav) {
+            $deleteFavForms[$fav->getId()] = $this->createDeleteFavoriteForm($fav->getId())->createView();
+        }
+
         return $this->render('TastetagMainBundle:User:account.html.twig', array(
             'user' => $usr,
             'recipes' => $recipes,
-            'fav_recipes' => $fav_recipes,
-            'deleteForms' => $deleteForms
+            'favs' => $favs,
+            'deleteForms' => $deleteForms,
+            'deleteFavForms' => $deleteFavForms
         ));
     }
 
 
     private function createDeleteRecipeForm($id)
+    {
+        return $this->createFormBuilder(array('id' => $id))
+            ->add('id', 'hidden')
+            ->getForm()
+        ;
+    }
+
+    private function createDeleteFavoriteForm($id)
     {
         return $this->createFormBuilder(array('id' => $id))
             ->add('id', 'hidden')

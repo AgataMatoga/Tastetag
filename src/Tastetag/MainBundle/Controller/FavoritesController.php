@@ -49,4 +49,33 @@ class FavoritesController extends Controller
         return $this->redirect($this->generateUrl('recipe_show', array('id' => $recipe_id)));
     }
 
+    public function deleteAction($id)
+    {
+        $form = $this->createDeleteForm($id);
+        $request = $this->getRequest();
+        $form->bindRequest($request);
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('TastetagMainBundle:Favorites')->find($id);
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Favorite entity.');
+            }
+            $em->remove($entity);
+            $em->flush();
+        }
+        if ($usr= $this->get('security.context')->getToken()->getUser()) {
+            return $this->redirect($this->generateUrl('my_account'));
+        } else {
+            return $this->redirect($this->generateUrl('homepage'));
+        }   
+    }
+
+    private function createDeleteForm($id)
+    {
+        return $this->createFormBuilder(array('id' => $id))
+            ->add('id', 'hidden')
+            ->getForm()
+        ;
+    }
+
 }

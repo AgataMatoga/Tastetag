@@ -36,10 +36,10 @@ class RecipesRepository extends EntityRepository
             ->getResult();
     }
 
-    public function findByTags($tags, $number)
+    public function findByTags($tags)
     {
           $sql = " 
-           SELECT r.*
+           SELECT r.id
             FROM   recipes r
              INNER JOIN (SELECT rt.recipe_id
                          FROM recipes_tags rt
@@ -48,8 +48,8 @@ class RecipesRepository extends EntityRepository
                                   INNER JOIN tags t
                                     ON t.id = rt.tag_id
                          WHERE    t.name IN (".$tags.")
-                         GROUP BY rt.recipe_id
-                         HAVING   Count(rt.recipe_id) =".$number.") aa
+                         GROUP BY rt.recipe_id)
+                          aa
                ON r.id = aa.recipe_id
         ";
 
@@ -60,10 +60,9 @@ class RecipesRepository extends EntityRepository
 
         $recipeIds = array();
         foreach( $recipes as $recipe) {    
-            array_push( $recipeIds, $recipe['id']);
+            array_push($recipeIds, $recipe['id']);
         }
         $tagIdsStr = implode(',', $recipeIds);
-        // return $stmt->fetchAll();
 
         return $this->getEntityManager()
             ->createQuery(
