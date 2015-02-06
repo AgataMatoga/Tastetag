@@ -71,10 +71,24 @@ class UserController extends Controller
         $recipes =  $usr->getRecipes();
         $fav_recipes =  $em->getRepository('TastetagMainBundle:Recipes')->findAllFavoritedByUser($usr->getId());
 
+        foreach ($recipes as $recipe) {
+            $deleteForms[$recipe->getId()] = $this->createDeleteRecipeForm($recipe->getId())->createView();
+        }
+
         return $this->render('TastetagMainBundle:User:account.html.twig', array(
             'user' => $usr,
             'recipes' => $recipes,
-            'fav_recipes' => $fav_recipes
+            'fav_recipes' => $fav_recipes,
+            'deleteForms' => $deleteForms
         ));
+    }
+
+
+    private function createDeleteRecipeForm($id)
+    {
+        return $this->createFormBuilder(array('id' => $id))
+            ->add('id', 'hidden')
+            ->getForm()
+        ;
     }
 }

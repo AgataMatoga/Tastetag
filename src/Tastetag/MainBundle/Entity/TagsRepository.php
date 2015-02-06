@@ -17,4 +17,12 @@ class TagsRepository extends EntityRepository
 
 	    return $qb->getQuery()->getResult();
 	}
+
+	public function findAllByName($keyword)
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                 'SELECT t FROM TastetagMainBundle:Tags t WHERE LOWER(t.name) LIKE LOWER(:keyword)')->setParameter('keyword', '%'.$keyword.'%')
+            ->getResult();
+	}
 }

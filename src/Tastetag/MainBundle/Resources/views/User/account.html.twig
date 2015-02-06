@@ -16,6 +16,15 @@
     <a href="{{ path('recipe_show', {'id': recipe.id}) }}" class="recipe-grid-item">
     	<div class="recipe-thumb" style="background-image: url({{asset(recipe.images[0].getWebPath())}})"></div>	
      	<div class="recipe-name">{{ recipe.name }}</div>
+     	 <a href="{{ path('recipe_edit', { 'id': recipe.id }) }}" class="edit-recipe">Edit</a>
+
+
+
+        <form action="{{ path('recipe_delete', { 'id': recipe.id }) }}" method="post" class="delete-recipe-form">
+		    {{ form_widget(deleteForms[recipe.id]) }}
+		    <button type="submit" class="delete-recipe">Delete</button>
+		    </button>
+		</form>
     </a>
     {% endfor %}
 

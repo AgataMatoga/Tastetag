@@ -87,3 +87,11 @@ tag_search:
       defaults: { _controller: TastetagMainBundle:Tags:tagSearch }
       requirements: 
         _method: POST
+live_tag_search: 
+      pattern: /live_tag_search
+      defaults: { _controller: TastetagMainBundle:Tags:liveSearch }
+show_tag:
+    pattern: /show_tag
+    defaults: { _controller: TastetagMainBundle:Tags:show }
+    requirements: 
+        _method: POST

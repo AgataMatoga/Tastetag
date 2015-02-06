@@ -111,7 +111,11 @@ class RecipesController extends Controller
             $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
             $aclProvider->updateAcl($acl);
 
-            return $this->redirect($this->generateUrl('homepage'));
+             if ($usr= $this->get('security.context')->getToken()->getUser()) {
+                return $this->redirect($this->generateUrl('my_account'));
+            } else {
+                return $this->redirect($this->generateUrl('homepage'));
+            }
         }
 
         return $this->render('TastetagMainBundle:Recipes:new.html.twig', array(
@@ -214,7 +218,11 @@ class RecipesController extends Controller
             $em->remove($entity);
             $em->flush();
         }
-        return $this->redirect($this->generateUrl('homepage'));
+        if ($usr= $this->get('security.context')->getToken()->getUser()) {
+            return $this->redirect($this->generateUrl('my_account'));
+        } else {
+            return $this->redirect($this->generateUrl('homepage'));
+        }   
     }
 
     private function createDeleteForm($id)

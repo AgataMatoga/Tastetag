@@ -11,9 +11,9 @@
 {% block body %}
 
 <form action="{{ path('tag_search') }}" method="post" >
-	<input name="tag1" type="text" placeholder="Tag" value="{{ req['tag1'] }}"/>
-	<input name="tag2" type="text" placeholder="Tag" value="{{ req['tag2'] }}"/>
-	<input name="tag3" type="text" placeholder="Tag" value="{{ req['tag3'] }}"/>
+	<input name="tag1" type="text" placeholder="Tag" value="{{ req['tag1'] }}" id="tag_search1"/>
+	<input name="tag2" type="text" placeholder="Tag" value="{{ req['tag2'] }}" id="tag_search2"/>
+	<input name="tag3" type="text" placeholder="Tag" value="{{ req['tag3'] }}" id="tag_search3"/>
     <div><input type="submit" value="Szukaj" ></div>
 </form>
 	
@@ -23,5 +23,63 @@
 	     	<div class="recipe-name">{{ recipe.name }}</div>
 	    </a>
 	{% endfor %}
+
+<script type="text/javascript">
+
+$("#tag_search1").autocomplete({
+    minLength: 1,
+    source: function(request, response) {
+        $.ajax({
+            url: "{{path('live_tag_search')}}",
+            data: { tagname: $("#tag_search1").val()},
+            dataType: "json",
+            type: "POST",
+            success: 
+            function(data) { 
+                response(
+                   data.tags
+                );
+            }
+    	});
+	}
+});
+
+$("#tag_search2").autocomplete({
+    minLength: 1,
+    source: function(request, response) {
+        $.ajax({
+            url: "{{path('live_tag_search')}}",
+            data: { tagname: $("#tag_search2").val()},
+            dataType: "json",
+            type: "POST",
+            success: 
+            function(data) { 
+                response(
+                   data.tags
+                );
+            }
+    	});
+	}
+});
+
+$("#tag_search3").autocomplete({
+    minLength: 1,
+    source: function(request, response) {
+        $.ajax({
+            url: "{{path('live_tag_search')}}",
+            data: { tagname: $("#tag_search3").val()},
+            dataType: "json",
+            type: "POST",
+            success: 
+            function(data) { 
+                response(
+                   data.tags
+                );
+            }
+    	});
+	}
+});
+
+</script>
 	
 {% endblock %}
