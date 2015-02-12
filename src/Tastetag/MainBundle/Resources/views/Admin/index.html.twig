@@ -1,0 +1,14 @@
+{% extends '::admin.html.twig' %}
+
+{% block stylesheets %}
+  {% stylesheets '@TastetagMainBundle/Resources/public/css/admin.css' %}
+    	<link rel="stylesheet" href="{{ asset_url }}">
+	{% endstylesheets %}
+{% endblock %}
+
+
+{% block body %}
+<h2>Witaj w panelu administracyjnym!</h2>
+
+{% endblock %}
+

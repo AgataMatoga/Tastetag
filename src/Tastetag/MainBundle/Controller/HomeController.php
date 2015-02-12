@@ -29,14 +29,14 @@ class HomeController extends Controller
             $request = $this->getRequest();
             $session = $request->getSession();
 
-            if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
-                    $error = $request->attributes->get(
-                        SecurityContext::AUTHENTICATION_ERROR
-                    );
-            } else {
-                    $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
-                    $session->remove(SecurityContext::AUTHENTICATION_ERROR);
-            }
+                if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+                        $error = $request->attributes->get(
+                            SecurityContext::AUTHENTICATION_ERROR
+                        );
+                } else {
+                        $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+                        $session->remove(SecurityContext::AUTHENTICATION_ERROR);
+                }
 
             return $this->render('TastetagMainBundle:Home:login.html.twig',
                     array(
@@ -68,12 +68,5 @@ class HomeController extends Controller
             return $this->render('TastetagMainBundle:Home:search.html.twig', array('results' => $results, 'req' => $q));
         }
 
-    // public function resultsAction()
-
-    //     {
-    //         $em = $this->getDoctrine()->getEntityManager();
-    //         $results = $em->getRepository('TastetagMainBundle:Recipes')->findAll();
-    //         return $this->render('TastetagMainBundle:Home:search.html.twig', array('results' => $results));
-    //     }
 
 }

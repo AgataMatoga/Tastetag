@@ -1,0 +1,34 @@
+{% extends '::admin.html.twig' %}
+
+{% block stylesheets %}
+  {% stylesheets '@TastetagMainBundle/Resources/public/css/admin.css' %}
+    	<link rel="stylesheet" href="{{ asset_url }}">
+	{% endstylesheets %}
+{% endblock %}
+
+
+{% block body %}
+<h2>Zarządzaj użytkownikami</h2>
+<table>
+	<thead>
+		<td>Username</td>
+		<td>Aktywny?</td>
+		<td>Admin?</td>
+		<td>Akcje</td>
+	</thead>
+	{% for user in users %}
+	<tr class="{% if user.active == 0 %} inactive {% endif %}">
+		<td>{{ user.username }}</td>
+		<td> {% if user.active %} aktywny {% else %} nieaktywny {% endif %} </td>
+		<td> {% if user.admin %} admin {% else %} zwykły {% endif %} </td>
+		<td> 
+		{% if user.active %} 
+		<a href="{{ path('deactivate_user', {'userId': user.id}) }}" class="table-btn">Dezaktywuj konto</a>  
+		{% else %} 
+		<a href="{{ path('activate_user', {'userId': user.id}) }}" class="table-btn">Aktywuj konto</a>
+		{% endif %} 
+		</td>
+	</tr>
+	{% endfor %}
+</table>
+{% endblock %}

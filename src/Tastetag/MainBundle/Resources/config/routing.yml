@@ -99,3 +99,15 @@ show_tag:
     defaults: { _controller: TastetagMainBundle:Tags:show }
     requirements: 
         _method: POST
+adminpanel:
+    pattern: /admin
+    defaults: { _controller: TastetagMainBundle:Admin:index }
+admin_users:
+    pattern: /admin/users
+    defaults: { _controller: TastetagMainBundle:Admin:manageUsers }
+deactivate_user:
+    pattern: /admin/deactivate/{userId}
+    defaults: { _controller: TastetagMainBundle:Admin:deactivateUser }
+activate_user:
+    pattern: /admin/activate/{userId}
+    defaults: { _controller: TastetagMainBundle:Admin:activateUser }
