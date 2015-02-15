@@ -9,10 +9,13 @@
 
 
 {% block body %}
+<h2>Zarejestruj się</h2>
 <form action="{{ path('account_create')}}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
-
-    <input type="submit" />
+    <div>	
+    <label>	</label>
+    <button type="submit">Zarejestruj</button>
+    </div>
 </form>
 {% endblock %}
 

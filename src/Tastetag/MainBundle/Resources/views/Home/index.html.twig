@@ -16,15 +16,19 @@
 {% endfor %}
 
   <div class="popular-tags-holder"> 
+   <h3>Popularne tagi</h3>
   {% for tag in tags %}
       <a href="{{ path('tag_recipes', {'id': tag.id}) }}" class="tag-item">#{{ tag.name }}</a> 
     {% endfor %}
   </div>   
     
+  <div class="last-recipes">
+  <h3>Ostatnie przepisy</h3>
 	{% for entity in entities %}
     <a href="{{ path('recipe_show', {'id': entity.id}) }}" class="recipe-grid-item">
     	<div class="recipe-thumb" style="background-image: url({{asset(entity.images[0].getWebPath())}})"></div>	
      	<div class="recipe-name">{{ entity.name }}</div>
     </a>
   {% endfor %}
+  </div>
 {% endblock %}

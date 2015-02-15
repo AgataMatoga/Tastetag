@@ -28,7 +28,7 @@
 						<a href="{{ path('recipe_new') }}">+ Dodaj przepis</a>
 						{% if app.user %}
 							<a href="{{ path('my_account') }}">
-							Moje konto ({{ app.user.username }} {% if app.user.admin %}
+							Moje konto ({{ app.user.username }}{% if app.user.admin %}
 							   - <span class="admin-red">admin</span> 
 							{% endif %}) </a>
 							<a href="{{ path('logout') }}">Wyloguj się</a>

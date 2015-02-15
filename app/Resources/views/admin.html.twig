@@ -24,8 +24,7 @@
 				<div class="content-limiter">
 					<a href="{{ path('adminpanel') }}" class="logo">Tastetag <span class="admin-sub">Admin Panel</span> </a>
 					<nav class="main">
-						<a href="{{ path('admin_users') }}" class="{% if app.request.attributes.get('_route') == 'admin_users' %}active{% endif %}">Zarządzaj użytkownikami</a>	
-							{% if app.user %}
+						{% if app.user %}
 							<a href="{{ path('logout') }}">Wyloguj się ({{ app.user.username }})</a>
 						{% endif %}
 						<a href="{{ path('homepage') }}" class="serwis-link">Przejdź do serwisu ></a>
