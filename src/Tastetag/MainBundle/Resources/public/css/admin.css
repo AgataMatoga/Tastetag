@@ -7,6 +7,10 @@ body {
 	color: #1D1D1D;
 	margin: 0px;
 }
+a {
+	color: #54CD96;
+	text-decoration: none;
+}
 .content-limiter {
 	width: 1000px;
 	margin: 0 auto;

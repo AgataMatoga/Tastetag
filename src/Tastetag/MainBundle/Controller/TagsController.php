@@ -16,6 +16,13 @@ class TagsController extends Controller
     {
     	$em = $this->getDoctrine()->getEntityManager();
         $tag = $em->getRepository('TastetagMainBundle:Tags')->find($id);
+        if(!$tag) {
+            $this->get('session')->getFlashBag()->add(
+                'notice',
+                'Taki tag nie istnieje.'
+            );
+           return $this->redirect($this->generateUrl('homepage'));
+        }
         $recipes = $tag->getRecipes();
         return $this->render('TastetagMainBundle:Tags:recipes.html.twig', array(
             'tag' => $tag,

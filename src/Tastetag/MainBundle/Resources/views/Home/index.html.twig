@@ -9,6 +9,12 @@
 
 
 {% block body %}
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+    <div class="flash-notice">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+
   <div class="popular-tags-holder"> 
   {% for tag in tags %}
       <a href="{{ path('tag_recipes', {'id': tag.id}) }}" class="tag-item">#{{ tag.name }}</a> 

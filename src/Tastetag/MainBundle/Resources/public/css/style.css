@@ -7,6 +7,10 @@ body {
 	color: #1D1D1D;
 	margin: 0px;
 }
+a {
+	color: #54CD96;
+	text-decoration: none;
+}
 .content-limiter {
 	width: 1000px;
 	margin: 0 auto;
@@ -614,6 +618,14 @@ li.ui-state-focus {
 }
 .advanced-form-holder .input-holder .btn {
 	margin-top: 	15px;
+}
+.flash-notice {
+	background-color: rgb(255, 255, 166);
+	padding: 10px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	border: 1px solid rgb(253, 221, 95);
+	color: rgb(200, 135, 15);
 }
 /*slider styles*/
 /* Just for the example. Fee free to delete these three lines */

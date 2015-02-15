@@ -33,6 +33,13 @@ class RecipesController extends Controller
     {   
         $em = $this->getDoctrine()->getManager();
         $recipe = $em->getRepository('TastetagMainBundle:Recipes')->find($id);
+        if(!$recipe) {
+            $this->get('session')->getFlashBag()->add(
+                'notice',
+                'Taki przepis nie istnieje.'
+            );
+           return $this->redirect($this->generateUrl('homepage'));
+        }
         $deleteForm = $this->createDeleteForm($id);
         $commentForm = $this->createCommentForm();
         $favoriteForm = $this->createFavoriteForm();
@@ -131,14 +138,19 @@ class RecipesController extends Controller
 
         $entity = $em->getRepository('TastetagMainBundle:Recipes')->find($id);
 
-        $securityContext = $this->get('security.context');
-
-        if ((false === $securityContext->isGranted('EDIT', $entity)) and ($securityContext->getToken()->getUser()->getAdmin() === false)) {
-            return $this->redirect($this->generateUrl('homepage'));
+        if(!$entity) {
+            $this->get('session')->getFlashBag()->add(
+                'notice',
+                'Taki przepis nie istnieje.'
+            );
+           return $this->redirect($this->generateUrl('homepage'));
         }
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Recipe entity.');
+        $securityContext = $this->get('security.context');
+        $user = $securityContext->getToken()->getUser();
+
+        if ((false === $securityContext->isGranted('EDIT', $entity)) and ($user->getAdmin() === false)) {
+            return $this->redirect($this->generateUrl('homepage'));
         }
 
         $editForm = $this->createForm(new RecipeType(), $entity);

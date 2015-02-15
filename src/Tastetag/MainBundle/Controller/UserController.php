@@ -55,6 +55,13 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
         $usr = $em->getRepository('TastetagMainBundle:User')->find($user_id);
+        if(!$usr) {
+            $this->get('session')->getFlashBag()->add(
+                'notice',
+                'Taki użytkownik nie istnieje.'
+            );
+           return $this->redirect($this->generateUrl('homepage'));
+        }
         $recipes =  $usr->getRecipes();
 
         return $this->render('TastetagMainBundle:User:profile.html.twig', array(

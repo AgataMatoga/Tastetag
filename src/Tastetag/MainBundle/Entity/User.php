@@ -76,6 +76,7 @@ class User implements AdvancedUserInterface, \Serializable
     {
         $this->salt = md5(uniqid(null, true));
         $this->admin = false;
+        $this->active = true;
     }
 
     public function getRoles()
