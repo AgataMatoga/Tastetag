@@ -7,9 +7,16 @@ use Tastetag\MainBundle\Form\CommentType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class CommentsController extends Controller
 {
+
+    /**
+     * New recipe comment
+     *
+     * @Route("/recipes/{recipe_id}/comment/new", name="recipe_comment_new")
+    */
     public function newAction($recipe_id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -26,6 +33,12 @@ class CommentsController extends Controller
         ));
     }
 
+
+    /**
+     * Create recipe comment
+     *
+     * @Route("/recipes/{recipe_id}/comment/create", name="recipe_comment_create")
+    */
     public function createAction($recipe_id)
     {   
         $em = $this->getDoctrine()->getManager();

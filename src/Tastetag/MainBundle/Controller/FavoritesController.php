@@ -7,9 +7,16 @@ use Tastetag\MainBundle\Form\FavoriteType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class FavoritesController extends Controller
 {
+    
+    /**
+     * New favorite recipe action
+     *
+     * @Route("/recipes/{recipe_id}/favorite/new", name="recipe_favorite_new")
+    */
     public function newAction($recipe_id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -25,15 +32,20 @@ class FavoritesController extends Controller
         ));
     }
 
+    /**
+     * Create favorite recipe action
+     *
+     * @Route("/recipes/{recipe_id}/favorite/create", name="recipe_favorite_create")
+    */
     public function createAction($recipe_id)
     {   
         $em = $this->getDoctrine()->getManager();
         $recipe = $em->getRepository('TastetagMainBundle:Recipes')->find($recipe_id);
 
-        $favorite  = new Favorites();
+        $favorite = new Favorites();
         $request = $this->getRequest();
 
-        $form    = $this->createForm(new FavoriteType(), $favorite);
+        $form = $this->createForm(new FavoriteType(), $favorite);
         $form->bindRequest($request);
 
         if ($form->isValid()) {
@@ -43,12 +55,23 @@ class FavoritesController extends Controller
             $favorite->setUser($usr);
             $em->persist($favorite);
             $em->flush();
-            return $this->redirect($this->generateUrl('recipe_show', array('id' => $recipe_id)));
+
+            return $this->redirect($this->generateUrl('recipe_show', 
+                array('id' => $recipe_id)
+            ));
         }
 
-        return $this->redirect($this->generateUrl('recipe_show', array('id' => $recipe_id)));
+        return $this->redirect($this->generateUrl('recipe_show', 
+            array('id' => $recipe_id)
+        ));
     }
 
+
+    /**
+     * Delete favorite recipe action
+     *
+     * @Route("/favorite/{id}/delete", name="favorite_delete")
+    */
     public function deleteAction($id)
     {
         $form = $this->createDeleteForm($id);
@@ -58,18 +81,22 @@ class FavoritesController extends Controller
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('TastetagMainBundle:Favorites')->find($id);
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Favorite entity.');
+                return $this->redirect($this->generateUrl('homepage'));
             }
             $em->remove($entity);
             $em->flush();
         }
-        if ($usr= $this->get('security.context')->getToken()->getUser()) {
+        if ($usr = $this->get('security.context')->getToken()->getUser()) {
             return $this->redirect($this->generateUrl('my_account'));
         } else {
             return $this->redirect($this->generateUrl('homepage'));
         }   
     }
 
+
+    /**
+     * Create delete favorite recipe function
+    */
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder(array('id' => $id))

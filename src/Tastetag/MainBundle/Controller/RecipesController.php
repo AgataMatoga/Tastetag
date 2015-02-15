@@ -23,22 +23,25 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
-
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class RecipesController extends Controller
 {
-
+    /**
+     * Show single recipe by id 
+     *
+     * @Route("/recipes/{id}", name="recipe_show")
+    */
     public function showAction($id)
     {   
         $em = $this->getDoctrine()->getManager();
         $recipe = $em->getRepository('TastetagMainBundle:Recipes')->find($id);
-        if(!$recipe) {
+        if (!$recipe) {
             $this->get('session')->getFlashBag()->add(
                 'notice',
                 'Taki przepis nie istnieje.'
             );
-           return $this->redirect($this->generateUrl('homepage'));
+            return $this->redirect($this->generateUrl('homepage'));
         }
         $deleteForm = $this->createDeleteForm($id);
         $commentForm = $this->createCommentForm();
@@ -47,21 +50,27 @@ class RecipesController extends Controller
         $ingridients = $recipe->getIngridients();
         $usr= $this->get('security.context')->getToken()->getUser();
 
-        return $this->render('TastetagMainBundle:Recipes:show.html.twig', array(
-            'recipe' => $recipe,
-            'delete_form' => $deleteForm->createView(),
-            'comment_form' => $commentForm->createView(),
-            'favorite_form' => $favoriteForm->createView(),
-            'ingridients' => $ingridients,
-            'user' => $usr,
-        ));
+        return $this->render(
+            'TastetagMainBundle:Recipes:show.html.twig', array(
+                'recipe' => $recipe,
+                'delete_form' => $deleteForm->createView(),
+                'comment_form' => $commentForm->createView(),
+                'favorite_form' => $favoriteForm->createView(),
+                'ingridients' => $ingridients,
+                'user' => $usr,
+            )
+        );
     }
-
+    
+    /**
+     * New recipe action
+     *
+     * @Route("/recipes/new", name="recipe_new")
+    */
     public function newAction()
     {	
         $entity = new Recipes();
 
-        //dummy code
         $ingridient1 = new Ingridients();
         $ingridient1->setName('skladnik1');
         $entity->getIngridients()->add($ingridient1);
@@ -73,17 +82,24 @@ class RecipesController extends Controller
         $tag1 = new Tags();
         $tag1->setName('tag1');
         $entity->getTags()->add($tag1);
-		
+	 
         $form   = $this->createForm(new RecipeType(), $entity);
-        return $this->render('TastetagMainBundle:Recipes:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView()
-        ));
+        return $this->render(
+            'TastetagMainBundle:Recipes:new.html.twig', array(
+                'entity' => $entity,
+                'form'   => $form->createView()
+            )
+        );
     }
 
+    /**
+     * Create recipe action
+     *
+     * @Route("/recipes/create", name="recipe_create")
+    */
     public function createAction() 
     {
-    	$recipe  = new Recipes();
+        $recipe  = new Recipes();
         $request = $this->getRequest();
         $form    = $this->createForm(new RecipeType(), $recipe);
         $form->bind($request);
@@ -101,7 +117,7 @@ class RecipesController extends Controller
 
             $images = $recipe->getImages();
 
-            foreach($images as $image) {
+            foreach ($images as $image) {
                 $image->upload();
                 $em->persist($image);
             }
@@ -118,50 +134,65 @@ class RecipesController extends Controller
             $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
             $aclProvider->updateAcl($acl);
 
-             if ($usr= $this->get('security.context')->getToken()->getUser()) {
+            if ($usr = $this->get('security.context')->getToken()->getUser()) {
                 return $this->redirect($this->generateUrl('my_account'));
             } else {
                 return $this->redirect($this->generateUrl('homepage'));
             }
         }
 
-        return $this->render('TastetagMainBundle:Recipes:new.html.twig', array(
-            'entity' => $recipe,
-            'form'   => $form->createView()
-        ));
+        return $this->render(
+            'TastetagMainBundle:Recipes:new.html.twig', array(
+                'entity' => $recipe,
+                'form'   => $form->createView()
+            )
+        );
 
     }
 
+    /**
+     * Edit recipe action
+     *
+     * @Route("/recipes/{id}/edit", name="recipe_edit")
+    */
     public function editAction($id)
     {   
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('TastetagMainBundle:Recipes')->find($id);
 
-        if(!$entity) {
+        if (!$entity) {
             $this->get('session')->getFlashBag()->add(
                 'notice',
                 'Taki przepis nie istnieje.'
             );
-           return $this->redirect($this->generateUrl('homepage'));
+            return $this->redirect($this->generateUrl('homepage'));
         }
 
         $securityContext = $this->get('security.context');
         $user = $securityContext->getToken()->getUser();
+        $editPermissions = $securityContext->isGranted('EDIT', $entity);
 
-        if ((false === $securityContext->isGranted('EDIT', $entity)) and ($user->getAdmin() === false)) {
+        if ((false === $editPermissions) and (false === $user->getAdmin())) {
             return $this->redirect($this->generateUrl('homepage'));
         }
 
         $editForm = $this->createForm(new RecipeType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
-        return $this->render('TastetagMainBundle:Recipes:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        return $this->render(
+            'TastetagMainBundle:Recipes:edit.html.twig', array(
+                'entity'      => $entity,
+                'edit_form'   => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            )
+        );
     }
 
+    /**
+     * Update recipe action
+     *
+     * @Route("/recipes/{id}/update", name="recipe_update")
+    */
     public function updateAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -200,7 +231,7 @@ class RecipesController extends Controller
             $recipe = $this->checkUniqueTags($entity);
             $images = $recipe->getImages();
 
-            foreach($images as $image) {
+            foreach ($images as $image) {
                 $image->upload();
                 $em->persist($image);
             }
@@ -209,13 +240,20 @@ class RecipesController extends Controller
             $em->flush();
             return $this->redirect($this->generateUrl('recipe_show', array('id' => $id)));
         }
-        return $this->render('TastetagMainBundle:Recipes:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        return $this->render(
+            'TastetagMainBundle:Recipes:edit.html.twig', array(
+                'entity'      => $entity,
+                'edit_form'   => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            )
+        );
     }
 
+    /**
+     * Delete recipe action
+     *
+     * @Route("/recipes/{id}/delete", name="recipe_delete")
+    */
     public function deleteAction($id)
     {
         $form = $this->createDeleteForm($id);
@@ -230,13 +268,16 @@ class RecipesController extends Controller
             $em->remove($entity);
             $em->flush();
         }
-        if ($usr= $this->get('security.context')->getToken()->getUser()) {
+        if ($usr = $this->get('security.context')->getToken()->getUser()) {
             return $this->redirect($this->generateUrl('my_account'));
         } else {
             return $this->redirect($this->generateUrl('homepage'));
         }   
     }
 
+    /**
+     * Create delete recipe form action
+    */
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder(array('id' => $id))
@@ -245,17 +286,26 @@ class RecipesController extends Controller
         ;
     }
 
+    /**
+     * Delete comment recipe form action
+    */
     private function createCommentForm()
     {
         return $this->createForm(new CommentType(), new Comments());
     }
 
+    /**
+     * Delete favorite recipe form action
+    */
     private function createFavoriteForm()
     {
         return $this->createForm(new FavoriteType(), new Favorites());
     }
 
 
+    /**
+     * Checking if recipe tags already exist in order to keep tags unique
+    */
     private function checkUniqueTags($recipe)
     {   
         $em = $this->getDoctrine()->getManager();
@@ -267,9 +317,11 @@ class RecipesController extends Controller
 
         foreach ($recipe->getTags() as $tag) {
             if (in_array($tag->getName(), $tagsCollection)) {
-                 $recipe->removeTag($tag);
-                 $availableTag = $em->getRepository('TastetagMainBundle:Tags')->find(array_search($tag->getName(), $tagsCollection));
-                 $recipe->addTag($availableTag);
+                $recipe->removeTag($tag);
+                $availableTag = $em
+                    ->getRepository('TastetagMainBundle:Tags')
+                    ->find(array_search($tag->getName(), $tagsCollection));
+                $recipe->addTag($availableTag);
             }
         }
         return $recipe;
