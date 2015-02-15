@@ -42,17 +42,12 @@ class RecipesRepository extends EntityRepository
     {
           $sql = " 
             SELECT r.id
-FROM   recipes r
- INNER JOIN (SELECT   rt.recipe_id
-             FROM     recipes_tags rt
-                      INNER JOIN recipes r
-                        ON r.id = rt.recipe_id
-                      INNER JOIN tags t
-                        ON t.id = rt.tag_id
-             WHERE    t.name IN (".$tags.")
-             GROUP BY rt.recipe_id
-             HAVING   Count(rt.recipe_id) =".$number.") aa
-   ON r.id = aa.recipe_id";
+FROM recipes r
+INNER JOIN recipes_tags rt ON rt.recipe_id = r.id
+INNER JOIN tags t ON t.id = rt.tag_id
+WHERE t.name IN (".$tags.")
+GROUP BY r.id
+HAVING COUNT(DISTINCT t.name) = ".$number.";";
 
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
