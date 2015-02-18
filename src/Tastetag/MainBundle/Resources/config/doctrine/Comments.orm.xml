@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-  <entity name="Tastetag\MainBundle\Entity\Comments" table="comments">
+  <entity name="Tastetag\MainBundle\Entity\Comments" table="comments" repository-class="Tastetag\MainBundle\Entity\CommentsRepository">
     <indexes>
       <index name="recipe_id" columns="recipe_id"/>
       <index name="user_id" columns="user_id"/>

@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Comments
+ * @ORM\Entity(repositoryClass="Tastetag\MainBundle\Entity\CommentsRepository")
  */
 class Comments
 {
@@ -35,7 +36,6 @@ class Comments
      * @ORM\ManyToOne(targetEntity="Tastetag\MainBundle\Entity\User", inversedBy="comments")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      **/
-
     protected $user;
 
     public function __construct()

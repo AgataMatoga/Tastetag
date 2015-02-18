@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * User controller.
+ *
+ * @category Tastetag
+ * @package  Tastetag
+ * @author   Agata Matoga <agatka.ma@gmail.com>
+ * @license  http://some.com Some
+ * @link     http://wierzba.wzks.uj.edu.pl/~10_matoga/tastetag
+ */
+
 namespace Tastetag\MainBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -13,7 +23,7 @@ class UserController extends Controller
     /**
      * Register action
      *
-     * @Route("/register", name="account_register")
+     * @return void
     */
     public function registerAction()
     {
@@ -31,42 +41,42 @@ class UserController extends Controller
     /**
      * Create user action
      *
-     * @Route("/register/create", name="account_create")
+     * @return void
     */
     public function createAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
-
         $form = $this->createForm(new RegistrationType(), new Registration());
         $form->bind($this->getRequest());
         
         if ($form->isValid()) {
-	        $registration = $form->getData();
+            $registration = $form->getData();
             $user = $registration->getUser();
 
             $factory = $this->get('security.encoder_factory');
             $encoder = $factory->getEncoder($user);
             $password = $encoder->encodePassword(
-                $user->getPassword(),$user->getSalt()
+                $user->getPassword(), $user->getSalt()
             );
-            $user->setPassword($password);
 
-            $em->persist($user);
-	        $em->flush();
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->getRepository('TastetagMainBundle:User')
+               ->saveUser($user, $password);
 
-	        return $this->redirect($this->generateUrl('homepage'));
-	    }
+            return $this->redirect($this->generateUrl('homepage'));
+        }
 
-	    return $this->render(
-	        'TastetagMainBundle:User:register.html.twig',
-	        array('form' => $form->createView())
-	    );
-	}
+         return $this->render(
+             'TastetagMainBundle:User:register.html.twig', array(
+                 'form' => $form->createView()
+             )
+         );
+    }
 
     /**
      * Create user action
      *
-     * @Route("/register/create", name="account_create")
+     * @param  integer $user_id User id
+     * @return void
     */
     public function profileAction($user_id)
     {
@@ -77,8 +87,9 @@ class UserController extends Controller
                 'notice',
                 'Taki użytkownik nie istnieje.'
             );
-           return $this->redirect($this->generateUrl('homepage'));
+            return $this->redirect($this->generateUrl('homepage'));
         }
+
         $recipes =  $usr->getRecipes();
 
         return $this->render(
@@ -92,7 +103,7 @@ class UserController extends Controller
     /**
      * User private account 
      *
-     * @Route("/my_account", name="my_account")
+     * @return void
     */
     public function accountAction()
     {
@@ -132,6 +143,9 @@ class UserController extends Controller
 
     /**
      * Create delete recipe form action
+     * 
+     * @param  integer $id recipe id
+     * @return void
     */
     private function createDeleteRecipeForm($id)
     {
@@ -142,12 +156,14 @@ class UserController extends Controller
 
     /**
      * Create delete favorite form
+     *
+     * @param  integer $id recipe id
+     * @return void
     */
     private function createDeleteFavoriteForm($id)
     {
         return $this->createFormBuilder(array('id' => $id))
             ->add('id', 'hidden')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

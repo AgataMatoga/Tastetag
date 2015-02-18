@@ -1,12 +1,18 @@
 <?php
 
+/**
+ * Admin controller.
+ *
+ * @category Tastetag
+ * @package  Tastetag
+ * @author   Agata Matoga <agatka.ma@gmail.com>
+ * @license  http://some.com Some
+ * @link     http://wierzba.wzks.uj.edu.pl/~10_matoga/tastetag
+ */
+
 namespace Tastetag\MainBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-
-/**
-* @Route("/admin")
-*/
 
 class AdminController extends Controller
 {
@@ -14,7 +20,7 @@ class AdminController extends Controller
     /**
      * Admin panel homepage
      *
-     * @Route("/admin", name="admin_panel")
+     * @return void
     */
     public function indexAction()
     {
@@ -24,7 +30,7 @@ class AdminController extends Controller
     /**
      * Listing all users
      *
-     * @Route("/admin/users", name="admin_users")
+     * @return array $users users
     */
     public function manageUsersAction()
     {
@@ -33,40 +39,34 @@ class AdminController extends Controller
 
         return $this->render(
             'TastetagMainBundle:Admin:users.html.twig', array(
-            'users' => $users,
-        ));
+                'users' => $users,
+             )
+        );
     }
 
     /**
      * Deactivating user account
      *
-     * @Route("/admin/deactivate/{userId}", name="deactivate_user")
+     * @param  integer $userId User id
+     * @return void
     */
     public function deactivateUserAction($userId)
-    {
+    {   
         $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository('TastetagMainBundle:User')->find($userId);
-        $user->setActive(0);
-
-        $em->persist($user);
-        $em->flush();
-
+        $em->getRepository('TastetagMainBundle:User')->deactivateUser($userId);
         return $this->redirect($this->generateUrl('admin_users'));
     }
 
     /**
      * Activating user account
      *
-     * @Route("/admin/activate/{userId}", name="activate_user")
+     * @param  integer $userId User id
+     * @return void
     */
     public function activateUserAction($userId)
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository('TastetagMainBundle:User')->find($userId);
-        $user->setActive(1);
-
-        $em->persist($user);
-        $em->flush();
+        $em->getRepository('TastetagMainBundle:User')->activateUser($userId);
 
         return $this->redirect($this->generateUrl('admin_users'));
     }

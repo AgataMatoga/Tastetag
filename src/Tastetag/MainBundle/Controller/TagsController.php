@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * Tags controller.
+ *
+ * @category Tastetag
+ * @package  Tastetag
+ * @author   Agata Matoga <agatka.ma@gmail.com>
+ * @license  http://some.com Some
+ * @link     http://wierzba.wzks.uj.edu.pl/~10_matoga/tastetag
+ */
+
 namespace Tastetag\MainBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +26,8 @@ class TagsController extends Controller
     /**
      * Show all recipes tagged by tag
      *
-     * @Route("/tag/{id}", name="tag_recipes")
+     * @param  integer $id tag id
+     * @return void
     */
     public function recipesAction($id)
     {
@@ -41,7 +52,8 @@ class TagsController extends Controller
     /**
      * Function returns tags by tag name
      *
-     * @Route("/show_tag", name="show_tag")
+     * @param  mixed[] $request array with params from post request
+     * @return void
     */
     public function showAction(Request $request)
     {   
@@ -60,7 +72,8 @@ class TagsController extends Controller
     /**
      * Ajax function returns tags by tag keyword
      *
-     * @Route("/live_tag_search", name="live_tag_search")
+     * @param  mixed[] $request array with params from post request
+     * @return void
     */
     public function liveSearchAction(Request $request)
     {
@@ -84,27 +97,28 @@ class TagsController extends Controller
     /**
      * Function returns all recipes that are tagged with given tags
      *
-     * @Route("/tag_search", name="tag_search")
+     * @param  mixed[] $req array with params from post request
+     * @return void
     */
     public function tagSearchAction(Request $req)
-    {		
-    	$q = $req->request->all();
-
+    {
+        $q = $req->request->all();
+        
         $tags = array();
         if ($q['tag1'] != '') {
-        	array_push($tags, "'".$q['tag1']."'");
+            array_push($tags, "'".$q['tag1']."'");
         }
         if ($q['tag2'] != '') {
-        	array_push($tags, "'".$q['tag2']."'");
+            array_push($tags, "'".$q['tag2']."'");
         }
         if ($q['tag3'] != '') {
-        	array_push($tags, "'".$q['tag3']."'");
+            array_push($tags, "'".$q['tag3']."'");
         }
         $number = count($tags);
         $tagsStr = implode(",", $tags);
         $em = $this->getDoctrine()->getEntityManager();
         $recipes = $em->getRepository('TastetagMainBundle:Recipes')
-                      ->findByTags($tagsStr,$number);
+                      ->findByTags($tagsStr, $number);
         return $this->render(
             'TastetagMainBundle:Tags:search.html.twig', array(
                 'recipes' => $recipes,

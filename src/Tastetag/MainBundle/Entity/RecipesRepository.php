@@ -8,6 +8,59 @@ use Doctrine\ORM\Query\Expr\Join;
 
 class RecipesRepository extends EntityRepository
 {
+    public function saveRecipe($recipe,$usr)
+    {
+        $recipe = $this->checkUniqueTags($recipe);
+        $recipe->setUser($usr);
+        $em = $this->getEntityManager();
+        $em->persist($recipe);
+
+        $images = $recipe->getImages();
+
+        foreach ($images as $image) {
+            $image->upload();
+            $em->persist($image);
+        }
+
+        $em->flush();
+    }
+
+    public function updateRecipe($recipe,$ingridientsHistory,$imagesHistory)
+    {
+
+        $em = $this->getEntityManager();
+
+        foreach ($ingridientsHistory as $ingridient) {
+            if (false === $recipe->getIngridients()->contains($ingridient)) {
+                $em->remove($ingridient);
+            }
+        }
+        foreach ($imagesHistory as $image) {
+            if (false === $recipe->getImages()->contains($image)) {
+                $em->remove($image);
+                $image->removeUpload();
+            }
+        }
+
+        $recipe = $this->checkUniqueTags($recipe);
+        $images = $recipe->getImages();
+
+        foreach ($images as $image) {
+            $image->upload();
+            $em->persist($image);
+        }
+
+        $em->persist($recipe);
+        $em->flush();
+    }
+
+    public function deleteRecipe($recipe)
+    {
+        $em = $this->getEntityManager();
+        $em->remove($recipe);
+        $em->flush();
+    }
+
     public function findAllByKeyword($keyword)
     {
         return $this->getEntityManager()
@@ -42,12 +95,12 @@ class RecipesRepository extends EntityRepository
     {
           $sql = " 
             SELECT r.id
-FROM recipes r
-INNER JOIN recipes_tags rt ON rt.recipe_id = r.id
-INNER JOIN tags t ON t.id = rt.tag_id
-WHERE t.name IN (".$tags.")
-GROUP BY r.id
-HAVING COUNT(DISTINCT t.name) = ".$number.";";
+            FROM recipes r
+            INNER JOIN recipes_tags rt ON rt.recipe_id = r.id
+            INNER JOIN tags t ON t.id = rt.tag_id
+            WHERE t.name IN (".$tags.")
+            GROUP BY r.id
+            HAVING COUNT(DISTINCT t.name) = ".$number.";";
 
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
@@ -71,5 +124,28 @@ HAVING COUNT(DISTINCT t.name) = ".$number.";";
         } else {
             return $recipes;
         }
+    }
+
+    /**
+     * Checking if recipe tags already exist in order to keep tags unique
+    */
+    private function checkUniqueTags($recipe)
+    {   
+        $em = $this->getEntityManager();
+        $availableTags = $em->getRepository('TastetagMainBundle:Tags')->findAll();
+        $tagsCollection = array();
+        foreach ($availableTags as $tag) {
+               $tagsCollection[$tag->getId()] = $tag->getName();
+        }
+
+        foreach ($recipe->getTags() as $tag) {
+            if (in_array($tag->getName(), $tagsCollection)) {
+                $recipe->removeTag($tag);
+                $availableTag = $em->getRepository('TastetagMainBundle:Tags')
+                                   ->find(array_search($tag->getName(), $tagsCollection));
+                $recipe->addTag($availableTag);
+            }
+        }
+        return $recipe;
     }
 }

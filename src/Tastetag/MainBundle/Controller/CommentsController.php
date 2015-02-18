@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * Comments controller.
+ *
+ * @category Tastetag
+ * @package  Tastetag
+ * @author   Agata Matoga <agatka.ma@gmail.com>
+ * @license  http://some.com Some
+ * @link     http://wierzba.wzks.uj.edu.pl/~10_matoga/tastetag
+ */
+
 namespace Tastetag\MainBundle\Controller;
 
 use Tastetag\MainBundle\Entity\Comments;
@@ -15,7 +25,8 @@ class CommentsController extends Controller
     /**
      * New recipe comment
      *
-     * @Route("/recipes/{recipe_id}/comment/new", name="recipe_comment_new")
+     * @param  integer $recipe_id recipe id
+     * @return array   $comment   comment
     */
     public function newAction($recipe_id)
     {
@@ -24,48 +35,54 @@ class CommentsController extends Controller
 
         $comment = new Comments();
         $comment->setRecipe($recipe);
-        $comment->setRecipeId($recipe_id);
+
         $form   = $this->createForm(new CommentType(), $comment);
 
-        return $this->render('TastetagMainBundle:Comments:new.html.twig', array(
-            'comment' => $comment,
-            'form'   => $form->createView()
-        ));
+        return $this->render(
+            'TastetagMainBundle:Comments:new.html.twig', array(
+                 'comment' => $comment,
+                 'form'   => $form->createView()
+             )
+        );
     }
 
 
     /**
      * Create recipe comment
      *
-     * @Route("/recipes/{recipe_id}/comment/create", name="recipe_comment_create")
+     * @param  integer $recipe_id recipe id
+     * @return array   $comment   comment
     */
     public function createAction($recipe_id)
     {   
         $em = $this->getDoctrine()->getManager();
         $recipe = $em->getRepository('TastetagMainBundle:Recipes')->find($recipe_id);
-
-        $comment  = new Comments();
+        $comment = new Comments();
         $request = $this->getRequest();
-
-        $form    = $this->createForm(new CommentType(), $comment);
+        $form = $this->createForm(new CommentType(), $comment);
         $form->bindRequest($request);
 
         if ($form->isValid()) {
             $comment = $form->getData();
-            $comment->setRecipe($recipe);
-            $usr= $this->get('security.context')->getToken()->getUser();
-            $comment->setUser($usr);
+            $usr = $this->get('security.context')->getToken()->getUser();
+            $em->getRepository('TastetagMainBundle:Comments')
+               ->saveComment($usr, $recipe, $comment);
 
-            $em->persist($comment);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('recipe_show', array('id' => $recipe_id)));
+            return $this->redirect(
+                $this->generateUrl(
+                    'recipe_show', array(
+                        'id' => $recipe_id
+                    )
+                )
+            );
         }
 
-        return $this->render('TastetagMainBundle:Recipes:new.html.twig', array(
-            'comment' => $comment,
-            'form'    => $form->createView()
-        ));
+        return $this->render(
+            'TastetagMainBundle:Recipes:new.html.twig', array(
+                'comment' => $comment,
+                'form'    => $form->createView()
+            )
+        );
     }
 
 }

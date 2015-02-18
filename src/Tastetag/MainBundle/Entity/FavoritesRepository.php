@@ -15,4 +15,21 @@ class FavoritesRepository extends EntityRepository
             ->setParameter('recipeId', $recipeId)
             ->getResult();
 	}
+
+	public	function saveFavorite($recipe,$usr,$favorite)
+	{
+	    $em = $this->getEntityManager();
+	    $favorite->setRecipe($recipe);
+        $favorite->setUser($usr);
+        $em->persist($favorite);
+        $em->flush();
+	}
+
+	public	function removeFavorite($id)
+	{
+	    $em = $this->getEntityManager();
+	    $entity = $em->getRepository('TastetagMainBundle:Favorites')->find($id);
+        $em->remove($entity);
+        $em->flush();
+	}
 }
