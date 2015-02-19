@@ -8,7 +8,14 @@ use Doctrine\ORM\Query\Expr\Join;
 
 class RecipesRepository extends EntityRepository
 {
-    public function saveRecipe($recipe,$usr)
+    /**
+     * Saving recipe
+     *
+     * @param mixed $recipe recipe to save
+     * @param mixed $usr recipe author
+     * @return void
+    */
+    public function saveRecipe($recipe, $usr)
     {
         $recipe = $this->checkUniqueTags($recipe);
         $recipe->setUser($usr);
@@ -25,7 +32,15 @@ class RecipesRepository extends EntityRepository
         $em->flush();
     }
 
-    public function updateRecipe($recipe,$ingridientsHistory,$imagesHistory)
+    /**
+     * Updating recipe
+     *
+     * @param mixed $recipe updated recipe
+     * @param array $ingridientsHistory recipe ingridients before update
+     * @param array $imagesHistory recipe images before update
+     * @return void
+    */
+    public function updateRecipe($recipe, $ingridientsHistory, $imagesHistory)
     {
 
         $em = $this->getEntityManager();
@@ -54,6 +69,12 @@ class RecipesRepository extends EntityRepository
         $em->flush();
     }
 
+    /**
+     * Removing recipe
+     *
+     * @param mixed $recipe deleted recipe
+     * @return void
+    */
     public function deleteRecipe($recipe)
     {
         $em = $this->getEntityManager();
@@ -61,6 +82,12 @@ class RecipesRepository extends EntityRepository
         $em->flush();
     }
 
+    /**
+     * Getting recipes by keyword
+     *
+     * @param string $keyword keyword
+     * @return void
+    */
     public function findAllByKeyword($keyword)
     {
         return $this->getEntityManager()
@@ -69,7 +96,13 @@ class RecipesRepository extends EntityRepository
             ->getResult();
     }
 
-     public function findAllFavoritedByUser($user_id)
+    /**
+     * Getting recipes favorited by certain user
+     *
+     * @param integer $user_id user id
+     * @return void
+    */
+    public function findAllFavoritedByUser($user_id)
     {
         return $this->getEntityManager()
             ->createQuery(
@@ -80,6 +113,14 @@ class RecipesRepository extends EntityRepository
 
     }
 
+    /**
+     * Getting all recipes according to params
+     *
+     * @param string $keyword keyword
+     * @param integer $maxTime recipe max time of preparation
+     * @param integer $maxDifficulty recipe max difficulty
+     * @return void
+    */
     public function findAllByFilters($keyword, $maxTime, $maxDifficulty)
     {
         return $this->getEntityManager()
@@ -91,6 +132,13 @@ class RecipesRepository extends EntityRepository
             ->getResult();
     }
 
+    /**
+     * Getting all recipes that are tagged by given tags
+     *
+     * @param string $tags tags
+     * @param integer $number number of given tags
+     * @return void
+    */
     public function findByTags($tags,$number)
     {
           $sql = " 
@@ -128,6 +176,8 @@ class RecipesRepository extends EntityRepository
 
     /**
      * Checking if recipe tags already exist in order to keep tags unique
+     * @param mixed $recipe recipe
+     * @return void
     */
     private function checkUniqueTags($recipe)
     {   

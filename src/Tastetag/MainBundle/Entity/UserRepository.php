@@ -4,6 +4,12 @@ use Doctrine\ORM\EntityRepository;
 
 class UserRepository extends EntityRepository 
 {
+    /**
+     * Saving user
+     * @param mixed $user user to save
+     * @param string $password password
+     * @return void
+    */
     public function saveUser($user, $password) {
         $em = $this->getEntityManager();
         $user->setPassword($password);
@@ -11,6 +17,11 @@ class UserRepository extends EntityRepository
         $em->flush();
     }
 
+    /**
+     * Loading user by username
+     * @param string $username user name
+     * @return void
+    */
     public function loadUserByUsername($username)
     {
         $q = $this
@@ -22,6 +33,11 @@ class UserRepository extends EntityRepository
             ->getQuery();
     }
 
+    /**
+     * Deactivating user account
+     * @param integer $userId user to deactivate
+     * @return void
+    */
     public function deactivateUser($userId) {
         $em = $this->getEntityManager();
         $user = $em->getRepository('TastetagMainBundle:User')->find($userId);
@@ -31,6 +47,11 @@ class UserRepository extends EntityRepository
         $em->flush();
     }
 
+    /**
+     * Activating user account
+     * @param integer $userId user to activate
+     * @return void
+    */
     public function activateUser($userId) {
         $em = $this->getEntityManager();
         $user = $em->getRepository('TastetagMainBundle:User')->find($userId);

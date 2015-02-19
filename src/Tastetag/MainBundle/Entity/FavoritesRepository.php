@@ -6,7 +6,14 @@ use Doctrine\ORM\EntityRepository;
 
 class FavoritesRepository extends EntityRepository
 {
-	public function findAllByUserAndRecipe($userId, $recipeId)
+	/**
+     * Checking if user favorited certain recipe 
+     *
+     * @param integer $userId favorite user id
+     * @param integer $recipeId recipe id
+     * @return void
+    */
+    public function findAllByUserAndRecipe($userId, $recipeId)
     {
         return $this->getEntityManager()
             ->createQuery(
@@ -16,7 +23,15 @@ class FavoritesRepository extends EntityRepository
             ->getResult();
 	}
 
-	public	function saveFavorite($recipe,$usr,$favorite)
+	/**
+     * Saving favorite
+     *
+     * @param mixed $recipe commented recipe
+     * @param mixed $usr comment user
+     * @param mixed $favorite favorite
+     * @return void
+    */
+    public	function saveFavorite($recipe, $usr, $favorite)
 	{
 	    $em = $this->getEntityManager();
 	    $favorite->setRecipe($recipe);
@@ -25,7 +40,13 @@ class FavoritesRepository extends EntityRepository
         $em->flush();
 	}
 
-	public	function removeFavorite($id)
+	/**
+     * Removing favorite
+     *
+     * @param integer $id favorite id
+     * @return void
+    */
+    public	function removeFavorite($id)
 	{
 	    $em = $this->getEntityManager();
 	    $entity = $em->getRepository('TastetagMainBundle:Favorites')->find($id);
